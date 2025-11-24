@@ -3,15 +3,15 @@ name = "mdbook-numbering"
 version = "0.1.0"
 edition = "2024"
 license = "MIT or Apache-2.0"
-description = "A mdBook preprocessor that adds numbers to chapter titles"
+description = "A mdBook preprocessor that adds numbers to chapter titles (for mdbook 0.4.37 and above)."
 repository = "https://github.com/TheVeryDarkness/mdbook-numbering"
 readme = "README.md"
 keywords = ["mdbook", "preprocessor", "markdown"]
 
 [dependencies]
-mdbook = { version = "0.4.40" }
-pulldown-cmark = { version = "0.12.2", default-features = false }
-pulldown-cmark-to-cmark = "18.0.0"
+mdbook = { version = "0.4.37" } # so that pulldown-cmark >= 0.10 and matches the version below
+pulldown-cmark = { version = "0.10.0", default-features = false }
+pulldown-cmark-to-cmark = "14.0.0"
 serde_json = "1.0.132"
 
 [dev-dependencies]
