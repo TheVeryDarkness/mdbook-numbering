@@ -1,3 +1,5 @@
+use std::marker::PhantomData;
+
 use anyhow::anyhow;
 use mdbook::book::Book;
 use mdbook::errors::Error;
@@ -72,7 +74,14 @@ impl Default for NumberingConfig {
     }
 }
 
-pub struct NumberingPreprocessor;
+pub struct NumberingPreprocessor(PhantomData<()>);
+
+impl NumberingPreprocessor {
+    /// Create a new `NumberingPreprocessor`.
+    pub const fn new() -> Self {
+        Self(PhantomData)
+    }
+}
 
 impl NumberingPreprocessor {
     fn render_book_item(item: &mut BookItem, config: &NumberingConfig, mut cb: impl FnMut(Error)) {

@@ -24,7 +24,7 @@ fn main() {
 }
 
 pub fn handle_preprocessing() -> Result<(), Error> {
-    let pre = NumberingPreprocessor;
+    let pre = NumberingPreprocessor::new();
     let (ctx, book) = CmdPreprocessor::parse_input(io::stdin())?;
 
     let processed_book = pre.run(&ctx, book)?;
