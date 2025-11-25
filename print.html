@@ -175,6 +175,7 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="1-chapter-1"><a class="header" href="#1-chapter-1">1. Chapter 1</a></h1>
+<p>Three implementations of Fibonacci in different programming languages.</p>
 <pre><code class="language-C">#include &lt;stdio.h&gt;
 #include &lt;stdlib.h&gt;
 #include &lt;string.h&gt;
@@ -195,6 +196,30 @@ int main() {
 
     return 0;
 }
+</code></pre>
+<pre><pre class="playground"><code class="language-rust">fn fib(n: u32) -&gt; u32 {
+    if n &lt;= 1 {
+        return n;
+    }
+    fib(n - 1) + fib(n - 2)
+}
+
+fn main() {
+    println!("Hello, World!");
+
+    for i in 0..10 {
+        println!("fib({}) = {}", i, fib(i));
+    }
+}</code></pre></pre>
+<pre><code class="language-python">def fib(n):
+    if n &lt;= 1:
+        return n
+    return fib(n - 1) + fib(n - 2)
+
+def main():
+    print("Hello, World!")
+    for i in range(10):
+        print(f"fib({i}) = {fib(i)}")
 </code></pre>
 <script defer>window.addEventListener('DOMContentLoaded', function() { // jshint multistr:true
 
