@@ -20,12 +20,12 @@ Then configure as needed (see [Configuration]), for example:
 [preprocessor.numbering]
 # Configuration for heading numbering
 heading = {
-  enabled         = true,
+  enable          = true,
   numbering_style = "consecutive", # "consecutive" or "top"
 }
 # Configuration for code block line numbering
 code = {
-  enabled = true,
+  enable          = true,
 }
 ```
 
