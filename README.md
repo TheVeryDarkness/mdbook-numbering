@@ -14,7 +14,7 @@ Add the following to your `book.toml`:
 [preprocessor.numbering]
 ```
 
-Then configure as needed, for example:
+Then configure as needed (see [Configuration]), for example:
 
 ```toml
 [preprocessor.numbering]
