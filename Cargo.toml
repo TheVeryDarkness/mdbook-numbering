@@ -5,12 +5,13 @@ edition = "2024"
 license = "MIT or Apache-2.0"
 description = "A mdBook preprocessor that adds numbers to chapter titles (for mdbook 0.4.37 and above)."
 repository = "https://github.com/TheVeryDarkness/mdbook-numbering"
+documentation = "https://docs.rs/mdbook-numbering/latest/mdbook_numbering/"
 readme = "README.md"
 keywords = ["mdbook", "preprocessor", "markdown"]
 
 [dependencies]
-# so that pulldown-cmark >= 0.10 and matches the version below
 anyhow = "1.0.71"
+# mdbook>=0.4.37 so that pulldown-cmark>=0.10 and matches the version below
 mdbook = { version = "0.4.37" }
 pulldown-cmark = { version = "0.10.0", default-features = false }
 pulldown-cmark-to-cmark = "14.0.0"
