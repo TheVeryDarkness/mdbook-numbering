@@ -66,7 +66,8 @@ fn bool_true() -> bool {
 
 /// Configuration for heading numbering style.
 ///
-/// Should be placed under the `heading` field in the `[preprocessor.numbering]` section in `book.toml`.
+/// Should be placed under the `heading` field
+/// in the `[preprocessor.numbering]` section in `book.toml`.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
 #[non_exhaustive]
 #[serde(rename_all = "kebab-case")]
@@ -99,7 +100,8 @@ impl Default for HeadingConfig {
 
 /// Configuration for code block line numbering.
 ///
-/// Should be placed under the `code` field in the `[preprocessor.numbering]` section in `book.toml`.
+/// Should be placed under the `code` field
+/// in the `[preprocessor.numbering]` section in `book.toml`.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
 #[non_exhaustive]
 #[serde(rename_all = "kebab-case")]
@@ -167,14 +169,18 @@ impl Default for NumberingConfig {
 
 static HIGHLIGHT_JS_LINE_NUMBERS_JS: LazyLock<String> = LazyLock::new(|| {
     format!(
-        "<script defer>window.addEventListener('DOMContentLoaded', function() {{ {} }});</script>\n",
+        "<script defer>\
+            window.addEventListener('DOMContentLoaded', function() {{ {} }});\
+        </script>\n",
         include_str!("highlightjs/line-numbers.js"),
     )
 });
 
 static HIGHLIGHT_JS_LINE_NUMBERS_CSS: LazyLock<String> = LazyLock::new(|| {
     format!(
-        "<style>{}</style>\n",
+        "<style>\
+            {}\
+        </style>\n",
         include_str!("highlightjs/line-numbers.css"),
     )
 });
