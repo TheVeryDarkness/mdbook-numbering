@@ -1,4 +1,5 @@
 use std::marker::PhantomData;
+use std::sync::LazyLock;
 
 use anyhow::anyhow;
 use mdbook::book::Book;
@@ -74,6 +75,20 @@ impl Default for NumberingConfig {
     }
 }
 
+const HIGHLIGHT_JS_LINE_NUMBERS_JS: LazyLock<String> = LazyLock::new(|| {
+    format!(
+        "<script defer>window.addEventListener('DOMContentLoaded', function() {{ {} }});</script>",
+        include_str!("highlightjs/line-numbers.js"),
+    )
+});
+
+const HIGHLIGHT_JS_LINE_NUMBERS_CSS: LazyLock<String> = LazyLock::new(|| {
+    format!(
+        "<style>{}</style>",
+        include_str!("highlightjs/line-numbers.css"),
+    )
+});
+
 pub struct NumberingPreprocessor(PhantomData<()>);
 
 impl NumberingPreprocessor {
@@ -144,7 +159,14 @@ impl NumberingPreprocessor {
         });
 
         let mut buf = String::with_capacity(c.len());
-        pulldown_cmark_to_cmark::cmark(events, &mut buf).expect("cmark parsing failed");
+        pulldown_cmark_to_cmark::cmark(
+            events.chain([
+                Event::Html(CowStr::from(HIGHLIGHT_JS_LINE_NUMBERS_JS.as_ref())),
+                Event::Html(CowStr::from(HIGHLIGHT_JS_LINE_NUMBERS_CSS.as_ref())),
+            ]),
+            &mut buf,
+        )
+        .expect("cmark parsing failed");
 
         ch.content = buf;
     }
