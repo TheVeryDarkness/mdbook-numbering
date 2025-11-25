@@ -1,0 +1,17 @@
+[book]
+authors = ["TheVeryDarkness"]
+language = "en"
+multilingual = false
+src = "src"
+title = "top"
+
+[build]
+extra-watch-dirs = ["../../src"]
+
+[preprocessor.numbering]
+command = "cargo run --bin mdbook-numbering"
+numbering-style = "top"
+
+[output.html]
+
+[output.markdown]
