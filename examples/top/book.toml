@@ -6,4 +6,6 @@ src = "src"
 title = "top"
 
 [preprocessor.numbering]
+
+[preprocessor.numbering.heading]
 numbering-style = "top"
