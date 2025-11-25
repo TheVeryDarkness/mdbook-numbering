@@ -83,6 +83,12 @@ impl NumberingPreprocessor {
     }
 }
 
+impl Default for NumberingPreprocessor {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 impl NumberingPreprocessor {
     fn render_book_item(item: &mut BookItem, config: &NumberingConfig, mut cb: impl FnMut(Error)) {
         let BookItem::Chapter(ch) = item else { return };
