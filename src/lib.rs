@@ -3,7 +3,7 @@ use mdbook::book::Book;
 use mdbook::errors::Error;
 use mdbook::preprocess::{Preprocessor, PreprocessorContext};
 use mdbook::{BookItem, Config};
-use pulldown_cmark::{CowStr, Event, Tag, TagEnd::Heading};
+use pulldown_cmark::{CowStr, Event, Tag, TagEnd};
 use serde::{Deserialize, Serialize};
 
 #[cfg(test)]
@@ -11,7 +11,8 @@ mod tests;
 
 /// The numbering style to be used by the `mdbook-numbering` preprocessor.
 ///
-/// Should be placed under the `numbering-style` field in the `[preprocessor.numbering]` section in `book.toml`.
+/// Should be placed under the `numbering-style` field
+/// in the `[preprocessor.numbering]` section in `book.toml`.
 #[derive(Debug, Clone, Copy, Default, PartialEq, Eq, Serialize, Deserialize)]
 #[non_exhaustive]
 #[serde(rename_all = "kebab-case")]
@@ -120,7 +121,7 @@ impl NumberingPreprocessor {
                 let new_content = format!("{stack} {s}");
                 Event::Text(CowStr::from(new_content))
             }
-            Event::End(Heading(_)) => {
+            Event::End(TagEnd::Heading(_)) => {
                 in_heading = false;
                 event
             }
