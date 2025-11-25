@@ -3,14 +3,16 @@ authors = ["TheVeryDarkness"]
 language = "en"
 multilingual = false
 src = "src"
-title = "top"
+title = "dev"
 
 [build]
 extra-watch-dirs = ["../../src"]
 
 [preprocessor.numbering]
 command = "cargo run --bin mdbook-numbering"
-numbering-style = "top"
+
+[preprocessor.numbering.heading]
+numbering-style = "consecutive"
 
 [output.html]
 
