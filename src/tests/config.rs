@@ -1,5 +1,6 @@
-use crate::{CodeConfig, HeadingConfig, NumberingConfig, NumberingPreprocessor, NumberingStyle};
 use mdbook::Config;
+
+use crate::{CodeConfig, HeadingConfig, NumberingConfig, NumberingPreprocessor, NumberingStyle};
 
 #[test]
 fn all() {

@@ -1,5 +1,6 @@
-use crate::{CodeConfig, HeadingConfig, NumberingConfig, NumberingPreprocessor, NumberingStyle};
 use mdbook::book::{BookItem, Chapter, SectionNumber};
+
+use crate::{CodeConfig, HeadingConfig, NumberingConfig, NumberingPreprocessor, NumberingStyle};
 
 #[test]
 fn draft() {

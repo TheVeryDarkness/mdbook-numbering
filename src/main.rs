@@ -1,7 +1,8 @@
+use std::io;
+
 use mdbook::errors::Error;
 use mdbook::preprocess::{CmdPreprocessor, Preprocessor};
 use mdbook_numbering::NumberingPreprocessor;
-use std::io;
 
 fn main() {
     let mut args = std::env::args().skip(1);
