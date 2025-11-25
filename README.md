@@ -2,8 +2,8 @@
 
 A mdBook preprocessor that adds numbering.
 
-- [x] Adds numbers to chapter titles
-- [ ] Configurable numbering formats (e.g., "1.", "1.1.", "I.", "A.", etc.)
+- [x] Adds numbers prior to chapter titles.
+- [ ] Configurable numbering formats (e.g., "1.", "1.1.", "I.", "A.", etc.).
 - [x] Adds numbers to lines in code blocks.
 
 ## Configuration
