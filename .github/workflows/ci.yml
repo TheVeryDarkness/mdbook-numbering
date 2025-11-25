@@ -41,6 +41,6 @@ jobs:
         with:
           command: fmt
           args: --all --check
-      # - name: Check semver
-      #   uses: obi1kenobi/cargo-semver-checks-action@v2
-      #   if: ${{ matrix.rust == 'stable' }}
+      - name: Check semver
+        uses: obi1kenobi/cargo-semver-checks-action@v2
+        if: ${{ matrix.rust == 'stable' }}
