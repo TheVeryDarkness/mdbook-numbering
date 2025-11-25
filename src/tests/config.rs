@@ -1,4 +1,5 @@
 use mdbook::Config;
+use serde::de::IgnoredAny;
 
 use crate::{CodeConfig, HeadingConfig, NumberingConfig, NumberingPreprocessor, NumberingStyle};
 
@@ -14,12 +15,12 @@ fn all() {
         config,
         NumberingConfig {
             code: CodeConfig { enable: true },
-            command: (),
+            command: IgnoredAny,
             heading: HeadingConfig {
                 enable: true,
                 numbering_style: NumberingStyle::Consecutive,
             },
-            optional: (),
+            optional: IgnoredAny,
         }
     );
 }
@@ -40,12 +41,12 @@ fn full() {
         },
         NumberingConfig {
             code: CodeConfig { enable: true },
-            command: (),
+            command: IgnoredAny,
             heading: HeadingConfig {
                 enable: true,
                 numbering_style: NumberingStyle::Consecutive,
             },
-            optional: (),
+            optional: IgnoredAny,
         },
     );
 

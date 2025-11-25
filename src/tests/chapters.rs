@@ -1,4 +1,5 @@
 use mdbook::book::{BookItem, Chapter, SectionNumber};
+use serde::de::IgnoredAny;
 
 use crate::{CodeConfig, HeadingConfig, NumberingConfig, NumberingPreprocessor, NumberingStyle};
 
@@ -16,12 +17,12 @@ fn draft() {
         &mut item,
         &NumberingConfig {
             code: CodeConfig { enable: false },
-            command: (),
+            command: IgnoredAny,
             heading: HeadingConfig {
                 enable: true,
                 numbering_style: NumberingStyle::Consecutive,
             },
-            optional: (),
+            optional: IgnoredAny,
         },
         |err| panic!("{err}"),
     );
@@ -56,12 +57,12 @@ Some content."
         &mut item,
         &NumberingConfig {
             code: CodeConfig { enable: false },
-            command: (),
+            command: IgnoredAny,
             heading: HeadingConfig {
                 enable: true,
                 numbering_style: NumberingStyle::Consecutive,
             },
-            optional: (),
+            optional: IgnoredAny,
         },
         |err| panic!("{err}"),
     );
@@ -108,12 +109,12 @@ More content.
         &mut item,
         &NumberingConfig {
             code: CodeConfig { enable: false },
-            command: (),
+            command: IgnoredAny,
             heading: HeadingConfig {
                 enable: true,
                 numbering_style: NumberingStyle::Consecutive,
             },
-            optional: (),
+            optional: IgnoredAny,
         },
         |err| panic!("{err}"),
     );
@@ -166,12 +167,12 @@ More content.
         &mut item,
         &NumberingConfig {
             code: CodeConfig { enable: false },
-            command: (),
+            command: IgnoredAny,
             heading: HeadingConfig {
                 enable: true,
                 numbering_style: NumberingStyle::Consecutive,
             },
-            optional: (),
+            optional: IgnoredAny,
         },
         |err| panic!("{err}"),
     );
@@ -224,12 +225,12 @@ More content.
         &mut item,
         &NumberingConfig {
             code: CodeConfig { enable: false },
-            command: (),
+            command: IgnoredAny,
             heading: HeadingConfig {
                 enable: true,
                 numbering_style: NumberingStyle::Top,
             },
-            optional: (),
+            optional: IgnoredAny,
         },
         |err| panic!("{err}"),
     );
@@ -281,12 +282,12 @@ Some content."
         &mut item,
         &NumberingConfig {
             code: CodeConfig { enable: false },
-            command: (),
+            command: IgnoredAny,
             heading: HeadingConfig {
                 enable: true,
                 numbering_style: NumberingStyle::Consecutive,
             },
-            optional: (),
+            optional: IgnoredAny,
         },
         |err| panic!("{err}"),
     );

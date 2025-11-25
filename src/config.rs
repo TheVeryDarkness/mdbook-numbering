@@ -1,3 +1,4 @@
+use serde::de::IgnoredAny;
 use serde::{Deserialize, Serialize};
 
 /// The numbering style to be used by the `mdbook-numbering` preprocessor.
@@ -117,7 +118,7 @@ impl Default for CodeConfig {
 /// Configuration for the `mdbook-numbering` preprocessor.
 ///
 /// Should be placed under the `[preprocessor.numbering]` section in `book.toml`.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
+#[derive(Debug, Clone, Copy, Serialize, Deserialize)]
 #[non_exhaustive]
 #[serde(rename_all = "kebab-case")]
 #[serde(deny_unknown_fields)]
@@ -126,14 +127,14 @@ pub struct NumberingConfig {
     #[serde(default)]
     pub code: CodeConfig,
     /// Placeholder to ignore unused fields.
-    #[serde(skip)]
-    pub command: (),
+    #[serde(default, skip_serializing)]
+    pub command: IgnoredAny,
     /// Configuration for heading numbering.
     #[serde(default)]
     pub heading: HeadingConfig,
     /// Placeholder to ignore unused fields.
-    #[serde(skip)]
-    pub optional: (),
+    #[serde(default, skip_serializing)]
+    pub optional: IgnoredAny,
     // Future configuration options can be added here.
 }
 
@@ -142,9 +143,9 @@ impl NumberingConfig {
     pub const fn new() -> Self {
         Self {
             code: CodeConfig::new(),
-            command: (),
+            command: IgnoredAny,
             heading: HeadingConfig::new(),
-            optional: (),
+            optional: IgnoredAny,
         }
     }
 }
@@ -154,3 +155,10 @@ impl Default for NumberingConfig {
         Self::new()
     }
 }
+
+impl PartialEq for NumberingConfig {
+    fn eq(&self, other: &Self) -> bool {
+        self.code == other.code && self.heading == other.heading
+    }
+}
+impl Eq for NumberingConfig {}
