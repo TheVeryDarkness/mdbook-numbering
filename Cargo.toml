@@ -10,13 +10,13 @@ keywords = ["mdbook", "preprocessor", "markdown"]
 
 [dependencies]
 # so that pulldown-cmark >= 0.10 and matches the version below
-anyhow = "=1.0.71"
-mdbook = { version = "=0.4.37" }
-pulldown-cmark = { version = "=0.10.0", default-features = false }
-pulldown-cmark-to-cmark = "=14.0.0"
-serde = { version = "=1.0.163" }
-serde_json = "=1.0.96"
-toml = "=0.5.11"
+anyhow = "1.0.71"
+mdbook = { version = "0.4.37" }
+pulldown-cmark = { version = "0.10.0", default-features = false }
+pulldown-cmark-to-cmark = "14.0.0"
+serde = { version = "1.0.163" }
+serde_json = "1.0.96"
+toml = "0.5.11"
 
 [dev-dependencies]
 
