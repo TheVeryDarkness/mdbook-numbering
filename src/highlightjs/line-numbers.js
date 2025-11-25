@@ -3,7 +3,8 @@
 (function (w, d) {
     'use strict';
 
-    var TABLE_NAME = 'hljs-ln',
+    const
+        TABLE_NAME = 'hljs-ln',
         LINE_NAME = 'hljs-ln-line',
         CODE_BLOCK_NAME = 'hljs-ln-code',
         NUMBERS_BLOCK_NAME = 'hljs-ln-numbers',
@@ -18,6 +19,7 @@
         w.hljs.lineNumbersValue = lineNumbersValue;
 
         addStyles();
+        initLineNumbersOnLoad();
     } else {
         w.console.error('highlight.js not detected!');
     }
@@ -219,7 +221,7 @@
 
             for (var i = 0, l = lines.length; i < l; i++) {
                 html += format(
-                    '<tr>' +
+                    '<tr class="{0}">' +
                         '<td class="{0} {1}" {3}="{5}">' +
                             '<div class="{2}" {3}="{5}"></div>' +
                         '</td>' +

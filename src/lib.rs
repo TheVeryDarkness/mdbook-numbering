@@ -16,9 +16,10 @@ mod tests;
 ///
 /// Should be placed under the `numbering-style` field
 /// in the `[preprocessor.numbering]` section in `book.toml`.
-#[derive(Debug, Clone, Copy, Default, PartialEq, Eq, Serialize, Deserialize)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
 #[non_exhaustive]
 #[serde(rename_all = "kebab-case")]
+#[serde(deny_unknown_fields)]
 pub enum NumberingStyle {
     /// There should be no more than one top heading (the heading with the highest level)
     /// in the chapter, and it should has the same level as the chapter numbering.
@@ -30,7 +31,6 @@ pub enum NumberingStyle {
     /// in regard to generating the table of contents.
     ///
     /// [mdbook-pdf]: https://github.com/HollowMan6/mdbook-pdf
-    #[default]
     Consecutive,
     /// There should be no more than one top heading (the heading with the highest level)
     /// in the chapter, and it should be level 1 (i.e., `# Chapter 1.2.3`),
@@ -47,16 +47,103 @@ pub enum NumberingStyle {
     // Future numbering styles can be added here.
 }
 
+impl NumberingStyle {
+    /// Create a new `NumberingStyle` with default value.
+    pub const fn new() -> Self {
+        Self::Consecutive
+    }
+}
+
+impl Default for NumberingStyle {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
+fn bool_true() -> bool {
+    true
+}
+
+/// Configuration for heading numbering style.
+///
+/// Should be placed under the `heading` field in the `[preprocessor.numbering]` section in `book.toml`.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
+#[non_exhaustive]
+#[serde(rename_all = "kebab-case")]
+#[serde(deny_unknown_fields)]
+pub struct HeadingConfig {
+    /// Whether to enable heading numbering.
+    #[serde(default = "bool_true")]
+    enable: bool,
+    /// Whether to treat warnings as errors.
+    #[serde(default)]
+    numbering_style: NumberingStyle,
+    // Future configuration options can be added here.
+}
+
+impl HeadingConfig {
+    /// Create a new `HeadingConfig` with default values.
+    pub const fn new() -> Self {
+        Self {
+            enable: true,
+            numbering_style: NumberingStyle::new(),
+        }
+    }
+}
+
+impl Default for HeadingConfig {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
+/// Configuration for code block line numbering.
+///
+/// Should be placed under the `code` field in the `[preprocessor.numbering]` section in `book.toml`.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
+#[non_exhaustive]
+#[serde(rename_all = "kebab-case")]
+#[serde(deny_unknown_fields)]
+pub struct CodeConfig {
+    /// Whether to enable code numbering.
+    #[serde(default = "bool_true")]
+    enable: bool,
+    // Future configuration options can be added here.
+}
+
+impl CodeConfig {
+    /// Create a new `CodeConfig` with default values.
+    pub const fn new() -> Self {
+        Self { enable: true }
+    }
+}
+
+impl Default for CodeConfig {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 /// Configuration for the `mdbook-numbering` preprocessor.
 ///
 /// Should be placed under the `[preprocessor.numbering]` section in `book.toml`.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
 #[non_exhaustive]
 #[serde(rename_all = "kebab-case")]
+#[serde(deny_unknown_fields)]
 pub struct NumberingConfig {
-    /// Whether to treat warnings as errors.
+    /// Configuration for line numbering in code blocks.
     #[serde(default)]
-    numbering_style: NumberingStyle,
+    code: CodeConfig,
+    /// Placeholder to ignore unused fields.
+    #[serde(skip)]
+    command: (),
+    /// Configuration for heading numbering.
+    #[serde(default)]
+    heading: HeadingConfig,
+    /// Placeholder to ignore unused fields.
+    #[serde(skip)]
+    optional: (),
     // Future configuration options can be added here.
 }
 
@@ -64,7 +151,10 @@ impl NumberingConfig {
     /// Create a new `NumberingConfig` with default values.
     pub const fn new() -> Self {
         Self {
-            numbering_style: NumberingStyle::Consecutive,
+            code: CodeConfig::new(),
+            command: (),
+            heading: HeadingConfig::new(),
+            optional: (),
         }
     }
 }
@@ -75,16 +165,16 @@ impl Default for NumberingConfig {
     }
 }
 
-const HIGHLIGHT_JS_LINE_NUMBERS_JS: LazyLock<String> = LazyLock::new(|| {
+static HIGHLIGHT_JS_LINE_NUMBERS_JS: LazyLock<String> = LazyLock::new(|| {
     format!(
-        "<script defer>window.addEventListener('DOMContentLoaded', function() {{ {} }});</script>",
+        "<script defer>window.addEventListener('DOMContentLoaded', function() {{ {} }});</script>\n",
         include_str!("highlightjs/line-numbers.js"),
     )
 });
 
-const HIGHLIGHT_JS_LINE_NUMBERS_CSS: LazyLock<String> = LazyLock::new(|| {
+static HIGHLIGHT_JS_LINE_NUMBERS_CSS: LazyLock<String> = LazyLock::new(|| {
     format!(
-        "<style>{}</style>",
+        "<style>{}</style>\n",
         include_str!("highlightjs/line-numbers.css"),
     )
 });
@@ -114,59 +204,64 @@ impl NumberingPreprocessor {
         let c = &ch.content;
         let tokenized = mdbook::utils::new_cmark_parser(c, false);
 
-        let mut in_heading = false;
-
-        let mut stack = a.clone();
-
-        let events = tokenized.map(|event| match event {
-            Event::Start(Tag::Heading { level, .. }) => {
-                in_heading = true;
-                let level_depth = match config.numbering_style {
-                    NumberingStyle::Consecutive => level as usize,
-                    NumberingStyle::Top => level as usize + a.len() - 1,
-                };
-                if level_depth > stack.len() + 1 {
-                    cb(anyhow!(
-                        "\
+        let events: Box<dyn Iterator<Item = Event>> = if config.heading.enable {
+            let name = ch.name.clone();
+            let mut in_heading = false;
+            let mut stack = a.clone();
+            Box::new(tokenized.map(move |event| match event {
+                Event::Start(Tag::Heading { level, .. }) => {
+                    in_heading = true;
+                    let level_depth = match config.heading.numbering_style {
+                        NumberingStyle::Consecutive => level as usize,
+                        NumberingStyle::Top => level as usize + a.len() - 1,
+                    };
+                    if level_depth > stack.len() + 1 {
+                        cb(anyhow!(
+                            "\
                             Heading level {} found, \
                             but only {} levels in numbering \"{}\" for chapter \"{}\".",
-                        level,
-                        stack.len(),
-                        stack,
-                        ch.name,
-                    ));
+                            level,
+                            stack.len(),
+                            stack,
+                            name,
+                        ));
+                    }
+                    while level_depth > stack.len() {
+                        stack.push(0);
+                    }
+                    while level_depth < stack.len() {
+                        stack.pop();
+                    }
+                    if level_depth > a.len() {
+                        stack[level_depth - 1] += 1;
+                    }
+                    event
                 }
-                while level_depth > stack.len() {
-                    stack.push(0);
+                Event::Text(s) if in_heading => {
+                    let new_content = format!("{stack} {s}");
+                    Event::Text(CowStr::from(new_content))
                 }
-                while level_depth < stack.len() {
-                    stack.pop();
+                Event::End(TagEnd::Heading(_)) => {
+                    in_heading = false;
+                    event
                 }
-                if level_depth > a.len() {
-                    stack[level_depth - 1] += 1;
-                }
-                event
-            }
-            Event::Text(s) if in_heading => {
-                let new_content = format!("{stack} {s}");
-                Event::Text(CowStr::from(new_content))
-            }
-            Event::End(TagEnd::Heading(_)) => {
-                in_heading = false;
-                event
-            }
-            _ => event,
-        });
+                _ => event,
+            }))
+        } else {
+            Box::new(tokenized)
+        };
+
+        let mut events: Box<dyn Iterator<Item = Event>> = Box::new(events);
+
+        if config.code.enable {
+            events = Box::new(events.chain([
+                Event::InlineHtml(CowStr::from(HIGHLIGHT_JS_LINE_NUMBERS_JS.as_ref())),
+                Event::InlineHtml(CowStr::from(HIGHLIGHT_JS_LINE_NUMBERS_CSS.as_ref())),
+            ]))
+        }
 
         let mut buf = String::with_capacity(c.len());
-        pulldown_cmark_to_cmark::cmark(
-            events.chain([
-                Event::Html(CowStr::from(HIGHLIGHT_JS_LINE_NUMBERS_JS.as_ref())),
-                Event::Html(CowStr::from(HIGHLIGHT_JS_LINE_NUMBERS_CSS.as_ref())),
-            ]),
-            &mut buf,
-        )
-        .expect("cmark parsing failed");
+        pulldown_cmark_to_cmark::cmark(events, &mut buf).expect("cmark parsing failed");
 
         ch.content = buf;
     }

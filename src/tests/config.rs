@@ -1,10 +1,10 @@
-use crate::{NumberingConfig, NumberingPreprocessor, NumberingStyle};
+use crate::{CodeConfig, HeadingConfig, NumberingConfig, NumberingPreprocessor, NumberingStyle};
 use mdbook::Config;
 
 #[test]
 fn all() {
     let config = toml::toml! {
-        numbering-style = "consecutive"
+        heading.numbering-style = "consecutive"
     };
 
     let config: NumberingConfig = config.try_into().unwrap();
@@ -12,7 +12,13 @@ fn all() {
     assert_eq!(
         config,
         NumberingConfig {
-            numbering_style: NumberingStyle::Consecutive,
+            code: CodeConfig { enable: true },
+            command: (),
+            heading: HeadingConfig {
+                enable: true,
+                numbering_style: NumberingStyle::Consecutive,
+            },
+            optional: (),
         }
     );
 }
@@ -28,11 +34,17 @@ fn full() {
 
     test_config(
         toml::toml! {
-            [preprocessor.numbering]
+            [preprocessor.numbering.heading]
             numbering-style = "consecutive"
         },
         NumberingConfig {
-            numbering_style: NumberingStyle::Consecutive,
+            code: CodeConfig { enable: true },
+            command: (),
+            heading: HeadingConfig {
+                enable: true,
+                numbering_style: NumberingStyle::Consecutive,
+            },
+            optional: (),
         },
     );
 

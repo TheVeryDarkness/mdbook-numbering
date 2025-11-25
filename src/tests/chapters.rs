@@ -1,4 +1,4 @@
-use crate::{NumberingConfig, NumberingPreprocessor};
+use crate::{CodeConfig, HeadingConfig, NumberingConfig, NumberingPreprocessor, NumberingStyle};
 use mdbook::book::{BookItem, Chapter, SectionNumber};
 
 #[test]
@@ -11,9 +11,19 @@ fn draft() {
     };
     let mut item = BookItem::Chapter(chapter);
 
-    NumberingPreprocessor::render_book_item(&mut item, &NumberingConfig::new(), |err| {
-        panic!("{err}")
-    });
+    NumberingPreprocessor::render_book_item(
+        &mut item,
+        &NumberingConfig {
+            code: CodeConfig { enable: false },
+            command: (),
+            heading: HeadingConfig {
+                enable: true,
+                numbering_style: NumberingStyle::Consecutive,
+            },
+            optional: (),
+        },
+        |err| panic!("{err}"),
+    );
 
     assert_eq!(
         item,
@@ -41,9 +51,19 @@ Some content."
     };
     let mut item = BookItem::Chapter(chapter);
 
-    NumberingPreprocessor::render_book_item(&mut item, &NumberingConfig::new(), |err| {
-        panic!("{err}")
-    });
+    NumberingPreprocessor::render_book_item(
+        &mut item,
+        &NumberingConfig {
+            code: CodeConfig { enable: false },
+            command: (),
+            heading: HeadingConfig {
+                enable: true,
+                numbering_style: NumberingStyle::Consecutive,
+            },
+            optional: (),
+        },
+        |err| panic!("{err}"),
+    );
 
     assert_eq!(
         item,
@@ -83,9 +103,19 @@ More content.
     };
     let mut item = BookItem::Chapter(chapter);
 
-    NumberingPreprocessor::render_book_item(&mut item, &NumberingConfig::new(), |err| {
-        panic!("{err}")
-    });
+    NumberingPreprocessor::render_book_item(
+        &mut item,
+        &NumberingConfig {
+            code: CodeConfig { enable: false },
+            command: (),
+            heading: HeadingConfig {
+                enable: true,
+                numbering_style: NumberingStyle::Consecutive,
+            },
+            optional: (),
+        },
+        |err| panic!("{err}"),
+    );
 
     assert_eq!(
         item,
@@ -130,9 +160,19 @@ Some content."
     };
     let mut item = BookItem::Chapter(chapter);
 
-    NumberingPreprocessor::render_book_item(&mut item, &NumberingConfig::new(), |err| {
-        panic!("{err}")
-    });
+    NumberingPreprocessor::render_book_item(
+        &mut item,
+        &NumberingConfig {
+            code: CodeConfig { enable: false },
+            command: (),
+            heading: HeadingConfig {
+                enable: true,
+                numbering_style: NumberingStyle::Consecutive,
+            },
+            optional: (),
+        },
+        |err| panic!("{err}"),
+    );
 
     assert_eq!(
         item,
