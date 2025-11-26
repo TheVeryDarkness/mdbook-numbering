@@ -115,20 +115,83 @@ impl Default for CodeConfig {
     }
 }
 
+/// Preprocessor list of interests.
+///
+/// May be placed under `preprocessor.*.before` or `preprocessor.*.after` in `book.toml`.
+#[derive(Debug, Clone, Copy)]
+#[non_exhaustive]
+pub struct Preprocessors {
+    /// Whether to include `mdbook-katex` in the list.
+    pub katex: bool,
+    /// Whether to include `mdbook-numbering` in the list.
+    pub numbering: bool,
+    // Future preprocessors can be added here.
+}
+
+impl Preprocessors {
+    /// Create a new `Preprocessors` with default values.
+    pub const fn new() -> Self {
+        Self {
+            katex: false,
+            numbering: false,
+        }
+    }
+}
+
+impl Default for Preprocessors {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
+impl Serialize for Preprocessors {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        let mut vec = Vec::new();
+        if self.katex {
+            vec.push("katex");
+        }
+        if self.numbering {
+            vec.push("numbering");
+        }
+        vec.serialize(serializer)
+    }
+}
+
+impl<'de> Deserialize<'de> for Preprocessors {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let vec: Vec<String> = Vec::deserialize(deserializer)?;
+        let mut preprocessors = Preprocessors::default();
+        for item in vec {
+            match item.as_str() {
+                "katex" => preprocessors.katex = true,
+                "numbering" => preprocessors.numbering = true,
+                _ => {}
+            }
+        }
+        Ok(preprocessors)
+    }
+}
+
 /// Configuration for the `mdbook-numbering` preprocessor.
 ///
 /// Should be placed under the `[preprocessor.numbering]` section in `book.toml`.
-#[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(Debug, Clone, Copy, Serialize, Deserialize)]
 #[non_exhaustive]
 #[serde(rename_all = "kebab-case")]
 #[serde(deny_unknown_fields)]
 pub struct NumberingConfig {
     /// Placeholder to ignore unused fields.
     #[serde(default)]
-    pub after: Vec<String>,
+    pub after: Preprocessors,
     /// Placeholder to ignore unused fields.
     #[serde(default)]
-    pub before: Vec<String>,
+    pub before: Preprocessors,
     /// Configuration for line numbering in code blocks.
     #[serde(default)]
     pub code: CodeConfig,
@@ -148,8 +211,8 @@ impl NumberingConfig {
     /// Create a new `NumberingConfig` with default values.
     pub const fn new() -> Self {
         Self {
-            after: Vec::new(),
-            before: Vec::new(),
+            after: Preprocessors::new(),
+            before: Preprocessors::new(),
             code: CodeConfig::new(),
             command: IgnoredAny,
             heading: HeadingConfig::new(),

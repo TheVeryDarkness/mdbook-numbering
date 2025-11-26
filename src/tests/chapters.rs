@@ -1,6 +1,7 @@
 use mdbook::book::{BookItem, Chapter, SectionNumber};
 use serde::de::IgnoredAny;
 
+use crate::config::Preprocessors;
 use crate::{CodeConfig, HeadingConfig, NumberingConfig, NumberingPreprocessor, NumberingStyle};
 
 #[test]
@@ -16,8 +17,8 @@ fn empty() {
     NumberingPreprocessor::render_book_item(
         &mut item,
         &NumberingConfig {
-            after: Vec::new(),
-            before: Vec::new(),
+            after: Preprocessors::new(),
+            before: Preprocessors::new(),
             code: CodeConfig { enable: false },
             command: IgnoredAny,
             heading: HeadingConfig {
@@ -53,8 +54,8 @@ fn disabled() {
     NumberingPreprocessor::render_book_item(
         &mut item,
         &NumberingConfig {
-            after: Vec::new(),
-            before: Vec::new(),
+            after: Preprocessors::new(),
+            before: Preprocessors::new(),
             code: CodeConfig { enable: false },
             command: IgnoredAny,
             heading: HeadingConfig {
@@ -82,8 +83,8 @@ fn draft() {
     NumberingPreprocessor::render_book_item(
         &mut item,
         &NumberingConfig {
-            after: Vec::new(),
-            before: Vec::new(),
+            after: Preprocessors::new(),
+            before: Preprocessors::new(),
             code: CodeConfig { enable: false },
             command: IgnoredAny,
             heading: HeadingConfig {
@@ -124,8 +125,8 @@ Some content."
     NumberingPreprocessor::render_book_item(
         &mut item,
         &NumberingConfig {
-            after: Vec::new(),
-            before: Vec::new(),
+            after: Preprocessors::new(),
+            before: Preprocessors::new(),
             code: CodeConfig { enable: false },
             command: IgnoredAny,
             heading: HeadingConfig {
@@ -178,8 +179,8 @@ More content.
     NumberingPreprocessor::render_book_item(
         &mut item,
         &NumberingConfig {
-            after: Vec::new(),
-            before: Vec::new(),
+            after: Preprocessors::new(),
+            before: Preprocessors::new(),
             code: CodeConfig { enable: false },
             command: IgnoredAny,
             heading: HeadingConfig {
@@ -238,8 +239,8 @@ More content.
     NumberingPreprocessor::render_book_item(
         &mut item,
         &NumberingConfig {
-            after: Vec::new(),
-            before: Vec::new(),
+            after: Preprocessors::new(),
+            before: Preprocessors::new(),
             code: CodeConfig { enable: false },
             command: IgnoredAny,
             heading: HeadingConfig {
@@ -298,8 +299,8 @@ More content.
     NumberingPreprocessor::render_book_item(
         &mut item,
         &NumberingConfig {
-            after: Vec::new(),
-            before: Vec::new(),
+            after: Preprocessors::new(),
+            before: Preprocessors::new(),
             code: CodeConfig { enable: false },
             command: IgnoredAny,
             heading: HeadingConfig {
@@ -357,8 +358,8 @@ Some content."
     NumberingPreprocessor::render_book_item(
         &mut item,
         &NumberingConfig {
-            after: Vec::new(),
-            before: Vec::new(),
+            after: Preprocessors::new(),
+            before: Preprocessors::new(),
             code: CodeConfig { enable: false },
             command: IgnoredAny,
             heading: HeadingConfig {

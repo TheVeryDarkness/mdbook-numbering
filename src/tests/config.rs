@@ -1,6 +1,7 @@
 use mdbook::Config;
 use serde::de::IgnoredAny;
 
+use crate::config::Preprocessors;
 use crate::{CodeConfig, HeadingConfig, NumberingConfig, NumberingPreprocessor, NumberingStyle};
 
 #[test]
@@ -14,8 +15,8 @@ fn all() {
     assert_eq!(
         config,
         NumberingConfig {
-            after: Vec::new(),
-            before: Vec::new(),
+            after: Preprocessors::new(),
+            before: Preprocessors::new(),
             code: CodeConfig { enable: true },
             command: IgnoredAny,
             heading: HeadingConfig {
@@ -42,8 +43,8 @@ fn full() {
             numbering-style = "consecutive"
         },
         NumberingConfig {
-            after: Vec::new(),
-            before: Vec::new(),
+            after: Preprocessors::new(),
+            before: Preprocessors::new(),
             code: CodeConfig { enable: true },
             command: IgnoredAny,
             heading: HeadingConfig {

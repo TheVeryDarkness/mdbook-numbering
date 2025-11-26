@@ -17,7 +17,9 @@ mod tests;
 
 static HIGHLIGHT_JS_LINE_NUMBERS_JS: LazyLock<String> = LazyLock::new(|| {
     format!(
-        "<script defer>\nwindow.addEventListener('DOMContentLoaded', function() {{ {} }});\n</script>\n",
+        "<script defer>\n\
+            window.addEventListener('DOMContentLoaded', function() {{ {} }});\n\
+        </script>\n",
         include_str!("highlightjs/line-numbers-min.js"),
     )
 });
@@ -132,11 +134,22 @@ impl NumberingPreprocessor {
             })
     }
 
-    fn validate_config(config: &NumberingConfig, has_katex: bool, mut cb: impl FnMut(Error)) {
-        if has_katex && config.after.iter().any(|s| s.as_str() == "katex") {
+    fn validate_config(
+        config: &NumberingConfig,
+        katex: Option<&toml::map::Map<String, toml::Value>>,
+        mut cb: impl FnMut(Error),
+    ) {
+        if katex.is_some()
+            && !config.after.katex
+            && !katex
+                .and_then(|table| table.get("before")?.as_array())
+                .is_some_and(|before| before.iter().any(|p| p.as_str() == Some("numbering")))
+        {
             cb(anyhow!(
                 "mdbook-numbering: Detected KaTeX usage, \
-                but 'katex' is not included in the 'after' list. \
+                but 'katex' is not included in the 'after' list, \
+                or equivalently 'numbering' is not included \
+                in the 'before' list of the KaTeX preprocessor. \
                 KaTeX may not work correctly after processing by pulldown-cmark. \
                 Consider adding 'katex' to the 'after' list in the configuration."
             ));
@@ -154,13 +167,9 @@ impl Preprocessor for NumberingPreprocessor {
             eprintln!("Using default config for mdbook-numbering due to config error: {err}")
         });
 
-        Self::validate_config(
-            &config,
-            ctx.config.get_preprocessor("katex").is_some(),
-            |err| {
-                eprintln!("Warning: {err}");
-            },
-        );
+        Self::validate_config(&config, ctx.config.get_preprocessor("katex"), |err| {
+            eprintln!("Warning: {err}");
+        });
 
         book.for_each_mut(|item| {
             Self::render_book_item(item, &config, |err| eprintln!("Warning: {err}"));
