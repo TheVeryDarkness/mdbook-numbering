@@ -133,13 +133,7 @@ impl NumberingPreprocessor {
     }
 
     fn validate_config(config: &NumberingConfig, has_katex: bool, mut cb: impl FnMut(Error)) {
-        if has_katex
-            && !config
-                .after
-                .iter()
-                .find(|s| s.as_str() == "katex")
-                .is_some()
-        {
+        if has_katex && config.after.iter().any(|s| s.as_str() == "katex") {
             cb(anyhow!(
                 "mdbook-numbering: Detected KaTeX usage, \
                 but 'katex' is not included in the 'after' list. \
