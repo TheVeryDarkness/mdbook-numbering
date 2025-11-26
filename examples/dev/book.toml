@@ -8,7 +8,11 @@ title = "dev"
 [build]
 extra-watch-dirs = ["../../src"]
 
+[preprocessor.katex]
+after = ["links"]
+
 [preprocessor.numbering]
+after = ["katex"]
 command = "cargo run --bin mdbook-numbering"
 
 [preprocessor.numbering.heading]

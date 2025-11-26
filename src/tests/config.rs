@@ -14,6 +14,8 @@ fn all() {
     assert_eq!(
         config,
         NumberingConfig {
+            after: Vec::new(),
+            before: Vec::new(),
             code: CodeConfig { enable: true },
             command: IgnoredAny,
             heading: HeadingConfig {
@@ -40,6 +42,8 @@ fn full() {
             numbering-style = "consecutive"
         },
         NumberingConfig {
+            after: Vec::new(),
+            before: Vec::new(),
             code: CodeConfig { enable: true },
             command: IgnoredAny,
             heading: HeadingConfig {

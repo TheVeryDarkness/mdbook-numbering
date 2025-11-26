@@ -4,6 +4,72 @@ use serde::de::IgnoredAny;
 use crate::{CodeConfig, HeadingConfig, NumberingConfig, NumberingPreprocessor, NumberingStyle};
 
 #[test]
+fn empty() {
+    let chapter = Chapter {
+        name: "Empty Chapter".to_string(),
+        content: "".to_string(),
+        number: Some([1].into_iter().collect()),
+        ..Default::default()
+    };
+    let mut item = BookItem::Chapter(chapter);
+
+    NumberingPreprocessor::render_book_item(
+        &mut item,
+        &NumberingConfig {
+            after: Vec::new(),
+            before: Vec::new(),
+            code: CodeConfig { enable: false },
+            command: IgnoredAny,
+            heading: HeadingConfig {
+                enable: true,
+                numbering_style: NumberingStyle::Consecutive,
+            },
+            optional: IgnoredAny,
+        },
+        |err| panic!("{err}"),
+    );
+
+    assert_eq!(
+        item,
+        BookItem::Chapter(Chapter {
+            name: "Empty Chapter".to_string(),
+            content: "".to_string(),
+            number: Some(SectionNumber(vec![1])),
+            ..Default::default()
+        }),
+    );
+}
+
+#[test]
+fn disabled() {
+    let chapter = Chapter {
+        name: "Empty Chapter".to_string(),
+        content: "# abc\n\n$ abc $\n\n$$\n    E = mc^2\n$$".to_string(),
+        number: Some([1].into_iter().collect()),
+        ..Default::default()
+    };
+    let mut item = BookItem::Chapter(chapter.clone());
+
+    NumberingPreprocessor::render_book_item(
+        &mut item,
+        &NumberingConfig {
+            after: Vec::new(),
+            before: Vec::new(),
+            code: CodeConfig { enable: false },
+            command: IgnoredAny,
+            heading: HeadingConfig {
+                enable: false,
+                numbering_style: NumberingStyle::Consecutive,
+            },
+            optional: IgnoredAny,
+        },
+        |err| panic!("{err}"),
+    );
+
+    assert_eq!(item, BookItem::Chapter(chapter));
+}
+
+#[test]
 fn draft() {
     let chapter = Chapter {
         name: "Chapter 1".to_string(),
@@ -16,6 +82,8 @@ fn draft() {
     NumberingPreprocessor::render_book_item(
         &mut item,
         &NumberingConfig {
+            after: Vec::new(),
+            before: Vec::new(),
             code: CodeConfig { enable: false },
             command: IgnoredAny,
             heading: HeadingConfig {
@@ -56,6 +124,8 @@ Some content."
     NumberingPreprocessor::render_book_item(
         &mut item,
         &NumberingConfig {
+            after: Vec::new(),
+            before: Vec::new(),
             code: CodeConfig { enable: false },
             command: IgnoredAny,
             heading: HeadingConfig {
@@ -108,6 +178,8 @@ More content.
     NumberingPreprocessor::render_book_item(
         &mut item,
         &NumberingConfig {
+            after: Vec::new(),
+            before: Vec::new(),
             code: CodeConfig { enable: false },
             command: IgnoredAny,
             heading: HeadingConfig {
@@ -166,6 +238,8 @@ More content.
     NumberingPreprocessor::render_book_item(
         &mut item,
         &NumberingConfig {
+            after: Vec::new(),
+            before: Vec::new(),
             code: CodeConfig { enable: false },
             command: IgnoredAny,
             heading: HeadingConfig {
@@ -224,6 +298,8 @@ More content.
     NumberingPreprocessor::render_book_item(
         &mut item,
         &NumberingConfig {
+            after: Vec::new(),
+            before: Vec::new(),
             code: CodeConfig { enable: false },
             command: IgnoredAny,
             heading: HeadingConfig {
@@ -281,6 +357,8 @@ Some content."
     NumberingPreprocessor::render_book_item(
         &mut item,
         &NumberingConfig {
+            after: Vec::new(),
+            before: Vec::new(),
             code: CodeConfig { enable: false },
             command: IgnoredAny,
             heading: HeadingConfig {

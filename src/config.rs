@@ -118,11 +118,17 @@ impl Default for CodeConfig {
 /// Configuration for the `mdbook-numbering` preprocessor.
 ///
 /// Should be placed under the `[preprocessor.numbering]` section in `book.toml`.
-#[derive(Debug, Clone, Copy, Serialize, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 #[non_exhaustive]
 #[serde(rename_all = "kebab-case")]
 #[serde(deny_unknown_fields)]
 pub struct NumberingConfig {
+    /// Placeholder to ignore unused fields.
+    #[serde(default)]
+    pub after: Vec<String>,
+    /// Placeholder to ignore unused fields.
+    #[serde(default)]
+    pub before: Vec<String>,
     /// Configuration for line numbering in code blocks.
     #[serde(default)]
     pub code: CodeConfig,
@@ -142,6 +148,8 @@ impl NumberingConfig {
     /// Create a new `NumberingConfig` with default values.
     pub const fn new() -> Self {
         Self {
+            after: Vec::new(),
+            before: Vec::new(),
             code: CodeConfig::new(),
             command: IgnoredAny,
             heading: HeadingConfig::new(),

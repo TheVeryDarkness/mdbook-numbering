@@ -115,6 +115,11 @@ impl NumberingPreprocessor {
         let mut buf = String::with_capacity(c.len());
         pulldown_cmark_to_cmark::cmark(events, &mut buf).expect("cmark parsing failed");
 
+        // eprintln!("--- Chapter '{}' Processed ---", ch.name);
+        // eprintln!("vvv Original Below\n{c:?}\n^^^ Original Above");
+        // eprintln!("vvv Processed Below\n{buf:?}\n^^^ Processed Above");
+        // eprintln!("-------------------------------");
+
         ch.content = buf;
     }
 
@@ -128,6 +133,23 @@ impl NumberingPreprocessor {
                     .unwrap_or_default()
             })
     }
+
+    fn validate_config(config: &NumberingConfig, has_katex: bool, mut cb: impl FnMut(Error)) {
+        if has_katex
+            && !config
+                .after
+                .iter()
+                .find(|s| s.as_str() == "katex")
+                .is_some()
+        {
+            cb(anyhow!(
+                "mdbook-numbering: Detected KaTeX usage, \
+                but 'katex' is not included in the 'after' list. \
+                Line numbering may not work correctly with KaTeX. \
+                Consider adding 'katex' to the 'after' list in the configuration."
+            ));
+        }
+    }
 }
 
 impl Preprocessor for NumberingPreprocessor {
@@ -139,6 +161,15 @@ impl Preprocessor for NumberingPreprocessor {
         let config: NumberingConfig = Self::get_config(&ctx.config, |err| {
             eprintln!("Using default config for mdbook-numbering due to config error: {err}")
         });
+
+        Self::validate_config(
+            &config,
+            ctx.config.get_preprocessor("katex").is_some(),
+            |err| {
+                eprintln!("Warning: {err}");
+            },
+        );
+
         book.for_each_mut(|item| {
             Self::render_book_item(item, &config, |err| eprintln!("Warning: {err}"));
         });
