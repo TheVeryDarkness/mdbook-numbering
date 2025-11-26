@@ -24,6 +24,7 @@ fn all() {
                 numbering_style: NumberingStyle::Consecutive,
             },
             optional: IgnoredAny,
+            renderers: IgnoredAny,
         }
     );
 }
@@ -52,6 +53,7 @@ fn full() {
                 numbering_style: NumberingStyle::Consecutive,
             },
             optional: IgnoredAny,
+            renderers: IgnoredAny,
         },
     );
 

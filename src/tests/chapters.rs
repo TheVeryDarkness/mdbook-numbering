@@ -26,6 +26,7 @@ fn empty() {
                 numbering_style: NumberingStyle::Consecutive,
             },
             optional: IgnoredAny,
+            renderers: IgnoredAny,
         },
         |err| panic!("{err}"),
     );
@@ -63,6 +64,7 @@ fn disabled() {
                 numbering_style: NumberingStyle::Consecutive,
             },
             optional: IgnoredAny,
+            renderers: IgnoredAny,
         },
         |err| panic!("{err}"),
     );
@@ -92,6 +94,7 @@ fn draft() {
                 numbering_style: NumberingStyle::Consecutive,
             },
             optional: IgnoredAny,
+            renderers: IgnoredAny,
         },
         |err| panic!("{err}"),
     );
@@ -134,6 +137,7 @@ Some content."
                 numbering_style: NumberingStyle::Consecutive,
             },
             optional: IgnoredAny,
+            renderers: IgnoredAny,
         },
         |err| panic!("{err}"),
     );
@@ -188,6 +192,7 @@ More content.
                 numbering_style: NumberingStyle::Consecutive,
             },
             optional: IgnoredAny,
+            renderers: IgnoredAny,
         },
         |err| panic!("{err}"),
     );
@@ -248,6 +253,7 @@ More content.
                 numbering_style: NumberingStyle::Consecutive,
             },
             optional: IgnoredAny,
+            renderers: IgnoredAny,
         },
         |err| panic!("{err}"),
     );
@@ -308,6 +314,7 @@ More content.
                 numbering_style: NumberingStyle::Top,
             },
             optional: IgnoredAny,
+            renderers: IgnoredAny,
         },
         |err| panic!("{err}"),
     );
@@ -367,6 +374,7 @@ Some content."
                 numbering_style: NumberingStyle::Consecutive,
             },
             optional: IgnoredAny,
+            renderers: IgnoredAny,
         },
         |err| panic!("{err}"),
     );

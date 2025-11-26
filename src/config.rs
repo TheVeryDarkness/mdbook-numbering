@@ -186,10 +186,10 @@ impl<'de> Deserialize<'de> for Preprocessors {
 #[serde(rename_all = "kebab-case")]
 #[serde(deny_unknown_fields)]
 pub struct NumberingConfig {
-    /// Placeholder to ignore unused fields.
+    /// Those preprocessors that `mdbook-numbering` should run after.
     #[serde(default)]
     pub after: Preprocessors,
-    /// Placeholder to ignore unused fields.
+    /// Those preprocessors that `mdbook-numbering` should run before.
     #[serde(default)]
     pub before: Preprocessors,
     /// Configuration for line numbering in code blocks.
@@ -204,6 +204,9 @@ pub struct NumberingConfig {
     /// Placeholder to ignore unused fields.
     #[serde(default, skip_serializing)]
     pub optional: IgnoredAny,
+    /// Placeholder to ignore unused fields.
+    #[serde(default, skip_serializing)]
+    pub renderers: IgnoredAny,
     // Future configuration options can be added here.
 }
 
@@ -217,6 +220,7 @@ impl NumberingConfig {
             command: IgnoredAny,
             heading: HeadingConfig::new(),
             optional: IgnoredAny,
+            renderers: IgnoredAny,
         }
     }
 }
