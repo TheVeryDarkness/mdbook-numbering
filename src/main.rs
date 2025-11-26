@@ -1,3 +1,5 @@
+#![doc = include_str!("../README.md")]
+
 use std::io;
 
 use mdbook::errors::Error;
@@ -24,7 +26,7 @@ fn main() {
     }
 }
 
-pub fn handle_preprocessing() -> Result<(), Error> {
+fn handle_preprocessing() -> Result<(), Error> {
     let pre = NumberingPreprocessor::new();
     let (ctx, book) = CmdPreprocessor::parse_input(io::stdin())?;
 

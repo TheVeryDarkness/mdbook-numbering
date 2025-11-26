@@ -22,4 +22,8 @@ toml = "0.5.11"
 [dev-dependencies]
 
 [lints.rust]
+missing_docs = "warn"
 unused_qualifications = "warn"
+
+[lints.rustdoc]
+unescaped_backticks = "warn"

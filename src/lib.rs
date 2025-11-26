@@ -31,6 +31,7 @@ static HIGHLIGHT_JS_LINE_NUMBERS_CSS: LazyLock<String> = LazyLock::new(|| {
     )
 });
 
+/// mdbook preprocessor for adding numbering to headings and code blocks.
 pub struct NumberingPreprocessor(PhantomData<()>);
 
 impl NumberingPreprocessor {
