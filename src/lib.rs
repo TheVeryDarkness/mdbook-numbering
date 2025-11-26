@@ -143,7 +143,7 @@ impl NumberingPreprocessor {
             cb(anyhow!(
                 "mdbook-numbering: Detected KaTeX usage, \
                 but 'katex' is not included in the 'after' list. \
-                Line numbering may not work correctly with KaTeX. \
+                KaTeX may not work correctly after processing by pulldown-cmark. \
                 Consider adding 'katex' to the 'after' list in the configuration."
             ));
         }
