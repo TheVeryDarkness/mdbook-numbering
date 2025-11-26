@@ -1,6 +1,7 @@
 {
   "name": "mdbook-numbering",
-  "version": "1.0.0",
+  "version": "0.0.0",
+  "private": true,
   "description": "",
   "scripts": {
     "build:js": "bun build src/highlightjs/line-numbers.js --outfile=src/highlightjs/line-numbers-min.js --browser --minify-whitespace --minify-syntax",
