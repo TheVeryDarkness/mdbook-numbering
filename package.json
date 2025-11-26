@@ -1,0 +1,17 @@
+{
+  "name": "mdbook-numbering",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "build:js": "bun build src/highlightjs/line-numbers.js --outfile=src/highlightjs/line-numbers-min.js --browser --minify-whitespace --minify-syntax",
+    "build:css": "bun build src/highlightjs/line-numbers.css --outfile=src/highlightjs/line-numbers-min.css --minify"
+  },
+  "keywords": [],
+  "author": "TheVeryDarkness",
+  "license": "ISC",
+  "packageManager": "pnpm@10.15.1",
+  "dependencies": {
+    "bun": "^1.3.3",
+    "highlight.js": "=10.1.1"
+  }
+}

@@ -1,0 +1,15 @@
+{
+    "include": [
+        "src/highlightjs/*.ts",
+        "src/highlightjs/*.js",
+    ],
+    "exclude": [
+        "src/highlightjs/*-min.js",
+    ],
+    "compilerOptions": {
+        "noEmit": true,
+        "checkJs": true,
+        "target": "es5",
+        "esModuleInterop": true
+    }
+}

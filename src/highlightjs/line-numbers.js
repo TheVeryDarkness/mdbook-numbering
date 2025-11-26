@@ -1,5 +1,7 @@
-// jshint multistr:true
-
+/**
+ * @param {Window} w
+ * @param {Document} d
+ */
 (function (w, d) {
     'use strict';
 

@@ -19,19 +19,15 @@ mod tests;
 
 static HIGHLIGHT_JS_LINE_NUMBERS_JS: LazyLock<String> = LazyLock::new(|| {
     format!(
-        "<script defer>\
-            window.addEventListener('DOMContentLoaded', function() {{ {} }});\
-        </script>\n",
-        include_str!("highlightjs/line-numbers.js"),
+        "<script defer>\nwindow.addEventListener('DOMContentLoaded', function() {{ {} }});\n</script>\n",
+        include_str!("highlightjs/line-numbers-min.js"),
     )
 });
 
 static HIGHLIGHT_JS_LINE_NUMBERS_CSS: LazyLock<String> = LazyLock::new(|| {
     format!(
-        "<style>\
-            {}\
-        </style>\n",
-        include_str!("highlightjs/line-numbers.css"),
+        "<style>\n{}\n</style>\n",
+        include_str!("highlightjs/line-numbers-min.css"),
     )
 });
 
