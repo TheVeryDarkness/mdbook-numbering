@@ -4,7 +4,7 @@
   "private": true,
   "description": "",
   "scripts": {
-    "build:js": "bun build src/highlightjs/line-numbers.js --outfile=src/highlightjs/line-numbers-min.js --browser --minify-whitespace --minify-syntax",
+    "build:js": "bun build src/highlightjs/line-numbers.js --outfile=src/highlightjs/line-numbers-min.js --browser --minify",
     "build:css": "bun build src/highlightjs/line-numbers.css --outfile=src/highlightjs/line-numbers-min.css --minify"
   },
   "keywords": [],
