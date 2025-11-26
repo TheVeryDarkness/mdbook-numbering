@@ -1,6 +1,4 @@
 #![doc = include_str!("../README.md")]
-//!
-//! [Configuration]: config::NumberingConfig
 
 use std::marker::PhantomData;
 use std::sync::LazyLock;

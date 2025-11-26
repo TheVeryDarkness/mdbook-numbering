@@ -14,7 +14,7 @@ Add the following to your `book.toml`:
 [preprocessor.numbering]
 ```
 
-Then configure as needed (see [Configuration]), for example:
+Then configure as needed (see [`NumberingConfig`](https://docs.rs/mdbook-numbering/latest/mdbook_numbering/struct.NumberingConfig.html)), for example:
 
 ```toml
 [preprocessor.numbering]
