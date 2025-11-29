@@ -7,6 +7,7 @@ on:
     paths:
       - "**/Cargo.toml"
       - "**/Cargo.lock"
+      - ".github/workflows/audit_check.yml"
 jobs:
   audit:
     runs-on: ubuntu-latest
