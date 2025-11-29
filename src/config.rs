@@ -118,7 +118,7 @@ impl Default for CodeConfig {
 /// Preprocessor list of interests.
 ///
 /// May be placed under `preprocessor.*.before` or `preprocessor.*.after` in `book.toml`.
-#[derive(Debug, Clone, Copy)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
 #[non_exhaustive]
 pub struct Preprocessors {
     /// Whether to include `mdbook-katex` in the list.

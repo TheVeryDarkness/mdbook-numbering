@@ -2,9 +2,9 @@
 
 use std::io;
 
-use mdbook::errors::Error;
-use mdbook::preprocess::{CmdPreprocessor, Preprocessor};
 use mdbook_numbering::NumberingPreprocessor;
+use mdbook_preprocessor::errors::Error;
+use mdbook_preprocessor::{Preprocessor, parse_input};
 
 fn main() {
     let mut args = std::env::args().skip(1);
@@ -28,7 +28,7 @@ fn main() {
 
 fn handle_preprocessing() -> Result<(), Error> {
     let pre = NumberingPreprocessor::new();
-    let (ctx, book) = CmdPreprocessor::parse_input(io::stdin())?;
+    let (ctx, book) = parse_input(io::stdin())?;
 
     let processed_book = pre.run(&ctx, book)?;
     serde_json::to_writer(io::stdout(), &processed_book)?;

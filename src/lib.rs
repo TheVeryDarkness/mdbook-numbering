@@ -5,11 +5,14 @@ use std::sync::LazyLock;
 
 use anyhow::anyhow;
 pub use config::{CodeConfig, HeadingConfig, NumberingConfig, NumberingStyle};
-use mdbook::book::Book;
-use mdbook::errors::Error;
-use mdbook::preprocess::{Preprocessor, PreprocessorContext};
-use mdbook::{BookItem, Config};
-use pulldown_cmark::{CowStr, Event, Tag, TagEnd};
+use mdbook_preprocessor::book::{Book, BookItem};
+use mdbook_preprocessor::config::Config;
+use mdbook_preprocessor::errors::Error;
+use mdbook_preprocessor::{Preprocessor, PreprocessorContext};
+use pulldown_cmark::{CowStr, Event, Parser, Tag, TagEnd};
+use serde::de::IgnoredAny;
+
+use crate::config::Preprocessors;
 
 mod config;
 #[cfg(test)]
@@ -53,11 +56,12 @@ impl NumberingPreprocessor {
         if ch.is_draft_chapter() {
             return;
         }
-        let Some(a) = &ch.number else { return };
         let c = &ch.content;
-        let tokenized = mdbook::utils::new_cmark_parser(c, false);
+        let tokenized = Parser::new(c);
 
-        let events: Box<dyn Iterator<Item = Event>> = if config.heading.enable {
+        let events: Box<dyn Iterator<Item = Event>> = if let Some(a) = &ch.number
+            && config.heading.enable
+        {
             let name = ch.name.clone();
             let mut in_heading = false;
             let mut stack = a.clone();
@@ -82,9 +86,10 @@ impl NumberingPreprocessor {
                     while level_depth > stack.len() {
                         stack.push(0);
                     }
-                    while level_depth < stack.len() {
-                        stack.pop();
-                    }
+                    stack.truncate(level_depth);
+                    // while level_depth < stack.len() {
+                    //     stack.pop();
+                    // }
                     if level_depth > a.len() {
                         stack[level_depth - 1] += 1;
                     }
@@ -124,30 +129,36 @@ impl NumberingPreprocessor {
         ch.content = buf;
     }
 
-    fn get_config(config: &Config, mut cb: impl FnMut(&toml::de::Error)) -> NumberingConfig {
-        config
-            .get("preprocessor.numbering")
-            .map_or_else(Default::default, |cfg| {
-                cfg.clone()
-                    .try_into()
-                    .inspect_err(|err| cb(err))
-                    .unwrap_or_default()
-            })
+    fn get_config(config: &Config, mut cb: impl FnMut(&Error)) -> NumberingConfig {
+        config.get("preprocessor.numbering").map_or_else(
+            |err| {
+                cb(&err);
+                NumberingConfig::default()
+            },
+            |cfg| cfg.unwrap_or_default(),
+        )
     }
 
-    fn validate_config(
-        config: &NumberingConfig,
-        katex: Option<&toml::map::Map<String, toml::Value>>,
-        mut cb: impl FnMut(Error),
-    ) {
-        if katex.is_some()
-            && !config.after.katex
-            && !katex
-                .and_then(|table| table.get("before")?.as_array())
-                .is_some_and(|before| before.iter().any(|p| p.as_str() == Some("numbering")))
+    fn validate_config(config: &NumberingConfig, original: &Config, mut cb: impl FnMut(Error)) {
+        if !config.after.katex
+            && original.get("preprocessor.katex").map_or_else(
+                |err| {
+                    // Actually impossible as it's deserialized as `IgnoredAny`.
+                    cb(err);
+                    false
+                },
+                |katex: Option<IgnoredAny>| katex.is_some(),
+            )
+            && original.get("preprocessor.katex.before").map_or_else(
+                |err| {
+                    cb(err);
+                    false
+                },
+                |before| before.is_none_or(|before: Preprocessors| !before.numbering),
+            )
         {
             cb(anyhow!(
-                "mdbook-numbering: Detected KaTeX usage, \
+                "Detected KaTeX usage, \
                 but 'katex' is not included in the 'after' list, \
                 or equivalently 'numbering' is not included \
                 in the 'before' list of the KaTeX preprocessor. \
@@ -168,12 +179,12 @@ impl Preprocessor for NumberingPreprocessor {
             eprintln!("Using default config for mdbook-numbering due to config error: {err}")
         });
 
-        Self::validate_config(&config, ctx.config.get_preprocessor("katex"), |err| {
-            eprintln!("Warning: {err}");
+        Self::validate_config(&config, &ctx.config, |err| {
+            eprintln!("mdbook-numbering: {err}");
         });
 
         book.for_each_mut(|item| {
-            Self::render_book_item(item, &config, |err| eprintln!("Warning: {err}"));
+            Self::render_book_item(item, &config, |err| eprintln!("mdbook-numbering: {err}"));
         });
         Ok(book)
     }

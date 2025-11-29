@@ -1,8 +1,13 @@
-use mdbook::book::{BookItem, Chapter, SectionNumber};
+use mdbook_preprocessor::book::{BookItem, Chapter, SectionNumber};
 use serde::de::IgnoredAny;
 
 use crate::config::Preprocessors;
 use crate::{CodeConfig, HeadingConfig, NumberingConfig, NumberingPreprocessor, NumberingStyle};
+
+#[track_caller]
+fn panic_on_error(err: mdbook_preprocessor::errors::Error) {
+    panic!("{err}");
+}
 
 #[test]
 fn empty() {
@@ -28,7 +33,7 @@ fn empty() {
             optional: IgnoredAny,
             renderers: IgnoredAny,
         },
-        |err| panic!("{err}"),
+        panic_on_error,
     );
 
     assert_eq!(
@@ -36,7 +41,7 @@ fn empty() {
         BookItem::Chapter(Chapter {
             name: "Empty Chapter".to_string(),
             content: "".to_string(),
-            number: Some(SectionNumber(vec![1])),
+            number: Some(SectionNumber::new(vec![1])),
             ..Default::default()
         }),
     );
@@ -66,7 +71,7 @@ fn disabled() {
             optional: IgnoredAny,
             renderers: IgnoredAny,
         },
-        |err| panic!("{err}"),
+        panic_on_error,
     );
 
     assert_eq!(item, BookItem::Chapter(chapter));
@@ -96,7 +101,7 @@ fn draft() {
             optional: IgnoredAny,
             renderers: IgnoredAny,
         },
-        |err| panic!("{err}"),
+        panic_on_error,
     );
 
     assert_eq!(
@@ -104,7 +109,7 @@ fn draft() {
         BookItem::Chapter(Chapter {
             name: "Chapter 1".to_string(),
             content: "# Heading 1\n\nSome content.".to_string(),
-            number: Some(SectionNumber(vec![1])),
+            number: Some(SectionNumber::new(vec![1])),
             ..Default::default()
         }),
     );
@@ -139,7 +144,7 @@ Some content."
             optional: IgnoredAny,
             renderers: IgnoredAny,
         },
-        |err| panic!("{err}"),
+        panic_on_error,
     );
 
     assert_eq!(
@@ -151,7 +156,7 @@ Some content."
 
 Some content."
                 .to_string(),
-            number: Some(SectionNumber(vec![1])),
+            number: Some(SectionNumber::new(vec![1])),
             path: Some("chapter_1.md".into()),
             ..Default::default()
         }),
@@ -174,7 +179,7 @@ Some content.
 More content.
 "
         .to_string(),
-        number: Some(SectionNumber(vec![1])),
+        number: Some(SectionNumber::new(vec![1])),
         path: Some("chapter_1.md".into()),
         ..Default::default()
     };
@@ -194,7 +199,7 @@ More content.
             optional: IgnoredAny,
             renderers: IgnoredAny,
         },
-        |err| panic!("{err}"),
+        panic_on_error,
     );
 
     assert_eq!(
@@ -235,7 +240,7 @@ Some content.
 More content.
 "
         .to_string(),
-        number: Some(SectionNumber(vec![1, 2])),
+        number: Some(SectionNumber::new(vec![1, 2])),
         path: Some("chapter_1.md".into()),
         ..Default::default()
     };
@@ -255,7 +260,7 @@ More content.
             optional: IgnoredAny,
             renderers: IgnoredAny,
         },
-        |err| panic!("{err}"),
+        panic_on_error,
     );
 
     assert_eq!(
@@ -296,7 +301,7 @@ Some content.
 More content.
 "
         .to_string(),
-        number: Some(SectionNumber(vec![1, 2])),
+        number: Some(SectionNumber::new(vec![1, 2])),
         path: Some("chapter_1.md".into()),
         ..Default::default()
     };
@@ -316,7 +321,7 @@ More content.
             optional: IgnoredAny,
             renderers: IgnoredAny,
         },
-        |err| panic!("{err}"),
+        panic_on_error,
     );
 
     assert_eq!(
@@ -356,7 +361,7 @@ fn inconsecutive() {
 
 Some content."
             .to_string(),
-        number: Some(SectionNumber(vec![1])),
+        number: Some(SectionNumber::new(vec![1])),
         path: Some("chapter_1.md".into()),
         ..Default::default()
     };
@@ -376,6 +381,6 @@ Some content."
             optional: IgnoredAny,
             renderers: IgnoredAny,
         },
-        |err| panic!("{err}"),
+        panic_on_error,
     );
 }

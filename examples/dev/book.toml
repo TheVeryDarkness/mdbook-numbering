@@ -1,18 +1,17 @@
 [book]
 authors = ["TheVeryDarkness"]
 language = "en"
-multilingual = false
 src = "src"
 title = "dev"
 
 [build]
 extra-watch-dirs = ["../../src"]
 
-[preprocessor.katex]
-after = ["links"]
+# [preprocessor.katex]
+# after = ["links"]
 
 [preprocessor.numbering]
-after = ["katex"]
+# after = ["katex"]
 command = "cargo run --bin mdbook-numbering"
 
 [preprocessor.numbering.heading]
