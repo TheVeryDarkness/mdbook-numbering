@@ -48,7 +48,7 @@ fn assert_book_equal(expected: &Book, actual: &Book) {
             }
             (BookItem::Separator, BookItem::Separator) => {}
             (BookItem::PartTitle(exp_title), BookItem::PartTitle(act_title)) => {
-                assert_diff(&act_title, &exp_title, "\n", 0);
+                assert_diff(act_title, exp_title, "\n", 0);
             }
             _ => panic!("Mismatched book item types at index {}", i),
         }
