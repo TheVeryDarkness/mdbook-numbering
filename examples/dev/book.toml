@@ -5,7 +5,7 @@ src = "src"
 title = "dev"
 
 [build]
-extra-watch-dirs = ["../../src"]
+extra-watch-dirs = ["../../src", "../../src/Cargo.lock"]
 
 # [preprocessor.katex]
 # after = ["links"]
