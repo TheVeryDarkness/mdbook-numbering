@@ -59,7 +59,7 @@ impl NumberingPreprocessor {
         let c = &ch.content;
         let tokenized = Parser::new(c);
 
-        let events: Box<dyn Iterator<Item = Event>> = if let Some(a) = &ch.number
+        let mut events: Box<dyn Iterator<Item = Event>> = if let Some(a) = &ch.number
             && config.heading.enable
         {
             let name = ch.name.clone();
@@ -108,8 +108,6 @@ impl NumberingPreprocessor {
         } else {
             Box::new(tokenized)
         };
-
-        let mut events: Box<dyn Iterator<Item = Event>> = Box::new(events);
 
         if config.code.enable {
             events = Box::new(events.chain([
