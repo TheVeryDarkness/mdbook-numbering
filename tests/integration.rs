@@ -388,6 +388,24 @@ fn supports() {
 }
 
 #[test]
+fn wrong_argument() {
+    let output = Command::new("cargo")
+        .args([
+            "run",
+            "--quiet",
+            "--bin",
+            "mdbook-numbering",
+            "--",
+            "support",
+        ])
+        .output()
+        .expect("Failed to execute process");
+    assert!(!output.status.success());
+    assert_eq!(output.stdout, b"");
+    assert_eq!(output.stderr, b"unknown argument: support\n");
+}
+
+#[test]
 fn empty() {
     let output = Command::new("cargo")
         .args(["run", "--quiet", "--bin", "mdbook-numbering"])
