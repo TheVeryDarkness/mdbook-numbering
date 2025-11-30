@@ -96,7 +96,6 @@ dependencies = [
  "serde_json",
  "text-diff",
  "toml 0.5.11",
- "tracing",
 ]
 
 [[package]]
