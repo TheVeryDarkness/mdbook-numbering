@@ -14,7 +14,7 @@ Add the following to your `book.toml`:
 [preprocessor.numbering]
 ```
 
-Then configure as needed (see [`NumberingConfig`](https://docs.rs/mdbook-numbering/latest/mdbook_numbering/struct.NumberingConfig.html)), for example:
+Then configure as needed (see [`NumberingConfig`](https://docs.rs/mdbook-numbering/latest/mdbook_numbering/struct.NumberingConfig.html) for details), for example:
 
 ```toml
 [preprocessor.numbering]
@@ -31,6 +31,13 @@ code = {
 
 ## Updates
 
+### 0.3.0
+
+- Update to support `mdbook` version 0.5.0 and above.
+- Improve warning messages for better clarity.
+- No longer skip chapters without chapter numbers when other features are enabled.
+- Improve performance when popping heading levels.
+
 ### 0.2.1
 
 - Show a warning if this preprocessor is not set to run after `katex` preprocessor when `katex` is used.
@@ -44,6 +51,23 @@ code = {
 ### 0.1.0
 
 - Initial release with support for adding numbers to chapter titles.
+
+## Compatibility
+
+### mdBook Version
+
+This preprocessor is compatible with `mdbook` version 0.5.0 and above.
+
+| mdbook-numbering version | mdBook Version |
+| ------------------------ | -------------- |
+| 0.1.0, 0.2.0+            | 0.4.37+        |
+| 0.3.0+                   | 0.5.0+         |
+
+### Katex Preprocessor
+
+If you are using the `katex` preprocessor in your `mdbook`, please ensure that the `numbering` preprocessor is set to run **after** the `katex` preprocessor.
+
+This is important because like most preprocessors, `numbering` is using
 
 ## Note
 
