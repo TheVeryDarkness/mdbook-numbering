@@ -25,16 +25,34 @@ Then configure as needed (see [`NumberingConfig`](https://docs.rs/mdbook-numberi
 
 ```toml
 [preprocessor.numbering]
-# Configuration for heading numbering
-heading = {
-  enable          = true,
-  numbering_style = "consecutive", # "consecutive" or "top"
-}
-# Configuration for code block line numbering
-code = {
-  enable          = true,
-}
+
+[preprocessor.numbering.heading] # Configuration for heading numbering
+enable          = true
+numbering_style = "consecutive"  # "consecutive" or "top"
+
+[preprocessor.numbering.code]    # Configuration for code block line numbering
+enable          = true
 ```
+
+Or if you don't like the flattened style, which also occupies more lines, you can also write it like this:
+
+```toml
+[preprocessor.numbering]
+heading = { enable = true, numbering_style = "consecutive" }
+code    = { enable = true }
+```
+
+### Details
+
+- `heading`: Configuration for heading numbering.
+  - `enable`: Whether to enable heading numbering. Default is `true`.
+  - `numbering_style`: The numbering style for headings. Can be either `"consecutive"` or `"top"`. Default is `"consecutive"`.
+    - `"consecutive"`: Top-level headings should have consistent numbering with their chapter numbers. For example:
+      - If a chapter is numbered `2`, its top-level heading should be `# Title` (`<h1>` in HTML).
+      - If a chapter is numbered `2.3`, its top-level heading should be `## Title` (`<h2>` in HTML).
+    - `"top"`: Top-level headings should always be in the form of `# Title` (`<h1>` in HTML).
+- `code`: Configuration for code block line numbering.
+  - `enable`: Whether to enable line numbering for code blocks. Default is `true`.
 
 ## Updates
 
