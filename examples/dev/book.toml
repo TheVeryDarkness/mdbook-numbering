@@ -8,10 +8,8 @@ title = "dev"
 extra-watch-dirs = ["../../src", "../../src/Cargo.lock"]
 
 # [preprocessor.katex]
-# after = ["links"]
 
 [preprocessor.numbering]
-# after = ["katex"]
 command = "cargo run --bin mdbook-numbering"
 
 [preprocessor.numbering.heading]
