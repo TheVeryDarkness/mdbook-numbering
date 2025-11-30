@@ -5,6 +5,60 @@ use crate::config::Preprocessors;
 use crate::{CodeConfig, HeadingConfig, NumberingConfig, NumberingPreprocessor, NumberingStyle};
 
 #[test]
+fn from_str() {
+    let config: Config = toml::from_str(
+        r#"
+[preprocessor.numbering]
+"#,
+    )
+    .unwrap();
+    assert_eq!(
+        config
+            .get::<NumberingConfig>("preprocessor.numbering")
+            .unwrap()
+            .unwrap(),
+        NumberingConfig::new()
+    );
+
+    let config: Config = toml::from_str(
+        r#"
+[preprocessor.numbering]
+
+[preprocessor.numbering.heading] # Configuration for heading numbering
+enable          = true
+numbering-style = "consecutive"  # "consecutive" or "top"
+
+[preprocessor.numbering.code]    # Configuration for code block line numbering
+enable          = true
+"#,
+    )
+    .unwrap();
+    assert_eq!(
+        config
+            .get::<NumberingConfig>("preprocessor.numbering")
+            .unwrap()
+            .unwrap(),
+        NumberingConfig::new()
+    );
+
+    let config: Config = toml::from_str(
+        r#"
+[preprocessor.numbering]
+heading = { enable = true, numbering-style = "consecutive" }
+code    = { enable = true }
+"#,
+    )
+    .unwrap();
+    assert_eq!(
+        config
+            .get::<NumberingConfig>("preprocessor.numbering")
+            .unwrap()
+            .unwrap(),
+        NumberingConfig::new()
+    );
+}
+
+#[test]
 fn all() {
     let config = toml::toml! {
         heading.numbering-style = "consecutive"

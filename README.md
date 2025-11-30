@@ -28,7 +28,7 @@ Then configure as needed (see [`NumberingConfig`](https://docs.rs/mdbook-numberi
 
 [preprocessor.numbering.heading] # Configuration for heading numbering
 enable          = true
-numbering_style = "consecutive"  # "consecutive" or "top"
+numbering-style = "consecutive"  # "consecutive" or "top"
 
 [preprocessor.numbering.code]    # Configuration for code block line numbering
 enable          = true
@@ -38,7 +38,7 @@ Or if you don't like the flattened style, which also occupies more lines, you ca
 
 ```toml
 [preprocessor.numbering]
-heading = { enable = true, numbering_style = "consecutive" }
+heading = { enable = true, numbering-style = "consecutive" }
 code    = { enable = true }
 ```
 
@@ -46,7 +46,7 @@ code    = { enable = true }
 
 - `heading`: Configuration for heading numbering.
   - `enable`: Whether to enable heading numbering. Default is `true`.
-  - `numbering_style`: The numbering style for headings. Can be either `"consecutive"` or `"top"`. Default is `"consecutive"`.
+  - `numbering-style`: The numbering style for headings. Can be either `"consecutive"` or `"top"`. Default is `"consecutive"`.
     - `"consecutive"`: Top-level headings should have consistent numbering with their chapter numbers. For example:
       - If a chapter is numbered `2`, its top-level heading should be `# Title` (`<h1>` in HTML).
       - If a chapter is numbered `2.3`, its top-level heading should be `## Title` (`<h2>` in HTML).
