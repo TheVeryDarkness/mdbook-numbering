@@ -9,7 +9,7 @@ use mdbook_preprocessor::book::{Book, BookItem};
 use mdbook_preprocessor::config::Config;
 use mdbook_preprocessor::errors::Error;
 use mdbook_preprocessor::{Preprocessor, PreprocessorContext};
-use pulldown_cmark::{CowStr, Event, Parser, Tag, TagEnd};
+use pulldown_cmark::{CowStr, Event, Options, Parser, Tag, TagEnd};
 use serde::de::IgnoredAny;
 
 use crate::config::Preprocessors;
@@ -57,7 +57,18 @@ impl NumberingPreprocessor {
             return;
         }
         let c = &ch.content;
-        let tokenized = Parser::new(c);
+        let mut options = Options::empty();
+        options.insert(Options::ENABLE_TABLES);
+        options.insert(Options::ENABLE_FOOTNOTES);
+        options.insert(Options::ENABLE_STRIKETHROUGH);
+        options.insert(Options::ENABLE_TASKLISTS);
+        options.insert(Options::ENABLE_HEADING_ATTRIBUTES);
+        options.insert(Options::ENABLE_MATH);
+        options.insert(Options::ENABLE_GFM);
+        options.insert(Options::ENABLE_SUPERSCRIPT);
+        options.insert(Options::ENABLE_SUBSCRIPT);
+
+        let tokenized = Parser::new_ext(c, options);
 
         let mut events: Box<dyn Iterator<Item = Event>> = if let Some(a) = &ch.number
             && config.heading.enable

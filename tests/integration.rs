@@ -220,6 +220,55 @@ Consider adding 'katex' to the 'after' list in the configuration.
 }
 
 #[test]
+fn alerts_compatibility() {
+    let ctx = PreprocessorContext::new(
+        file!().into(),
+        Config::from_str(
+            r#"
+[book]
+
+[preprocessor.numbering.code]
+enable = false
+
+[preprocessor.numbering.heading]
+enable = false
+"#,
+        )
+        .unwrap(),
+        "html".into(),
+    );
+
+    let book = Book {
+        items: vec![
+            BookItem::Chapter(Chapter {
+                name: "Test1".to_string(),
+                content: include_str!("./md/test4.input.md").to_string(),
+                number: Some(vec![1].into_iter().collect()),
+                path: Some("./md/test4.input.md".into()),
+                ..Default::default()
+            }),
+            BookItem::Separator,
+            BookItem::PartTitle("Title 1".to_string()),
+        ],
+    };
+    let preprocessed = run(&ctx, book, "");
+    let expected = Book {
+        items: vec![
+            BookItem::Chapter(Chapter {
+                name: "Test1".to_string(),
+                content: include_str!("./md/test4.output.md").to_string(),
+                number: Some(vec![1].into_iter().collect()),
+                path: Some("./md/test4.input.md".into()),
+                ..Default::default()
+            }),
+            BookItem::Separator,
+            BookItem::PartTitle("Title 1".to_string()),
+        ],
+    };
+    assert_book_equal(&expected, &preprocessed);
+}
+
+#[test]
 fn config_error() {
     let ctx = PreprocessorContext::new(
         file!().into(),

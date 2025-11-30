@@ -42,7 +42,7 @@ heading = { enable = true, numbering-style = "consecutive" }
 code    = { enable = true }
 ```
 
-### Details
+### Configuration Details
 
 - `heading`: Configuration for heading numbering.
   - `enable`: Whether to enable heading numbering. Default is `true`.
@@ -53,6 +53,28 @@ code    = { enable = true }
     - `"top"`: Top-level headings should always be in the form of `# Title` (`<h1>` in HTML).
 - `code`: Configuration for code block line numbering.
   - `enable`: Whether to enable line numbering for code blocks. Default is `true`.
+
+## `pulldown-cmark` Features
+
+There are several optional features of `pulldown-cmark` (via [`Options`](https://docs.rs/pulldown-cmark/0.13.0/pulldown_cmark/struct.Options.html)) that can be enabled via flags. Some features conflicting with `mdbook` are disabled currently.
+
+| Feature                                   | Flag                   | Enabled |
+| ----------------------------------------- | ---------------------- | ------- |
+| `ENABLE_TABLES`                           | `1 << 1`               | ✅      |
+| `ENABLE_FOOTNOTES`                        | `1 << 2`               | ✅      |
+| `ENABLE_STRIKETHROUGH`                    | `1 << 3`               | ✅      |
+| `ENABLE_TASKLISTS`                        | `1 << 4`               | ✅      |
+| `ENABLE_SMART_PUNCTUATION`                | `1 << 5`               |
+| `ENABLE_HEADING_ATTRIBUTES`               | `1 << 6`               | ✅      |
+| `ENABLE_YAML_STYLE_METADATA_BLOCKS`       | `1 << 7`               |
+| `ENABLE_PLUSES_DELIMITED_METADATA_BLOCKS` | `1 << 8`               |
+| `ENABLE_OLD_FOOTNOTES`                    | `(1 << 9) \| (1 << 2)` |
+| `ENABLE_MATH`                             | `1 << 10`              | ✅      |
+| `ENABLE_GFM`                              | `1 << 11`              | ✅      |
+| `ENABLE_DEFINITION_LIST`                  | `1 << 12`              |
+| `ENABLE_SUPERSCRIPT`                      | `1 << 13`              | ✅      |
+| `ENABLE_SUBSCRIPT`                        | `1 << 14`              | ✅      |
+| `ENABLE_WIKILINKS`                        | `1 << 15`              |
 
 ## Updates
 
@@ -91,12 +113,6 @@ This preprocessor is compatible with `mdbook` version 0.5.0 and above.
 | ------------------------ | -------------- |
 | 0.1.0, 0.2.0+            | 0.4.37+        |
 | 0.3.0+                   | 0.5.0+         |
-
-### Katex Preprocessor
-
-If you are using the `katex` preprocessor in your `mdbook`, please ensure that the `numbering` preprocessor is set to run **after** the `katex` preprocessor.
-
-This is important because like most preprocessors, `numbering` is using
 
 ## Note
 
