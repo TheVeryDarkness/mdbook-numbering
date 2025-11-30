@@ -161,65 +161,6 @@ fn chapter() {
 }
 
 #[test]
-fn katex_order_check() {
-    let ctx = PreprocessorContext::new(
-        file!().into(),
-        Config::from_str(
-            r#"
-[book]
-
-[preprocessor.katex]
-after=["links"]
-
-[preprocessor.numbering.code]
-enable = false
-"#,
-        )
-        .unwrap(),
-        "html".into(),
-    );
-
-    let book = Book {
-        items: vec![
-            BookItem::Chapter(Chapter {
-                name: "Test1".to_string(),
-                content: include_str!("./md/test2.input.md").to_string(),
-                number: Some(vec![1].into_iter().collect()),
-                path: Some("./md/test2.input.md".into()),
-                ..Default::default()
-            }),
-            BookItem::Separator,
-            BookItem::PartTitle("Title 1".to_string()),
-        ],
-    };
-    let preprocessed = run(
-        &ctx,
-        book,
-        "mdbook-numbering: \
-Detected KaTeX usage, \
-but 'katex' is not included in the 'after' list, \
-or equivalently 'numbering' is not included in the 'before' list of the KaTeX preprocessor. \
-KaTeX may not work correctly after processing by pulldown-cmark. \
-Consider adding 'katex' to the 'after' list in the configuration.
-",
-    );
-    let expected = Book {
-        items: vec![
-            BookItem::Chapter(Chapter {
-                name: "Test1".to_string(),
-                content: include_str!("./md/test2.output.md").to_string(),
-                number: Some(vec![1].into_iter().collect()),
-                path: Some("./md/test2.input.md".into()),
-                ..Default::default()
-            }),
-            BookItem::Separator,
-            BookItem::PartTitle("Title 1".to_string()),
-        ],
-    };
-    assert_book_equal(&expected, &preprocessed);
-}
-
-#[test]
 fn alerts_compatibility() {
     let ctx = PreprocessorContext::new(
         file!().into(),
@@ -321,17 +262,15 @@ Failed to deserialize `preprocessor.numbering`
 }
 
 #[test]
-fn illformed_before() {
+fn illformed_enable() {
     let ctx = PreprocessorContext::new(
         file!().into(),
         Config::from_str(
             r#"
 [book]
 
-[preprocessor.katex]
-before = "numbering"
-
 [preprocessor.numbering]
+enable = "true"
 "#,
         )
         .unwrap(),
@@ -354,7 +293,9 @@ before = "numbering"
     let preprocessed = run(
         &ctx,
         book,
-        "mdbook-numbering: Failed to deserialize `preprocessor.katex.before`
+        "\
+Using default config for mdbook-numbering due to config error: \
+Failed to deserialize `preprocessor.numbering`
 ",
     );
     let expected = Book {

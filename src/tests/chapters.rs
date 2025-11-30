@@ -1,7 +1,5 @@
 use mdbook_preprocessor::book::{BookItem, Chapter, SectionNumber};
-use serde::de::IgnoredAny;
 
-use crate::config::Preprocessors;
 use crate::{CodeConfig, HeadingConfig, NumberingConfig, NumberingPreprocessor, NumberingStyle};
 
 #[track_caller]
@@ -22,16 +20,12 @@ fn empty() {
     NumberingPreprocessor::render_book_item(
         &mut item,
         &NumberingConfig {
-            after: Preprocessors::new(),
-            before: Preprocessors::new(),
             code: CodeConfig { enable: false },
-            command: IgnoredAny,
             heading: HeadingConfig {
                 enable: true,
                 numbering_style: NumberingStyle::Consecutive,
             },
-            optional: IgnoredAny,
-            renderers: IgnoredAny,
+            ..Default::default()
         },
         panic_on_error,
     );
@@ -60,16 +54,12 @@ fn disabled() {
     NumberingPreprocessor::render_book_item(
         &mut item,
         &NumberingConfig {
-            after: Preprocessors::new(),
-            before: Preprocessors::new(),
             code: CodeConfig { enable: false },
-            command: IgnoredAny,
             heading: HeadingConfig {
                 enable: false,
                 numbering_style: NumberingStyle::Consecutive,
             },
-            optional: IgnoredAny,
-            renderers: IgnoredAny,
+            ..Default::default()
         },
         panic_on_error,
     );
@@ -90,16 +80,12 @@ fn draft() {
     NumberingPreprocessor::render_book_item(
         &mut item,
         &NumberingConfig {
-            after: Preprocessors::new(),
-            before: Preprocessors::new(),
             code: CodeConfig { enable: false },
-            command: IgnoredAny,
             heading: HeadingConfig {
                 enable: true,
                 numbering_style: NumberingStyle::Consecutive,
             },
-            optional: IgnoredAny,
-            renderers: IgnoredAny,
+            ..Default::default()
         },
         panic_on_error,
     );
@@ -133,16 +119,12 @@ Some content."
     NumberingPreprocessor::render_book_item(
         &mut item,
         &NumberingConfig {
-            after: Preprocessors::new(),
-            before: Preprocessors::new(),
             code: CodeConfig { enable: false },
-            command: IgnoredAny,
             heading: HeadingConfig {
                 enable: true,
                 numbering_style: NumberingStyle::Consecutive,
             },
-            optional: IgnoredAny,
-            renderers: IgnoredAny,
+            ..Default::default()
         },
         panic_on_error,
     );
@@ -188,16 +170,12 @@ More content.
     NumberingPreprocessor::render_book_item(
         &mut item,
         &NumberingConfig {
-            after: Preprocessors::new(),
-            before: Preprocessors::new(),
             code: CodeConfig { enable: false },
-            command: IgnoredAny,
             heading: HeadingConfig {
                 enable: true,
                 numbering_style: NumberingStyle::Consecutive,
             },
-            optional: IgnoredAny,
-            renderers: IgnoredAny,
+            ..Default::default()
         },
         panic_on_error,
     );
@@ -249,16 +227,12 @@ More content.
     NumberingPreprocessor::render_book_item(
         &mut item,
         &NumberingConfig {
-            after: Preprocessors::new(),
-            before: Preprocessors::new(),
             code: CodeConfig { enable: false },
-            command: IgnoredAny,
             heading: HeadingConfig {
                 enable: true,
                 numbering_style: NumberingStyle::Consecutive,
             },
-            optional: IgnoredAny,
-            renderers: IgnoredAny,
+            ..Default::default()
         },
         panic_on_error,
     );
@@ -310,16 +284,12 @@ More content.
     NumberingPreprocessor::render_book_item(
         &mut item,
         &NumberingConfig {
-            after: Preprocessors::new(),
-            before: Preprocessors::new(),
             code: CodeConfig { enable: false },
-            command: IgnoredAny,
             heading: HeadingConfig {
                 enable: true,
                 numbering_style: NumberingStyle::Top,
             },
-            optional: IgnoredAny,
-            renderers: IgnoredAny,
+            ..Default::default()
         },
         panic_on_error,
     );
@@ -370,16 +340,12 @@ Some content."
     NumberingPreprocessor::render_book_item(
         &mut item,
         &NumberingConfig {
-            after: Preprocessors::new(),
-            before: Preprocessors::new(),
             code: CodeConfig { enable: false },
-            command: IgnoredAny,
             heading: HeadingConfig {
                 enable: true,
                 numbering_style: NumberingStyle::Consecutive,
             },
-            optional: IgnoredAny,
-            renderers: IgnoredAny,
+            ..Default::default()
         },
         panic_on_error,
     );

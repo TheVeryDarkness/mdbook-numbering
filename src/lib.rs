@@ -10,9 +10,6 @@ use mdbook_preprocessor::config::Config;
 use mdbook_preprocessor::errors::Error;
 use mdbook_preprocessor::{Preprocessor, PreprocessorContext};
 use pulldown_cmark::{CowStr, Event, Options, Parser, Tag, TagEnd};
-use serde::de::IgnoredAny;
-
-use crate::config::Preprocessors;
 
 mod config;
 #[cfg(test)]
@@ -148,33 +145,11 @@ impl NumberingPreprocessor {
         )
     }
 
-    fn validate_config(config: &NumberingConfig, original: &Config, mut cb: impl FnMut(Error)) {
-        if !config.after.katex
-            && original.get("preprocessor.katex").map_or_else(
-                |err| {
-                    // Actually impossible as it's deserialized as `IgnoredAny`.
-                    cb(err);
-                    false
-                },
-                |katex: Option<IgnoredAny>| katex.is_some(),
-            )
-            && original.get("preprocessor.katex.before").map_or_else(
-                |err| {
-                    cb(err);
-                    false
-                },
-                |before| before.is_none_or(|before: Preprocessors| !before.numbering),
-            )
-        {
-            cb(anyhow!(
-                "Detected KaTeX usage, \
-                but 'katex' is not included in the 'after' list, \
-                or equivalently 'numbering' is not included \
-                in the 'before' list of the KaTeX preprocessor. \
-                KaTeX may not work correctly after processing by pulldown-cmark. \
-                Consider adding 'katex' to the 'after' list in the configuration."
-            ));
-        }
+    fn validate_config(config: &NumberingConfig, original: &Config, cb: impl FnMut(Error)) {
+        let _ = config;
+        let _ = original;
+        // Add validation logic here if needed in the future.
+        let _ = cb;
     }
 }
 

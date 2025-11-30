@@ -115,69 +115,6 @@ impl Default for CodeConfig {
     }
 }
 
-/// Preprocessor list of interests.
-///
-/// May be placed under `preprocessor.*.before` or `preprocessor.*.after` in `book.toml`.
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[non_exhaustive]
-pub struct Preprocessors {
-    /// Whether to include `mdbook-katex` in the list.
-    pub katex: bool,
-    /// Whether to include `mdbook-numbering` in the list.
-    pub numbering: bool,
-    // Future preprocessors can be added here.
-}
-
-impl Preprocessors {
-    /// Create a new `Preprocessors` with default values.
-    pub const fn new() -> Self {
-        Self {
-            katex: false,
-            numbering: false,
-        }
-    }
-}
-
-impl Default for Preprocessors {
-    fn default() -> Self {
-        Self::new()
-    }
-}
-
-impl Serialize for Preprocessors {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        let mut vec = Vec::new();
-        if self.katex {
-            vec.push("katex");
-        }
-        if self.numbering {
-            vec.push("numbering");
-        }
-        vec.serialize(serializer)
-    }
-}
-
-impl<'de> Deserialize<'de> for Preprocessors {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let vec: Vec<String> = Vec::deserialize(deserializer)?;
-        let mut preprocessors = Preprocessors::default();
-        for item in vec {
-            match item.as_str() {
-                "katex" => preprocessors.katex = true,
-                "numbering" => preprocessors.numbering = true,
-                _ => {}
-            }
-        }
-        Ok(preprocessors)
-    }
-}
-
 /// Configuration for the `mdbook-numbering` preprocessor.
 ///
 /// Should be placed under the `[preprocessor.numbering]` section in `book.toml`.
@@ -187,11 +124,11 @@ impl<'de> Deserialize<'de> for Preprocessors {
 #[serde(deny_unknown_fields)]
 pub struct NumberingConfig {
     /// Those preprocessors that `mdbook-numbering` should run after.
-    #[serde(default)]
-    pub after: Preprocessors,
+    #[serde(default, skip_serializing)]
+    pub after: IgnoredAny,
     /// Those preprocessors that `mdbook-numbering` should run before.
-    #[serde(default)]
-    pub before: Preprocessors,
+    #[serde(default, skip_serializing)]
+    pub before: IgnoredAny,
     /// Configuration for line numbering in code blocks.
     #[serde(default)]
     pub code: CodeConfig,
@@ -214,8 +151,8 @@ impl NumberingConfig {
     /// Create a new `NumberingConfig` with default values.
     pub const fn new() -> Self {
         Self {
-            after: Preprocessors::new(),
-            before: Preprocessors::new(),
+            after: IgnoredAny,
+            before: IgnoredAny,
             code: CodeConfig::new(),
             command: IgnoredAny,
             heading: HeadingConfig::new(),
