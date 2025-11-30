@@ -76,7 +76,18 @@ There are several optional features of `pulldown-cmark` (via [`Options`](https:/
 | `ENABLE_SUBSCRIPT`                        | `1 << 14`              | ✅      |
 | `ENABLE_WIKILINKS`                        | `1 << 15`              |
 
+These options must be enabled, otherwise some features of `mdbook` may not work as expected. See [pulldown-cmark-to-cmark/#106](https://github.com/Byron/pulldown-cmark-to-cmark/issues/106) for more details.
+
+For example:
+
+- If `ENABLE_TABLES` is not enabled, tables in markdown files will not be rendered correctly.
+- If `ENABLE_MATH` is not enabled, `katex` preprocessor will not work correctly.
+
 ## Updates
+
+### 0.4.0
+
+- Support more `mdbook` features by enabling more `pulldown-cmark` options.
 
 ### 0.3.1
 
