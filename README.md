@@ -1,5 +1,12 @@
 # mdbook-numbering
 
+[![CI](https://github.com/TheVeryDarkness/mdbook-numbering/actions/workflows/ci.yml/badge.svg)](https://github.com/TheVeryDarkness/mdbook-numbering/actions/workflows/ci.yml)
+[![Crates.io](https://img.shields.io/crates/v/mdbook-numbering.svg)](https://crates.io/crates/mdbook-numbering)
+[![Docs.rs](https://docs.rs/mdbook-numbering/badge.svg)](https://docs.rs/mdbook-numbering/)
+[![codecov](https://codecov.io/gh/TheVeryDarkness/mdbook-numbering/graph/badge.svg?token=BVVO5ZJN0X)](https://codecov.io/gh/TheVeryDarkness/mdbook-numbering)
+
+<!-- [![License](https://img.shields.io/crates/l/mdbook-numbering.svg)](https://github.com/TheVeryDarkness/mdbook-numbering/blob/master/LICENSE) -->
+
 A mdBook preprocessor that adds numbering.
 
 - [x] Adds numbers prior to chapter titles.
