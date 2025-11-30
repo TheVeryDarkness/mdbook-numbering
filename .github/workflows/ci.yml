@@ -27,6 +27,9 @@ jobs:
             ~/.cargo/git/db/
             target/
           key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+      - name: Install cargo-llvm-cov
+        uses: taiki-e/install-action@cargo-llvm-cov
+        if: ${{ matrix.rust == 'stable' }}
       - uses: actions-rs/cargo@v1
         with:
           command: build
@@ -41,6 +44,16 @@ jobs:
         with:
           command: fmt
           args: --all --check
+      - name: Generate code coverage
+        run: cargo llvm-cov --all-features --workspace --codecov --output-path codecov.json
+        if: ${{ matrix.rust == 'stable' }}
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v5
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }} # required for private repos or protected branches
+          files: codecov.json
+          fail_ci_if_error: true
+        if: ${{ matrix.rust == 'stable' }}
       - name: Check semver
         uses: obi1kenobi/cargo-semver-checks-action@v2
         if: ${{ matrix.rust == 'stable' }}
