@@ -1,5 +1,4 @@
 use mdbook_preprocessor::config::Config;
-use serde::de::IgnoredAny;
 
 use crate::{CodeConfig, HeadingConfig, NumberingConfig, NumberingPreprocessor, NumberingStyle};
 
