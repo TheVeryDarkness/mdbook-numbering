@@ -56,6 +56,10 @@ code    = { enable = true }
 
 ## Updates
 
+### 0.3.1
+
+- Fix misleading configuration examples in `README.md`.
+
 ### 0.3.0
 
 - Update to support `mdbook` version 0.5.0 and above.
