@@ -85,6 +85,10 @@ For example:
 
 ## Updates
 
+### 0.4.1
+
+- Fix a bug when there are inline code or inline formulas in chapter titles.
+
 ### 0.4.0
 
 - Support more `mdbook` features by enabling more `pulldown-cmark` options.
