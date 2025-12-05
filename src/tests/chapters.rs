@@ -12,7 +12,7 @@ fn empty() {
     let chapter = Chapter {
         name: "Empty Chapter".to_string(),
         content: "".to_string(),
-        number: Some([1].into_iter().collect()),
+        number: Some([1, 2].into_iter().collect()),
         ..Default::default()
     };
     let mut item = BookItem::Chapter(chapter);
@@ -35,7 +35,39 @@ fn empty() {
         BookItem::Chapter(Chapter {
             name: "Empty Chapter".to_string(),
             content: "".to_string(),
-            number: Some(SectionNumber::new(vec![1])),
+            number: Some(SectionNumber::new(vec![1, 2])),
+            ..Default::default()
+        }),
+    );
+}
+
+#[test]
+fn complex_title() {
+    let chapter = Chapter {
+        name: "Complex Title".to_string(),
+        content: "# Complex Title with Inline Code `let x = 10;` and Inline Formulas $E=mc^2$"
+            .to_string(),
+        number: Some([1, 2].into_iter().collect()),
+        ..Default::default()
+    };
+    let mut item = BookItem::Chapter(chapter);
+
+    NumberingPreprocessor::render_book_item(
+        &mut item,
+        &NumberingConfig {
+            code: CodeConfig { enable: false },
+            ..Default::default()
+        },
+        panic_on_error,
+    );
+
+    assert_eq!(
+        item,
+        BookItem::Chapter(Chapter {
+            name: "Complex Title".to_string(),
+            content: "# Complex Title with Inline Code `let x = 10;` and Inline Formulas $E=mc^2$"
+                .to_string(),
+            number: Some(SectionNumber::new(vec![1, 2])),
             ..Default::default()
         }),
     );

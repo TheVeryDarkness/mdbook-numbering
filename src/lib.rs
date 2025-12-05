@@ -5,11 +5,12 @@ use std::sync::LazyLock;
 
 use anyhow::anyhow;
 pub use config::{CodeConfig, HeadingConfig, NumberingConfig, NumberingStyle};
+use either::Either;
 use mdbook_preprocessor::book::{Book, BookItem};
 use mdbook_preprocessor::config::Config;
 use mdbook_preprocessor::errors::Error;
 use mdbook_preprocessor::{Preprocessor, PreprocessorContext};
-use pulldown_cmark::{CowStr, Event, Options, Parser, Tag, TagEnd};
+use pulldown_cmark::{CowStr, Event, Options, Parser, Tag};
 
 mod config;
 #[cfg(test)]
@@ -71,11 +72,9 @@ impl NumberingPreprocessor {
             && config.heading.enable
         {
             let name = ch.name.clone();
-            let mut in_heading = false;
             let mut stack = a.clone();
-            Box::new(tokenized.map(move |event| match event {
+            Box::new(tokenized.flat_map(move |event| match event {
                 Event::Start(Tag::Heading { level, .. }) => {
-                    in_heading = true;
                     let level_depth = match config.heading.numbering_style {
                         NumberingStyle::Consecutive => level as usize,
                         NumberingStyle::Top => level as usize + a.len() - 1,
@@ -101,17 +100,11 @@ impl NumberingPreprocessor {
                     if level_depth > a.len() {
                         stack[level_depth - 1] += 1;
                     }
-                    event
+                    Either::Left(
+                        [event, Event::Text(CowStr::from(format!("{stack} ")))].into_iter(),
+                    )
                 }
-                Event::Text(s) if in_heading => {
-                    let new_content = format!("{stack} {s}");
-                    Event::Text(CowStr::from(new_content))
-                }
-                Event::End(TagEnd::Heading(_)) => {
-                    in_heading = false;
-                    event
-                }
-                _ => event,
+                _ => Either::Right([event].into_iter()),
             }))
         } else {
             Box::new(tokenized)

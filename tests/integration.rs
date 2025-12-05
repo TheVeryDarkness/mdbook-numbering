@@ -158,6 +158,35 @@ fn chapter() {
         ],
     };
     assert_book_equal(&expected, &preprocessed);
+
+    let book = Book {
+        items: vec![
+            BookItem::Chapter(Chapter {
+                name: "Test1".to_string(),
+                content: include_str!("./md/test5.input.md").to_string(),
+                number: Some(vec![1, 2].into_iter().collect()),
+                path: Some("./md/test5.input.md".into()),
+                ..Default::default()
+            }),
+            BookItem::Separator,
+            BookItem::PartTitle("Title 1".to_string()),
+        ],
+    };
+    let preprocessed = preprocessor.run(&ctx, book).unwrap();
+    let expected = Book {
+        items: vec![
+            BookItem::Chapter(Chapter {
+                name: "Test1".to_string(),
+                content: include_str!("./md/test5.output.md").to_string(),
+                number: Some(vec![1, 2].into_iter().collect()),
+                path: Some("./md/test5.input.md".into()),
+                ..Default::default()
+            }),
+            BookItem::Separator,
+            BookItem::PartTitle("Title 1".to_string()),
+        ],
+    };
+    assert_book_equal(&expected, &preprocessed);
 }
 
 #[test]

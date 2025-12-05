@@ -11,6 +11,7 @@ keywords = ["mdbook", "preprocessor", "markdown"]
 
 [dependencies]
 anyhow = "1.0.100"
+either = "1.15.0"
 mdbook-preprocessor = { version = "0.5.0" }
 pulldown-cmark = { version = "0.13.0", default-features = false }
 pulldown-cmark-to-cmark = "21.0.0"
