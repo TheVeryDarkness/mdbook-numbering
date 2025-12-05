@@ -32,6 +32,8 @@ jobs:
         uses: peaceiris/actions-mdbook@v2
         with:
           mdbook-version: "0.5.1"
+      - name: Install dependencies
+        run: bash .github/workflows/install-deps.sh
       - run: mdbook build
         working-directory: ./examples/dev
       - name: Deploy
