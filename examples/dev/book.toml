@@ -7,14 +7,24 @@ title = "dev"
 [build]
 extra-watch-dirs = ["../../src", "../../src/Cargo.lock"]
 
-# [preprocessor.katex]
+[preprocessor.katex]
 
 [preprocessor.numbering]
 command = "cargo run --bin mdbook-numbering"
 
 [preprocessor.numbering.heading]
-numbering-style = "consecutive"
+numbering-style = "top"
 
 [output.html]
 
+[output.html.print]
+enable = true
+page-break = false
+
 [output.markdown]
+
+[output.pdf]
+optional = true
+print-background = true
+generate-document-outline = true
+generate-tagged-pdf = true
