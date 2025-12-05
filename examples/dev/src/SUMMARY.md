@@ -10,6 +10,8 @@
   - [KaTeX](./compatibility-katex.md)
   - [Alerts](./compatibility-alerts.md)
   - [Tables](./compatibility-tables.md)
+  - [Nested Chapters](./compatibility-nested.md)
+    - [Nested Nested Chapter](./compatibility-nested-nested.md)
   - [Draft Chapters](./compatibility-draft.md)
     - [Draft Chapter]()
 
