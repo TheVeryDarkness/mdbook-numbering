@@ -1,4 +1,4 @@
-# Chapter 1
+# Code Blocks
 
 Three implementations of Fibonacci in different programming languages.
 
