@@ -90,6 +90,20 @@ impl NumberingPreprocessor {
                             name,
                         ));
                     }
+                    if config.heading.numbering_style == NumberingStyle::Consecutive
+                        && level_depth < a.len()
+                    {
+                        cb(anyhow!(
+                            "\
+                            Heading level {} found, \
+                            but numbering \"{}\" for chapter \"{}\" has more levels. \
+                            Consider using `numbering-style = \"top\"` in the config, \
+                            if you want the top heading to be level 1.",
+                            level,
+                            stack,
+                            name,
+                        ));
+                    }
                     while level_depth > stack.len() {
                         stack.push(0);
                     }
@@ -159,6 +173,12 @@ impl Preprocessor for NumberingPreprocessor {
         Self::validate_config(&config, &ctx.config, |err| {
             eprintln!("mdbook-numbering: {err}");
         });
+
+        // eprintln!("mdbook-numbering: Using config: {config:#?}");
+        // eprintln!("mdbook-numbering: Processing book...");
+        // eprintln!("-----------------------------------");
+        // eprintln!("Book before processing:\n{book:#?}");
+        // eprintln!("-----------------------------------");
 
         book.for_each_mut(|item| {
             Self::render_book_item(item, &config, |err| eprintln!("mdbook-numbering: {err}"));
