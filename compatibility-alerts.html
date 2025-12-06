@@ -35,7 +35,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-dc9a963c.js";
+            window.path_to_searchindex_js = "searchindex-110d2a50.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-1505e54d.js"></script>
@@ -175,7 +175,7 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
-<h1 id="32-compatibility-with-alerts"><a class="header" href="#32-compatibility-with-alerts">3.2. Compatibility with Alerts</a></h1>
+<h1 data-numbering="3.2." id="compatibility-with-alerts"><a class="header" href="#compatibility-with-alerts">Compatibility with Alerts</a></h1>
 <blockquote class="blockquote-tag blockquote-tag-warning">
 <p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0 1 14.082 15H1.918a1.75 1.75 0 0 1-1.543-2.575Zm1.763.707a.25.25 0 0 0-.44 0L1.698 13.132a.25.25 0 0 0 .22.368h12.164a.25.25 0 0 0 .22-.368Zm.53 3.996v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"></path></svg>Warning</p>
 <p>This section demonstrates that the numbering plugin works correctly within alert blocks.</p>
@@ -183,6 +183,8 @@
 <pre><code class="language-md">&gt; [!WARNING]
 &gt; This section demonstrates that the numbering plugin works correctly within alert blocks.
 </code></pre>
+<style>h1:before,h2:before,h3:before,h4:before,h5:before,h6:before{content:attr(data-numbering)" "}
+</style>
 <script defer="">
 window.addEventListener('DOMContentLoaded', function() { (function(W,K){let P=/\r\n|\r|\n/g;if(W.hljs)W.hljs.initLineNumbersOnLoad=V,W.hljs.lineNumbersBlock=y,W.hljs.lineNumbersBlockSync=A,W.hljs.lineNumbersValue=S,B(),V();else W.console.error("highlight.js not detected!");function H(q){var z=q;while(z){if(z.className&&z.className.indexOf("hljs-ln-code")!==-1)return!0;z=z.parentNode}return!1}function O(q){var z=q;while(z.nodeName!=="TABLE")z=z.parentNode;return z}function R(q){var z=q.toString(),J=q.anchorNode;while(J.nodeName!=="TD")J=J.parentNode;var Q=q.focusNode;while(Q.nodeName!=="TD")Q=Q.parentNode;var U=parseInt(J.dataset.lineNumber),Y=parseInt(Q.dataset.lineNumber);if(U!=Y){var Z=J.textContent,$=Q.textContent;if(U>Y){var G=U;U=Y,Y=G,G=Z,Z=$,$=G}while(z.indexOf(Z)!==0)Z=Z.slice(1);while(z.lastIndexOf($)===-1)$=$.slice(0,-1);var M=Z,b=O(J);for(var D=U+1;D<Y;++D){var x=X('.{0}[{1}="{2}"]',["hljs-ln-code","data-line-number",D]),p=b.querySelector(x);M+=`
 `+p.textContent}return M+=`
