@@ -67,11 +67,17 @@ impl NumberingPreprocessor {
         options.insert(Options::ENABLE_FOOTNOTES);
         options.insert(Options::ENABLE_STRIKETHROUGH);
         options.insert(Options::ENABLE_TASKLISTS);
+        // options.insert(Options::ENABLE_SMART_PUNCTUATION);
         options.insert(Options::ENABLE_HEADING_ATTRIBUTES);
+        // options.insert(Options::ENABLE_YAML_STYLE_METADATA_BLOCKS);
+        // options.insert(Options::ENABLE_PLUSES_DELIMITED_METADATA_BLOCKS);
+        // options.insert(Options::ENABLE_OLD_FOOTNOTES);
         options.insert(Options::ENABLE_MATH);
         options.insert(Options::ENABLE_GFM);
+        options.insert(Options::ENABLE_DEFINITION_LIST);
         options.insert(Options::ENABLE_SUPERSCRIPT);
         options.insert(Options::ENABLE_SUBSCRIPT);
+        // options.insert(Options::ENABLE_WIKILINKS);
         options
     }
     fn render_book_item(item: &mut BookItem, config: &NumberingConfig, mut cb: impl FnMut(Error)) {
