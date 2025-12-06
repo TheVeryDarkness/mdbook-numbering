@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Tables - dev</title>
+        <title>mdBook - dev</title>
 
 
         <!-- Custom HTML head -->
@@ -29,16 +29,18 @@
 
         <!-- Custom theme stylesheets -->
 
+        <!-- MathJax -->
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <!-- Provide site root and default themes to javascript -->
         <script>
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-110d2a50.js";
+            window.path_to_searchindex_js = "searchindex-65fd22e4.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-1505e54d.js"></script>
+        <script src="toc-ab7c4bee.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -175,7 +177,61 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
-<h2 data-numbering="3.3." id="tables"><a class="header" href="#tables">Tables</a></h2>
+<h2 data-numbering="3.1." id="31-mdbook"><a class="header" href="#31-mdbook"><span class="heading numbering">3.1. </span>mdBook</a></h2>
+<p>Below are some examples demonstrating the compatibility of the numbering plugin with mdBook, together with other
+Common Markdown Extensions.</p>
+<h3 data-numbering="3.1.1." id="311-texts-and-paragraphs"><a class="header" href="#311-texts-and-paragraphs"><span class="heading numbering">3.1.1. </span>Texts and Paragraphs</a></h3>
+<p>This section demonstrates that the numbering plugin works correctly with <a href="https://rust-lang.github.io/mdBook/format/markdown.html#text-and-paragraphs">normal texts and paragraphs</a>.</p>
+<pre><code class="language-md">This section demonstrates that the numbering plugin works correctly with [normal texts and paragraphs](https://rust-lang.github.io/mdBook/format/markdown.html#text-and-paragraphs).
+</code></pre>
+<h3 data-numbering="3.1.2." id="312-lists"><a class="header" href="#312-lists"><span class="heading numbering">3.1.2. </span>Lists</a></h3>
+<p>This section demonstrates that the numbering plugin works correctly with <a href="https://rust-lang.github.io/mdBook/format/markdown.html#lists">lists</a>.</p>
+<ul>
+<li>milk</li>
+<li>eggs</li>
+<li>butter</li>
+</ul>
+<ol>
+<li>carrots</li>
+<li>celery</li>
+<li>radishes</li>
+</ol>
+<pre><code class="language-md">- milk
+- eggs
+- butter
+
+1. carrots
+1. celery
+1. radishes
+</code></pre>
+<h3 data-numbering="3.1.3." id="313-headings"><a class="header" href="#313-headings"><span class="heading numbering">3.1.3. </span>Headings</a></h3>
+<h4 data-numbering="3.1.3.1." id="3131-example-heading"><a class="header" href="#3131-example-heading"><span class="heading numbering">3.1.3.1. </span>Example Heading</a></h4>
+<pre><code class="language-md">#### Example Heading
+</code></pre>
+<h3 data-numbering="3.1.4." id="314-links"><a class="header" href="#314-links"><span class="heading numbering">3.1.4. </span>Links</a></h3>
+<p>This section demonstrates that the numbering plugin works correctly with <a href="https://rust-lang.github.io/mdBook/format/markdown.html#links">links</a>.</p>
+<h3 data-numbering="3.1.5." id="315-images"><a class="header" href="#315-images"><span class="heading numbering">3.1.5. </span>Images</a></h3>
+<p>This section demonstrates that the numbering plugin works correctly with <a href="https://rust-lang.github.io/mdBook/format/markdown.html#images">images</a>.</p>
+<p><img src="./red-dot.png" alt="A red dot"></p>
+<pre><code class="language-md">![A red dot](./red-dot.png)
+</code></pre>
+<h3 data-numbering="3.1.6." id="316-extensions"><a class="header" href="#316-extensions"><span class="heading numbering">3.1.6. </span>Extensions</a></h3>
+<h4 data-numbering="3.1.6.1." id="3161-strikethrough"><a class="header" href="#3161-strikethrough"><span class="heading numbering">3.1.6.1. </span>Strikethrough</a></h4>
+<p>This section demonstrates that the numbering plugin works <del>badly</del> correctly with <a href="https://rust-lang.github.io/mdBook/format/markdown.html#strikethrough">strikethrough</a> syntax.</p>
+<p>An example of <del>strikethrough text</del>.</p>
+<pre><code class="language-md">An example of ~~strikethrough text~~.
+</code></pre>
+<h4 data-numbering="3.1.6.2." id="3162-footnotes"><a class="header" href="#3162-footnotes"><span class="heading numbering">3.1.6.2. </span>Footnotes</a></h4>
+<p>This section demonstrates that the numbering plugin works correctly with <a href="https://rust-lang.github.io/mdBook/format/markdown.html#footnotes">footnotes</a>.</p>
+<p>This is an example of a footnote<sup class="footnote-reference" id="fr-note-1"><a href="#footnote-note">1</a></sup>.</p>
+<pre><code class="language-md">This is an example of a footnote[^note].
+
+[^note]:
+    This text is the contents of the footnote, which will be rendered
+    towards the bottom.
+</code></pre>
+<h4 data-numbering="3.1.6.3." id="3163-tables"><a class="header" href="#3163-tables"><span class="heading numbering">3.1.6.3. </span>Tables</a></h4>
+<p>This section demonstrates that the numbering plugin works correctly with <a href="https://rust-lang.github.io/mdBook/format/markdown.html#tables">tables</a>.</p>
 <div class="table-wrapper">
 <table>
 <thead>
@@ -192,7 +248,101 @@
 | Cell 1   | Cell 2   |
 | Cell 3   | Cell 4   |
 </code></pre>
-<style>h1:before,h2:before,h3:before,h4:before,h5:before,h6:before{content:attr(data-numbering)" "}
+<h4 data-numbering="3.1.6.4." id="3164-task-lists"><a class="header" href="#3164-task-lists"><span class="heading numbering">3.1.6.4. </span>Task Lists</a></h4>
+<p>This section demonstrates that the numbering plugin works correctly with <a href="https://rust-lang.github.io/mdBook/format/markdown.html#task-lists">task lists</a>.</p>
+<ul>
+<li><input disabled="" type="checkbox" checked=""> Task 1</li>
+<li><input disabled="" type="checkbox"> Task 2</li>
+</ul>
+<pre><code class="language-md">- [x] Task 1
+- [ ] Task 2
+</code></pre>
+<h4 data-numbering="3.1.6.5." id="3165-smart-punctuation"><a class="header" href="#3165-smart-punctuation"><span class="heading numbering">3.1.6.5. </span>Smart Punctuation</a></h4>
+<p>This section demonstrates that the numbering plugin works correctly with <a href="https://rust-lang.github.io/mdBook/format/markdown.html#smart-punctuation">smart punctuation</a>.</p>
+<p>“Smart” quotes and dashes — are they rendered correctly?</p>
+<pre><code class="language-md">"Smart" quotes and dashes — are they rendered correctly?
+</code></pre>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th style="text-align: center">ASCII sequence</th><th style="text-align: center">Unicode</th></tr>
+</thead>
+<tbody>
+<tr><td style="text-align: center"><code>--</code></td><td style="text-align: center">–</td></tr>
+<tr><td style="text-align: center"><code>---</code></td><td style="text-align: center">—</td></tr>
+<tr><td style="text-align: center"><code>...</code></td><td style="text-align: center">…</td></tr>
+<tr><td style="text-align: center"><code>"</code></td><td style="text-align: center">“ or ”, depending on context</td></tr>
+<tr><td style="text-align: center"><code>'</code></td><td style="text-align: center">‘ or ’, depending on context</td></tr>
+</tbody>
+</table>
+</div>
+<h4 data-numbering="3.1.6.6." id="3166-heading-attributes"><a class="header" href="#3166-heading-attributes"><span class="heading numbering">3.1.6.6. </span>Heading Attributes</a></h4>
+<p>This section demonstrates that the numbering plugin works correctly with <a href="https://rust-lang.github.io/mdBook/format/markdown.html#heading-attributes">heading attributes</a>.<sup class="footnote-reference" id="fr-heading-attrbutes-1"><a href="#footnote-heading-attrbutes">2</a></sup></p>
+<h5 data-numbering="3.1.6.6.1." id="first" class="class1 class2"><a class="header" href="#first"><span class="heading numbering">3.1.6.6.1. </span>Example heading 1</a></h5>
+<h5 data-numbering="3.1.6.6.2." id="31662-example-heading-2"><a class="header" href="#31662-example-heading-2"><span class="heading numbering">3.1.6.6.2. </span>Example heading 2</a></h5>
+<pre><code class="language-md">##### Example heading 1 { #first .class1 .class2 }
+
+##### Example heading 2 { data-numbering=custom }
+</code></pre>
+<h4 data-numbering="3.1.6.7." id="3167-definition-lists"><a class="header" href="#3167-definition-lists"><span class="heading numbering">3.1.6.7. </span>Definition Lists</a></h4>
+<p>This section demonstrates the compatibility of <a href="https://rust-lang.github.io/mdBook/format/markdown.html#definition-lists">definition lists</a> with the heading numbering plugin.</p>
+<dl>
+<dt id="term-1"><a class="header" href="#term-1">Term 1</a></dt>
+<dd>Definition for term 1.
+Term 2</dd>
+<dd>Definition for term 2.</dd>
+</dl>
+<pre><code class="language-md">Term 1
+: Definition for term 1.
+Term 2
+: Definition for term 2.
+</code></pre>
+<h4 data-numbering="3.1.6.8." id="3168-admonitions"><a class="header" href="#3168-admonitions"><span class="heading numbering">3.1.6.8. </span>Admonitions</a></h4>
+<p>This section demonstrates that the numbering plugin works correctly within <a href="https://rust-lang.github.io/mdBook/format/markdown.html#admonitions">admonitions</a><sup class="footnote-reference" id="fr-1-1"><a href="#footnote-1">3</a></sup> <sup class="footnote-reference" id="fr-2-1"><a href="#footnote-2">4</a></sup>.</p>
+<blockquote class="blockquote-tag blockquote-tag-warning">
+<p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0 1 14.082 15H1.918a1.75 1.75 0 0 1-1.543-2.575Zm1.763.707a.25.25 0 0 0-.44 0L1.698 13.132a.25.25 0 0 0 .22.368h12.164a.25.25 0 0 0 .22-.368Zm.53 3.996v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"></path></svg>Warning</p>
+<p>This section demonstrates that the numbering plugin works correctly within alert blocks.</p>
+</blockquote>
+<pre><code class="language-md">&gt; [!WARNING]
+&gt; This section demonstrates that the numbering plugin works correctly within alert blocks.
+</code></pre>
+<p>And here are other types of admonitions:</p>
+<blockquote class="blockquote-tag blockquote-tag-note">
+<p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Note</p>
+<p>General information or additional context.</p>
+</blockquote>
+<blockquote class="blockquote-tag blockquote-tag-tip">
+<p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M8 1.5c-2.363 0-4 1.69-4 3.75 0 .984.424 1.625.984 2.304l.214.253c.223.264.47.556.673.848.284.411.537.896.621 1.49a.75.75 0 0 1-1.484.211c-.04-.282-.163-.547-.37-.847a8.456 8.456 0 0 0-.542-.68c-.084-.1-.173-.205-.268-.32C3.201 7.75 2.5 6.766 2.5 5.25 2.5 2.31 4.863 0 8 0s5.5 2.31 5.5 5.25c0 1.516-.701 2.5-1.328 3.259-.095.115-.184.22-.268.319-.207.245-.383.453-.541.681-.208.3-.33.565-.37.847a.751.751 0 0 1-1.485-.212c.084-.593.337-1.078.621-1.489.203-.292.45-.584.673-.848.075-.088.147-.173.213-.253.561-.679.985-1.32.985-2.304 0-2.06-1.637-3.75-4-3.75ZM5.75 12h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5ZM6 15.25a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 0 1.5h-2.5a.75.75 0 0 1-.75-.75Z"></path></svg>Tip</p>
+<p>A helpful suggestion or best practice.</p>
+</blockquote>
+<blockquote class="blockquote-tag blockquote-tag-important">
+<p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M0 1.75C0 .784.784 0 1.75 0h12.5C15.216 0 16 .784 16 1.75v9.5A1.75 1.75 0 0 1 14.25 13H8.06l-2.573 2.573A1.458 1.458 0 0 1 3 14.543V13H1.75A1.75 1.75 0 0 1 0 11.25Zm1.75-.25a.25.25 0 0 0-.25.25v9.5c0 .138.112.25.25.25h2a.75.75 0 0 1 .75.75v2.19l2.72-2.72a.749.749 0 0 1 .53-.22h6.5a.25.25 0 0 0 .25-.25v-9.5a.25.25 0 0 0-.25-.25Zm7 2.25v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 9a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"></path></svg>Important</p>
+<p>Key information that shouldn’t be missed.</p>
+</blockquote>
+<blockquote class="blockquote-tag blockquote-tag-warning">
+<p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0 1 14.082 15H1.918a1.75 1.75 0 0 1-1.543-2.575Zm1.763.707a.25.25 0 0 0-.44 0L1.698 13.132a.25.25 0 0 0 .22.368h12.164a.25.25 0 0 0 .22-.368Zm.53 3.996v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"></path></svg>Warning</p>
+<p>Critical information that highlights a potential risk.</p>
+</blockquote>
+<blockquote class="blockquote-tag blockquote-tag-caution">
+<p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M4.47.22A.749.749 0 0 1 5 0h6c.199 0 .389.079.53.22l4.25 4.25c.141.14.22.331.22.53v6a.749.749 0 0 1-.22.53l-4.25 4.25A.749.749 0 0 1 11 16H5a.749.749 0 0 1-.53-.22L.22 11.53A.749.749 0 0 1 0 11V5c0-.199.079-.389.22-.53Zm.84 1.28L1.5 5.31v5.38l3.81 3.81h5.38l3.81-3.81V5.31L10.69 1.5ZM8 4a.75.75 0 0 1 .75.75v3.5a.75.75 0 0 1-1.5 0v-3.5A.75.75 0 0 1 8 4Zm0 8a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Caution</p>
+<p>Information about potential issues that require caution.</p>
+</blockquote>
+<pre><code class="language-md">&gt; [!NOTE]
+&gt; General information or additional context.
+
+&gt; [!TIP]
+&gt; A helpful suggestion or best practice.
+
+&gt; [!IMPORTANT]
+&gt; Key information that shouldn't be missed.
+
+&gt; [!WARNING]
+&gt; Critical information that highlights a potential risk.
+
+&gt; [!CAUTION]
+&gt; Information about potential issues that require caution.
+</code></pre>
+<style>span.heading.numbering{user-select:none;-webkit-user-select:none;cursor:default}
 </style>
 <style>@media print{h1:not([data-numbering]),h2:not([data-numbering]),h3:not([data-numbering]),h4:not([data-numbering]),h5:not([data-numbering]),h6:not([data-numbering]){display:none}}
 </style>
@@ -207,16 +357,32 @@ window.addEventListener('DOMContentLoaded', function() { (function(W,K){let P=/\
 .hljs-ln-n{-webkit-touch-callout:none;-webkit-user-select:none;-khtml-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;text-align:right;color:#ccc;vertical-align:top;border-right:1px solid #ccc;padding:0 5px 0 0}table.hljs-ln{margin:0}td.hljs-ln-code{padding:0 0 0 5px}td.hljs-ln-line{border:none}table tbody tr.hljs-ln-line{background-color:inherit}
 
 </style>
+<hr>
+<ol class="footnote-definition">
+<li id="footnote-note">
+<p>This text is the contents of the footnote, which will be rendered
+towards the bottom. <a href="#fr-note-1">↩</a></p>
+</li>
+<li id="footnote-heading-attrbutes">
+<p><code>mdbook-numbering</code> is using this feature to store the numbering data in the <code>data-numbering</code> attribute. <a href="#fr-heading-attrbutes-1">↩</a></p>
+</li>
+<li id="footnote-1">
+<p>Also known as <a href="https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax#alerts">GFM-style alerts</a>. <a href="#fr-1-1">↩</a></p>
+</li>
+<li id="footnote-2">
+<p>In mdbook 0.4.0+, this is handled by <a href="https://crates.io/crates/mdbook-alerts">mdbook-alerts</a>. And <code>mdbook-numbering@&lt;=0.2</code> is compatible with it. <a href="#fr-2-1">↩</a></p>
+</li>
+</ol>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="compatibility-alerts.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="compatibility.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                             </a>
 
-                            <a rel="next prefetch" href="compatibility-nested.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="compatibility-katex.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                             </a>
 
@@ -226,11 +392,11 @@ window.addEventListener('DOMContentLoaded', function() { (function(W,K){let P=/\
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="compatibility-alerts.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="compatibility.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                     </a>
 
-                    <a rel="next prefetch" href="compatibility-nested.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="compatibility-katex.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                     </a>
             </nav>

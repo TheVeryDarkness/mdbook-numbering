@@ -30,16 +30,18 @@
 
         <!-- Custom theme stylesheets -->
 
+        <!-- MathJax -->
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <!-- Provide site root and default themes to javascript -->
         <script>
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-110d2a50.js";
+            window.path_to_searchindex_js = "searchindex-65fd22e4.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-1505e54d.js"></script>
+        <script src="toc-ab7c4bee.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -185,19 +187,18 @@
 <p><a href="#preface-a">Preface A</a></p>
 <p><a href="#preface-b">Preface B</a></p>
 <ul>
-<li><a href="#code-blocks">Code Blocks</a></li>
-<li><a href="#sections">Sections</a></li>
-<li><a href="#compatibility">Compatibility</a>
+<li><a href="#1-code-blocks">Code Blocks</a></li>
+<li><a href="#2-sections">Sections</a></li>
+<li><a href="#3-compatibility">Compatibility</a>
 <ul>
+<li><a href="#mdbook">mdBook</a></li>
 <li><a href="#katex">KaTeX</a></li>
-<li><a href="#alerts">Alerts</a></li>
-<li><a href="#tables-1">Tables</a></li>
-<li><a href="#nested-chapters-1">Nested Chapters</a>
+<li><a href="#nested-chapters">Nested Chapters</a>
 <ul>
-<li><a href="#nested-nested-chapter-1">Nested Nested Chapter</a></li>
+<li><a href="#nested-nested-chapter">Nested Nested Chapter</a></li>
 </ul>
 </li>
-<li><a href="#draft-chapters-1">Draft Chapters</a>
+<li><a href="#draft-chapters">Draft Chapters</a>
 <ul>
 <li><a href="#preface-a">Draft Chapter</a></li>
 </ul>
@@ -233,7 +234,7 @@ window.addEventListener('DOMContentLoaded', function() { (function(W,K){let P=/\
 
 </style>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
-<h1 data-numbering="1." id="code-blocks"><a class="header" href="#code-blocks">Code Blocks</a></h1>
+<h1 data-numbering="1." id="1-code-blocks"><a class="header" href="#1-code-blocks"><span class="heading numbering">1. </span>Code Blocks</a></h1>
 <p>Three implementations of Fibonacci in different programming languages.</p>
 <pre><code class="language-C">#include &lt;stdio.h&gt;
 #include &lt;stdlib.h&gt;
@@ -280,7 +281,7 @@ def main():
     for i in range(10):
         print(f"fib({i}) = {fib(i)}")
 </code></pre>
-<style>h1:before,h2:before,h3:before,h4:before,h5:before,h6:before{content:attr(data-numbering)" "}
+<style>span.heading.numbering{user-select:none;-webkit-user-select:none;cursor:default}
 </style>
 <script defer="">
 window.addEventListener('DOMContentLoaded', function() { (function(W,K){let P=/\r\n|\r|\n/g;if(W.hljs)W.hljs.initLineNumbersOnLoad=V,W.hljs.lineNumbersBlock=y,W.hljs.lineNumbersBlockSync=A,W.hljs.lineNumbersValue=S,B(),V();else W.console.error("highlight.js not detected!");function H(q){var z=q;while(z){if(z.className&&z.className.indexOf("hljs-ln-code")!==-1)return!0;z=z.parentNode}return!1}function O(q){var z=q;while(z.nodeName!=="TABLE")z=z.parentNode;return z}function R(q){var z=q.toString(),J=q.anchorNode;while(J.nodeName!=="TD")J=J.parentNode;var Q=q.focusNode;while(Q.nodeName!=="TD")Q=Q.parentNode;var U=parseInt(J.dataset.lineNumber),Y=parseInt(Q.dataset.lineNumber);if(U!=Y){var Z=J.textContent,$=Q.textContent;if(U>Y){var G=U;U=Y,Y=G,G=Z,Z=$,$=G}while(z.indexOf(Z)!==0)Z=Z.slice(1);while(z.lastIndexOf($)===-1)$=$.slice(0,-1);var M=Z,b=O(J);for(var D=U+1;D<Y;++D){var x=X('.{0}[{1}="{2}"]',["hljs-ln-code","data-line-number",D]),p=b.querySelector(x);M+=`
@@ -294,11 +295,14 @@ window.addEventListener('DOMContentLoaded', function() { (function(W,K){let P=/\
 
 </style>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
-<h1 data-numbering="2." id="sections"><a class="header" href="#sections">Sections</a></h1>
-<h2 data-numbering="2.1." id="using-mdbook-numbering-with-inline-code"><a class="header" href="#using-mdbook-numbering-with-inline-code">Using <code>mdbook-numbering</code> with Inline Code</a></h2>
-<h2 data-numbering="2.2." id="using-mdbook-numbering-with-inline-formulas-"><a class="header" href="#using-mdbook-numbering-with-inline-formulas-">Using <code>mdbook-numbering</code> with Inline Formulas (<span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.1056em;"></span><span class="mord">…</span></span></span></span>)</a></h2>
-<h2 data-numbering="2.3." id="complex-title-with-inline-code-let-x--10-and-inline-formulas-emc2"><a class="header" href="#complex-title-with-inline-code-let-x--10-and-inline-formulas-emc2">Complex Title with Inline Code <code>let x = 10;</code> and Inline Formulas <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">E</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.8141em;"></span><span class="mord mathnormal">m</span><span class="mord"><span class="mord mathnormal">c</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span></a></h2>
-<style>h1:before,h2:before,h3:before,h4:before,h5:before,h6:before{content:attr(data-numbering)" "}
+<h1 data-numbering="2." id="2-sections"><a class="header" href="#2-sections"><span class="heading numbering">2. </span>Sections</a></h1>
+<h2 data-numbering="2.1." id="21-using-mdbook-numbering-with-inline-code"><a class="header" href="#21-using-mdbook-numbering-with-inline-code"><span class="heading numbering">2.1. </span>Using <code>mdbook-numbering</code> with Inline Code</a></h2>
+<h2 data-numbering="2.2." id="22-using-mdbook-numbering-with-inline-formulas-emc2"><a class="header" href="#22-using-mdbook-numbering-with-inline-formulas-emc2"><span class="heading numbering">2.2. </span>Using <code>mdbook-numbering</code> with Inline Formulas (<span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">E</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.8141em;"></span><span class="mord mathnormal">m</span><span class="mord"><span class="mord mathnormal">c</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span>)</a></h2>
+<h2 data-numbering="2.3." id="23-complex-title-with-inline-code-let-x--10-and-inline-formulas-emc2"><a class="header" href="#23-complex-title-with-inline-code-let-x--10-and-inline-formulas-emc2"><span class="heading numbering">2.3. </span>Complex Title with Inline Code <code>let x = 10;</code> and Inline Formulas <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">E</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.8141em;"></span><span class="mord mathnormal">m</span><span class="mord"><span class="mord mathnormal">c</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span></a></h2>
+<h2 data-numbering="2.4." id="24-using-mdbook-numbering-with-display-formulas-emc2"><a class="header" href="#24-using-mdbook-numbering-with-display-formulas-emc2"><span class="heading numbering">2.4. </span>Using <code>mdbook-numbering</code> with Display Formulas (<span class="katex-display"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">E</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.8641em;"></span><span class="mord mathnormal">m</span><span class="mord"><span class="mord mathnormal">c</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8641em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span></span>)</a></h2>
+<h2 data-numbering="2.5." id="25-using-mdbook-numbering-with-mathjax-inline-formulas-emc2"><a class="header" href="#25-using-mdbook-numbering-with-mathjax-inline-formulas-emc2"><span class="heading numbering">2.5. </span>Using <code>mdbook-numbering</code> with MathJax Inline Formulas (\(E=mc^2\))</a></h2>
+<h2 data-numbering="2.6." id="26-using-mdbook-numbering-with-mathjax-display-formulas-emc2"><a class="header" href="#26-using-mdbook-numbering-with-mathjax-display-formulas-emc2"><span class="heading numbering">2.6. </span>Using <code>mdbook-numbering</code> with MathJax Display Formulas (\[E=mc^2\])</a></h2>
+<style>span.heading.numbering{user-select:none;-webkit-user-select:none;cursor:default}
 </style>
 <script defer="">
 window.addEventListener('DOMContentLoaded', function() { (function(W,K){let P=/\r\n|\r|\n/g;if(W.hljs)W.hljs.initLineNumbersOnLoad=V,W.hljs.lineNumbersBlock=y,W.hljs.lineNumbersBlockSync=A,W.hljs.lineNumbersValue=S,B(),V();else W.console.error("highlight.js not detected!");function H(q){var z=q;while(z){if(z.className&&z.className.indexOf("hljs-ln-code")!==-1)return!0;z=z.parentNode}return!1}function O(q){var z=q;while(z.nodeName!=="TABLE")z=z.parentNode;return z}function R(q){var z=q.toString(),J=q.anchorNode;while(J.nodeName!=="TD")J=J.parentNode;var Q=q.focusNode;while(Q.nodeName!=="TD")Q=Q.parentNode;var U=parseInt(J.dataset.lineNumber),Y=parseInt(Q.dataset.lineNumber);if(U!=Y){var Z=J.textContent,$=Q.textContent;if(U>Y){var G=U;U=Y,Y=G,G=Z,Z=$,$=G}while(z.indexOf(Z)!==0)Z=Z.slice(1);while(z.lastIndexOf($)===-1)$=$.slice(0,-1);var M=Z,b=O(J);for(var D=U+1;D<Y;++D){var x=X('.{0}[{1}="{2}"]',["hljs-ln-code","data-line-number",D]),p=b.querySelector(x);M+=`
@@ -312,8 +316,8 @@ window.addEventListener('DOMContentLoaded', function() { (function(W,K){let P=/\
 
 </style>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
-<h1 data-numbering="3." id="compatibility"><a class="header" href="#compatibility">Compatibility</a></h1>
-<style>h1:before,h2:before,h3:before,h4:before,h5:before,h6:before{content:attr(data-numbering)" "}
+<h1 data-numbering="3." id="3-compatibility"><a class="header" href="#3-compatibility"><span class="heading numbering">3. </span>Compatibility</a></h1>
+<style>span.heading.numbering{user-select:none;-webkit-user-select:none;cursor:default}
 </style>
 <script defer="">
 window.addEventListener('DOMContentLoaded', function() { (function(W,K){let P=/\r\n|\r|\n/g;if(W.hljs)W.hljs.initLineNumbersOnLoad=V,W.hljs.lineNumbersBlock=y,W.hljs.lineNumbersBlockSync=A,W.hljs.lineNumbersValue=S,B(),V();else W.console.error("highlight.js not detected!");function H(q){var z=q;while(z){if(z.className&&z.className.indexOf("hljs-ln-code")!==-1)return!0;z=z.parentNode}return!1}function O(q){var z=q;while(z.nodeName!=="TABLE")z=z.parentNode;return z}function R(q){var z=q.toString(),J=q.anchorNode;while(J.nodeName!=="TD")J=J.parentNode;var Q=q.focusNode;while(Q.nodeName!=="TD")Q=Q.parentNode;var U=parseInt(J.dataset.lineNumber),Y=parseInt(Q.dataset.lineNumber);if(U!=Y){var Z=J.textContent,$=Q.textContent;if(U>Y){var G=U;U=Y,Y=G,G=Z,Z=$,$=G}while(z.indexOf(Z)!==0)Z=Z.slice(1);while(z.lastIndexOf($)===-1)$=$.slice(0,-1);var M=Z,b=O(J);for(var D=U+1;D<Y;++D){var x=X('.{0}[{1}="{2}"]',["hljs-ln-code","data-line-number",D]),p=b.querySelector(x);M+=`
@@ -327,60 +331,63 @@ window.addEventListener('DOMContentLoaded', function() { (function(W,K){let P=/\
 
 </style>
 <div style="break-before: page; page-break-before: always;"></div>
-<h1 id="katex"><a href="#katex" class="header">KaTeX</a></h1>
+<h1 id="mdbook"><a href="#mdbook" class="header">mdBook</a></h1>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
-<h2 data-numbering="3.1." id="compatibility-with-katex"><a class="header" href="#compatibility-with-katex">Compatibility with KaTeX</a></h2>
-<p><span class="katex-display"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:3.8315em;vertical-align:-1.6658em;"></span><span class="mtable"><span class="col-align-r"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.1658em;"><span style="top:-4.6231em;"><span class="pstrut" style="height:3.3214em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.05764em;">E</span></span></span><span style="top:-2.6417em;"><span class="pstrut" style="height:3.3214em;"></span><span class="mord"><span class="mord mathcal">L</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.6658em;"><span></span></span></span></span></span><span class="col-align-l"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.1658em;"><span style="top:-4.6231em;"><span class="pstrut" style="height:3.3214em;"></span><span class="mord"><span class="mord"></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mord mathnormal">m</span><span class="mord"><span class="mord mathnormal">c</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8641em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span><span style="top:-2.6417em;"><span class="pstrut" style="height:3.3214em;"></span><span class="mord"><span class="mord"></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.3214em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">2</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mord mathnormal">m</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">v</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8641em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord mathnormal" style="margin-right:0.22222em;">V</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.6658em;"><span></span></span></span></span></span></span></span><span class="tag"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.1658em;"><span style="top:-4.6231em;"><span class="pstrut" style="height:3.3214em;"></span><span class="eqn-num"></span></span><span style="top:-2.6417em;"><span class="pstrut" style="height:3.3214em;"></span><span class="eqn-num"></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.6658em;"><span></span></span></span></span></span></span></span></span></p>
-<pre><code class="language-latex">\begin{align}
-              E &amp; = mc^2 \\
-    \mathcal{L} &amp; = \frac{1}{2} m v^2 - V(x) \\
-\end{align}
+<h2 data-numbering="3.1." id="31-mdbook"><a class="header" href="#31-mdbook"><span class="heading numbering">3.1. </span>mdBook</a></h2>
+<p>Below are some examples demonstrating the compatibility of the numbering plugin with mdBook, together with other
+Common Markdown Extensions.</p>
+<h3 data-numbering="3.1.1." id="311-texts-and-paragraphs"><a class="header" href="#311-texts-and-paragraphs"><span class="heading numbering">3.1.1. </span>Texts and Paragraphs</a></h3>
+<p>This section demonstrates that the numbering plugin works correctly with <a href="https://rust-lang.github.io/mdBook/format/markdown.html#text-and-paragraphs">normal texts and paragraphs</a>.</p>
+<pre><code class="language-md">This section demonstrates that the numbering plugin works correctly with [normal texts and paragraphs](https://rust-lang.github.io/mdBook/format/markdown.html#text-and-paragraphs).
 </code></pre>
-<style>h1:before,h2:before,h3:before,h4:before,h5:before,h6:before{content:attr(data-numbering)" "}
-</style>
-<style>@media print{h1:not([data-numbering]),h2:not([data-numbering]),h3:not([data-numbering]),h4:not([data-numbering]),h5:not([data-numbering]),h6:not([data-numbering]){display:none}}
-</style>
-<script defer="">
-window.addEventListener('DOMContentLoaded', function() { (function(W,K){let P=/\r\n|\r|\n/g;if(W.hljs)W.hljs.initLineNumbersOnLoad=V,W.hljs.lineNumbersBlock=y,W.hljs.lineNumbersBlockSync=A,W.hljs.lineNumbersValue=S,B(),V();else W.console.error("highlight.js not detected!");function H(q){var z=q;while(z){if(z.className&&z.className.indexOf("hljs-ln-code")!==-1)return!0;z=z.parentNode}return!1}function O(q){var z=q;while(z.nodeName!=="TABLE")z=z.parentNode;return z}function R(q){var z=q.toString(),J=q.anchorNode;while(J.nodeName!=="TD")J=J.parentNode;var Q=q.focusNode;while(Q.nodeName!=="TD")Q=Q.parentNode;var U=parseInt(J.dataset.lineNumber),Y=parseInt(Q.dataset.lineNumber);if(U!=Y){var Z=J.textContent,$=Q.textContent;if(U>Y){var G=U;U=Y,Y=G,G=Z,Z=$,$=G}while(z.indexOf(Z)!==0)Z=Z.slice(1);while(z.lastIndexOf($)===-1)$=$.slice(0,-1);var M=Z,b=O(J);for(var D=U+1;D<Y;++D){var x=X('.{0}[{1}="{2}"]',["hljs-ln-code","data-line-number",D]),p=b.querySelector(x);M+=`
-`+p.textContent}return M+=`
-`+$,M}else return z}document.addEventListener("copy",function(q){var z=window.getSelection();if(H(z.anchorNode)){var J;if(window.navigator.userAgent.indexOf("Edge")!==-1)J=R(z);else J=z.toString();q.clipboardData.setData("text/plain",J),q.preventDefault()}});function B(){var q=K.createElement("style");q.type="text/css",q.innerHTML=X(".{0}{border-collapse:collapse}.{0} td{padding:0}.{1}:before{content:attr({2})}",["hljs-ln","hljs-ln-n","data-line-number"]),K.getElementsByTagName("head")[0].appendChild(q)}function V(q){if(K.readyState==="interactive"||K.readyState==="complete")_(q);else W.addEventListener("DOMContentLoaded",function(){_(q)})}function _(q){try{var z=K.querySelectorAll("code.hljs,code.nohighlight");for(var J in z)if(z.hasOwnProperty(J)){if(!v(z[J]))y(z[J],q)}}catch(Q){W.console.error("LineNumbers error: ",Q)}}function v(q){return q.classList.contains("nohljsln")}function y(q,z){if(typeof q!=="object")return;N(function(){q.innerHTML=C(q,z)})}function A(q,z){if(typeof q!=="object")return;q.innerHTML=C(q,z)}function S(q,z){if(typeof q!=="string")return;var J=document.createElement("code");return J.innerHTML=q,C(J,z)}function C(q,z){var J=g(q,z);return I(q),F(q.innerHTML,J)}function F(q,z){var J=j(q);if(J[J.length-1].trim()==="")J.pop();if(J.length>1||z.singleLine){var Q="";for(var U=0,Y=J.length;U<Y;U++)Q+=X('<tr class="{0}"><td class="{0} {1}" {3}="{5}"><div class="{2}" {3}="{5}"></div></td><td class="{0} {4}" {3}="{5}">{6}</td></tr>',["hljs-ln-line","hljs-ln-numbers","hljs-ln-n","data-line-number","hljs-ln-code",U+z.startFrom,J[U].length>0?J[U]:" "]);return X('<table class="{0}">{1}</table>',["hljs-ln",Q])}return q}function g(q,z){return z=z||{},{singleLine:w(z),startFrom:k(q,z)}}function w(q){var z=!1;if(q.singleLine)return q.singleLine;return z}function k(q,z){var J=1,Q=J;if(isFinite(z.startFrom))Q=z.startFrom;var U=f(q,"data-ln-start-from");if(U!==null)Q=T(U,J);return Q}function I(q){var z=q.childNodes;for(var J in z)if(z.hasOwnProperty(J)){var Q=z[J];if(E(Q.textContent)>0)if(Q.childNodes.length>0)I(Q);else h(Q.parentNode)}}function h(q){var z=q.className;if(!/hljs-/.test(z))return;var J=j(q.innerHTML);for(var Q=0,U="";Q<J.length;Q++){var Y=J[Q].length>0?J[Q]:" ";U+=X(`<span class="{0}">{1}</span>
-`,[z,Y])}q.innerHTML=U.trim()}function j(q){if(q.length===0)return[];return q.split(P)}function E(q){return(q.trim().match(P)||[]).length}function N(q){W.setTimeout(q,0)}function X(q,z){return q.replace(/\{(\d+)\}/g,function(J,Q){return z[Q]!==void 0?z[Q]:J})}function f(q,z){return q.hasAttribute(z)?q.getAttribute(z):null}function T(q,z){if(!q)return z;var J=Number(q);return isFinite(J)?J:z}})(window,document);
- });
-</script>
-<style>
-.hljs-ln-n{-webkit-touch-callout:none;-webkit-user-select:none;-khtml-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;text-align:right;color:#ccc;vertical-align:top;border-right:1px solid #ccc;padding:0 5px 0 0}table.hljs-ln{margin:0}td.hljs-ln-code{padding:0 0 0 5px}td.hljs-ln-line{border:none}table tbody tr.hljs-ln-line{background-color:inherit}
+<h3 data-numbering="3.1.2." id="312-lists"><a class="header" href="#312-lists"><span class="heading numbering">3.1.2. </span>Lists</a></h3>
+<p>This section demonstrates that the numbering plugin works correctly with <a href="https://rust-lang.github.io/mdBook/format/markdown.html#lists">lists</a>.</p>
+<ul>
+<li>milk</li>
+<li>eggs</li>
+<li>butter</li>
+</ul>
+<ol>
+<li>carrots</li>
+<li>celery</li>
+<li>radishes</li>
+</ol>
+<pre><code class="language-md">- milk
+- eggs
+- butter
 
-</style>
-<div style="break-before: page; page-break-before: always;"></div>
-<h1 id="alerts"><a href="#alerts" class="header">Alerts</a></h1>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
-<h2 data-numbering="3.2." id="compatibility-with-alerts"><a class="header" href="#compatibility-with-alerts">Compatibility with Alerts</a></h2>
-<blockquote class="blockquote-tag blockquote-tag-warning">
-<p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0 1 14.082 15H1.918a1.75 1.75 0 0 1-1.543-2.575Zm1.763.707a.25.25 0 0 0-.44 0L1.698 13.132a.25.25 0 0 0 .22.368h12.164a.25.25 0 0 0 .22-.368Zm.53 3.996v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"></path></svg>Warning</p>
-<p>This section demonstrates that the numbering plugin works correctly within alert blocks.</p>
-</blockquote>
-<pre><code class="language-md">&gt; [!WARNING]
-&gt; This section demonstrates that the numbering plugin works correctly within alert blocks.
+1. carrots
+1. celery
+1. radishes
 </code></pre>
-<style>h1:before,h2:before,h3:before,h4:before,h5:before,h6:before{content:attr(data-numbering)" "}
-</style>
-<style>@media print{h1:not([data-numbering]),h2:not([data-numbering]),h3:not([data-numbering]),h4:not([data-numbering]),h5:not([data-numbering]),h6:not([data-numbering]){display:none}}
-</style>
-<script defer="">
-window.addEventListener('DOMContentLoaded', function() { (function(W,K){let P=/\r\n|\r|\n/g;if(W.hljs)W.hljs.initLineNumbersOnLoad=V,W.hljs.lineNumbersBlock=y,W.hljs.lineNumbersBlockSync=A,W.hljs.lineNumbersValue=S,B(),V();else W.console.error("highlight.js not detected!");function H(q){var z=q;while(z){if(z.className&&z.className.indexOf("hljs-ln-code")!==-1)return!0;z=z.parentNode}return!1}function O(q){var z=q;while(z.nodeName!=="TABLE")z=z.parentNode;return z}function R(q){var z=q.toString(),J=q.anchorNode;while(J.nodeName!=="TD")J=J.parentNode;var Q=q.focusNode;while(Q.nodeName!=="TD")Q=Q.parentNode;var U=parseInt(J.dataset.lineNumber),Y=parseInt(Q.dataset.lineNumber);if(U!=Y){var Z=J.textContent,$=Q.textContent;if(U>Y){var G=U;U=Y,Y=G,G=Z,Z=$,$=G}while(z.indexOf(Z)!==0)Z=Z.slice(1);while(z.lastIndexOf($)===-1)$=$.slice(0,-1);var M=Z,b=O(J);for(var D=U+1;D<Y;++D){var x=X('.{0}[{1}="{2}"]',["hljs-ln-code","data-line-number",D]),p=b.querySelector(x);M+=`
-`+p.textContent}return M+=`
-`+$,M}else return z}document.addEventListener("copy",function(q){var z=window.getSelection();if(H(z.anchorNode)){var J;if(window.navigator.userAgent.indexOf("Edge")!==-1)J=R(z);else J=z.toString();q.clipboardData.setData("text/plain",J),q.preventDefault()}});function B(){var q=K.createElement("style");q.type="text/css",q.innerHTML=X(".{0}{border-collapse:collapse}.{0} td{padding:0}.{1}:before{content:attr({2})}",["hljs-ln","hljs-ln-n","data-line-number"]),K.getElementsByTagName("head")[0].appendChild(q)}function V(q){if(K.readyState==="interactive"||K.readyState==="complete")_(q);else W.addEventListener("DOMContentLoaded",function(){_(q)})}function _(q){try{var z=K.querySelectorAll("code.hljs,code.nohighlight");for(var J in z)if(z.hasOwnProperty(J)){if(!v(z[J]))y(z[J],q)}}catch(Q){W.console.error("LineNumbers error: ",Q)}}function v(q){return q.classList.contains("nohljsln")}function y(q,z){if(typeof q!=="object")return;N(function(){q.innerHTML=C(q,z)})}function A(q,z){if(typeof q!=="object")return;q.innerHTML=C(q,z)}function S(q,z){if(typeof q!=="string")return;var J=document.createElement("code");return J.innerHTML=q,C(J,z)}function C(q,z){var J=g(q,z);return I(q),F(q.innerHTML,J)}function F(q,z){var J=j(q);if(J[J.length-1].trim()==="")J.pop();if(J.length>1||z.singleLine){var Q="";for(var U=0,Y=J.length;U<Y;U++)Q+=X('<tr class="{0}"><td class="{0} {1}" {3}="{5}"><div class="{2}" {3}="{5}"></div></td><td class="{0} {4}" {3}="{5}">{6}</td></tr>',["hljs-ln-line","hljs-ln-numbers","hljs-ln-n","data-line-number","hljs-ln-code",U+z.startFrom,J[U].length>0?J[U]:" "]);return X('<table class="{0}">{1}</table>',["hljs-ln",Q])}return q}function g(q,z){return z=z||{},{singleLine:w(z),startFrom:k(q,z)}}function w(q){var z=!1;if(q.singleLine)return q.singleLine;return z}function k(q,z){var J=1,Q=J;if(isFinite(z.startFrom))Q=z.startFrom;var U=f(q,"data-ln-start-from");if(U!==null)Q=T(U,J);return Q}function I(q){var z=q.childNodes;for(var J in z)if(z.hasOwnProperty(J)){var Q=z[J];if(E(Q.textContent)>0)if(Q.childNodes.length>0)I(Q);else h(Q.parentNode)}}function h(q){var z=q.className;if(!/hljs-/.test(z))return;var J=j(q.innerHTML);for(var Q=0,U="";Q<J.length;Q++){var Y=J[Q].length>0?J[Q]:" ";U+=X(`<span class="{0}">{1}</span>
-`,[z,Y])}q.innerHTML=U.trim()}function j(q){if(q.length===0)return[];return q.split(P)}function E(q){return(q.trim().match(P)||[]).length}function N(q){W.setTimeout(q,0)}function X(q,z){return q.replace(/\{(\d+)\}/g,function(J,Q){return z[Q]!==void 0?z[Q]:J})}function f(q,z){return q.hasAttribute(z)?q.getAttribute(z):null}function T(q,z){if(!q)return z;var J=Number(q);return isFinite(J)?J:z}})(window,document);
- });
-</script>
-<style>
-.hljs-ln-n{-webkit-touch-callout:none;-webkit-user-select:none;-khtml-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;text-align:right;color:#ccc;vertical-align:top;border-right:1px solid #ccc;padding:0 5px 0 0}table.hljs-ln{margin:0}td.hljs-ln-code{padding:0 0 0 5px}td.hljs-ln-line{border:none}table tbody tr.hljs-ln-line{background-color:inherit}
+<h3 data-numbering="3.1.3." id="313-headings"><a class="header" href="#313-headings"><span class="heading numbering">3.1.3. </span>Headings</a></h3>
+<h4 data-numbering="3.1.3.1." id="3131-example-heading"><a class="header" href="#3131-example-heading"><span class="heading numbering">3.1.3.1. </span>Example Heading</a></h4>
+<pre><code class="language-md">#### Example Heading
+</code></pre>
+<h3 data-numbering="3.1.4." id="314-links"><a class="header" href="#314-links"><span class="heading numbering">3.1.4. </span>Links</a></h3>
+<p>This section demonstrates that the numbering plugin works correctly with <a href="https://rust-lang.github.io/mdBook/format/markdown.html#links">links</a>.</p>
+<h3 data-numbering="3.1.5." id="315-images"><a class="header" href="#315-images"><span class="heading numbering">3.1.5. </span>Images</a></h3>
+<p>This section demonstrates that the numbering plugin works correctly with <a href="https://rust-lang.github.io/mdBook/format/markdown.html#images">images</a>.</p>
+<p><img src="red-dot.png" alt="A red dot"></p>
+<pre><code class="language-md">![A red dot](./red-dot.png)
+</code></pre>
+<h3 data-numbering="3.1.6." id="316-extensions"><a class="header" href="#316-extensions"><span class="heading numbering">3.1.6. </span>Extensions</a></h3>
+<h4 data-numbering="3.1.6.1." id="3161-strikethrough"><a class="header" href="#3161-strikethrough"><span class="heading numbering">3.1.6.1. </span>Strikethrough</a></h4>
+<p>This section demonstrates that the numbering plugin works <del>badly</del> correctly with <a href="https://rust-lang.github.io/mdBook/format/markdown.html#strikethrough">strikethrough</a> syntax.</p>
+<p>An example of <del>strikethrough text</del>.</p>
+<pre><code class="language-md">An example of ~~strikethrough text~~.
+</code></pre>
+<h4 data-numbering="3.1.6.2." id="3162-footnotes"><a class="header" href="#3162-footnotes"><span class="heading numbering">3.1.6.2. </span>Footnotes</a></h4>
+<p>This section demonstrates that the numbering plugin works correctly with <a href="https://rust-lang.github.io/mdBook/format/markdown.html#footnotes">footnotes</a>.</p>
+<p>This is an example of a footnote<sup class="footnote-reference" id="fr-note-1"><a href="#footnote-note">1</a></sup>.</p>
+<pre><code class="language-md">This is an example of a footnote[^note].
 
-</style>
-<div style="break-before: page; page-break-before: always;"></div>
-<h1 id="tables-1"><a href="#tables-1" class="header">Tables</a></h1>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
-<h2 data-numbering="3.3." id="tables"><a class="header" href="#tables">Tables</a></h2>
+[^note]:
+    This text is the contents of the footnote, which will be rendered
+    towards the bottom.
+</code></pre>
+<h4 data-numbering="3.1.6.3." id="3163-tables"><a class="header" href="#3163-tables"><span class="heading numbering">3.1.6.3. </span>Tables</a></h4>
+<p>This section demonstrates that the numbering plugin works correctly with <a href="https://rust-lang.github.io/mdBook/format/markdown.html#tables">tables</a>.</p>
 <div class="table-wrapper">
 <table>
 <thead>
@@ -397,7 +404,143 @@ window.addEventListener('DOMContentLoaded', function() { (function(W,K){let P=/\
 | Cell 1   | Cell 2   |
 | Cell 3   | Cell 4   |
 </code></pre>
-<style>h1:before,h2:before,h3:before,h4:before,h5:before,h6:before{content:attr(data-numbering)" "}
+<h4 data-numbering="3.1.6.4." id="3164-task-lists"><a class="header" href="#3164-task-lists"><span class="heading numbering">3.1.6.4. </span>Task Lists</a></h4>
+<p>This section demonstrates that the numbering plugin works correctly with <a href="https://rust-lang.github.io/mdBook/format/markdown.html#task-lists">task lists</a>.</p>
+<ul>
+<li><input disabled="" type="checkbox" checked=""> Task 1</li>
+<li><input disabled="" type="checkbox"> Task 2</li>
+</ul>
+<pre><code class="language-md">- [x] Task 1
+- [ ] Task 2
+</code></pre>
+<h4 data-numbering="3.1.6.5." id="3165-smart-punctuation"><a class="header" href="#3165-smart-punctuation"><span class="heading numbering">3.1.6.5. </span>Smart Punctuation</a></h4>
+<p>This section demonstrates that the numbering plugin works correctly with <a href="https://rust-lang.github.io/mdBook/format/markdown.html#smart-punctuation">smart punctuation</a>.</p>
+<p>“Smart” quotes and dashes — are they rendered correctly?</p>
+<pre><code class="language-md">"Smart" quotes and dashes — are they rendered correctly?
+</code></pre>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th style="text-align: center">ASCII sequence</th><th style="text-align: center">Unicode</th></tr>
+</thead>
+<tbody>
+<tr><td style="text-align: center"><code>--</code></td><td style="text-align: center">–</td></tr>
+<tr><td style="text-align: center"><code>---</code></td><td style="text-align: center">—</td></tr>
+<tr><td style="text-align: center"><code>...</code></td><td style="text-align: center">…</td></tr>
+<tr><td style="text-align: center"><code>"</code></td><td style="text-align: center">“ or ”, depending on context</td></tr>
+<tr><td style="text-align: center"><code>'</code></td><td style="text-align: center">‘ or ’, depending on context</td></tr>
+</tbody>
+</table>
+</div>
+<h4 data-numbering="3.1.6.6." id="3166-heading-attributes"><a class="header" href="#3166-heading-attributes"><span class="heading numbering">3.1.6.6. </span>Heading Attributes</a></h4>
+<p>This section demonstrates that the numbering plugin works correctly with <a href="https://rust-lang.github.io/mdBook/format/markdown.html#heading-attributes">heading attributes</a>.<sup class="footnote-reference" id="fr-heading-attrbutes-1"><a href="#footnote-heading-attrbutes">2</a></sup></p>
+<h5 data-numbering="3.1.6.6.1." id="first" class="class1 class2"><a class="header" href="#first"><span class="heading numbering">3.1.6.6.1. </span>Example heading 1</a></h5>
+<h5 data-numbering="3.1.6.6.2." id="31662-example-heading-2"><a class="header" href="#31662-example-heading-2"><span class="heading numbering">3.1.6.6.2. </span>Example heading 2</a></h5>
+<pre><code class="language-md">##### Example heading 1 { #first .class1 .class2 }
+
+##### Example heading 2 { data-numbering=custom }
+</code></pre>
+<h4 data-numbering="3.1.6.7." id="3167-definition-lists"><a class="header" href="#3167-definition-lists"><span class="heading numbering">3.1.6.7. </span>Definition Lists</a></h4>
+<p>This section demonstrates the compatibility of <a href="https://rust-lang.github.io/mdBook/format/markdown.html#definition-lists">definition lists</a> with the heading numbering plugin.</p>
+<dl>
+<dt id="term-1"><a class="header" href="#term-1">Term 1</a></dt>
+<dd>Definition for term 1.
+Term 2</dd>
+<dd>Definition for term 2.</dd>
+</dl>
+<pre><code class="language-md">Term 1
+: Definition for term 1.
+Term 2
+: Definition for term 2.
+</code></pre>
+<h4 data-numbering="3.1.6.8." id="3168-admonitions"><a class="header" href="#3168-admonitions"><span class="heading numbering">3.1.6.8. </span>Admonitions</a></h4>
+<p>This section demonstrates that the numbering plugin works correctly within <a href="https://rust-lang.github.io/mdBook/format/markdown.html#admonitions">admonitions</a><sup class="footnote-reference" id="fr-1-1"><a href="#footnote-1">3</a></sup> <sup class="footnote-reference" id="fr-2-1"><a href="#footnote-2">4</a></sup>.</p>
+<blockquote class="blockquote-tag blockquote-tag-warning">
+<p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0 1 14.082 15H1.918a1.75 1.75 0 0 1-1.543-2.575Zm1.763.707a.25.25 0 0 0-.44 0L1.698 13.132a.25.25 0 0 0 .22.368h12.164a.25.25 0 0 0 .22-.368Zm.53 3.996v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"></path></svg>Warning</p>
+<p>This section demonstrates that the numbering plugin works correctly within alert blocks.</p>
+</blockquote>
+<pre><code class="language-md">&gt; [!WARNING]
+&gt; This section demonstrates that the numbering plugin works correctly within alert blocks.
+</code></pre>
+<p>And here are other types of admonitions:</p>
+<blockquote class="blockquote-tag blockquote-tag-note">
+<p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Note</p>
+<p>General information or additional context.</p>
+</blockquote>
+<blockquote class="blockquote-tag blockquote-tag-tip">
+<p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M8 1.5c-2.363 0-4 1.69-4 3.75 0 .984.424 1.625.984 2.304l.214.253c.223.264.47.556.673.848.284.411.537.896.621 1.49a.75.75 0 0 1-1.484.211c-.04-.282-.163-.547-.37-.847a8.456 8.456 0 0 0-.542-.68c-.084-.1-.173-.205-.268-.32C3.201 7.75 2.5 6.766 2.5 5.25 2.5 2.31 4.863 0 8 0s5.5 2.31 5.5 5.25c0 1.516-.701 2.5-1.328 3.259-.095.115-.184.22-.268.319-.207.245-.383.453-.541.681-.208.3-.33.565-.37.847a.751.751 0 0 1-1.485-.212c.084-.593.337-1.078.621-1.489.203-.292.45-.584.673-.848.075-.088.147-.173.213-.253.561-.679.985-1.32.985-2.304 0-2.06-1.637-3.75-4-3.75ZM5.75 12h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5ZM6 15.25a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 0 1.5h-2.5a.75.75 0 0 1-.75-.75Z"></path></svg>Tip</p>
+<p>A helpful suggestion or best practice.</p>
+</blockquote>
+<blockquote class="blockquote-tag blockquote-tag-important">
+<p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M0 1.75C0 .784.784 0 1.75 0h12.5C15.216 0 16 .784 16 1.75v9.5A1.75 1.75 0 0 1 14.25 13H8.06l-2.573 2.573A1.458 1.458 0 0 1 3 14.543V13H1.75A1.75 1.75 0 0 1 0 11.25Zm1.75-.25a.25.25 0 0 0-.25.25v9.5c0 .138.112.25.25.25h2a.75.75 0 0 1 .75.75v2.19l2.72-2.72a.749.749 0 0 1 .53-.22h6.5a.25.25 0 0 0 .25-.25v-9.5a.25.25 0 0 0-.25-.25Zm7 2.25v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 9a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"></path></svg>Important</p>
+<p>Key information that shouldn’t be missed.</p>
+</blockquote>
+<blockquote class="blockquote-tag blockquote-tag-warning">
+<p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0 1 14.082 15H1.918a1.75 1.75 0 0 1-1.543-2.575Zm1.763.707a.25.25 0 0 0-.44 0L1.698 13.132a.25.25 0 0 0 .22.368h12.164a.25.25 0 0 0 .22-.368Zm.53 3.996v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"></path></svg>Warning</p>
+<p>Critical information that highlights a potential risk.</p>
+</blockquote>
+<blockquote class="blockquote-tag blockquote-tag-caution">
+<p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M4.47.22A.749.749 0 0 1 5 0h6c.199 0 .389.079.53.22l4.25 4.25c.141.14.22.331.22.53v6a.749.749 0 0 1-.22.53l-4.25 4.25A.749.749 0 0 1 11 16H5a.749.749 0 0 1-.53-.22L.22 11.53A.749.749 0 0 1 0 11V5c0-.199.079-.389.22-.53Zm.84 1.28L1.5 5.31v5.38l3.81 3.81h5.38l3.81-3.81V5.31L10.69 1.5ZM8 4a.75.75 0 0 1 .75.75v3.5a.75.75 0 0 1-1.5 0v-3.5A.75.75 0 0 1 8 4Zm0 8a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Caution</p>
+<p>Information about potential issues that require caution.</p>
+</blockquote>
+<pre><code class="language-md">&gt; [!NOTE]
+&gt; General information or additional context.
+
+&gt; [!TIP]
+&gt; A helpful suggestion or best practice.
+
+&gt; [!IMPORTANT]
+&gt; Key information that shouldn't be missed.
+
+&gt; [!WARNING]
+&gt; Critical information that highlights a potential risk.
+
+&gt; [!CAUTION]
+&gt; Information about potential issues that require caution.
+</code></pre>
+<style>span.heading.numbering{user-select:none;-webkit-user-select:none;cursor:default}
+</style>
+<style>@media print{h1:not([data-numbering]),h2:not([data-numbering]),h3:not([data-numbering]),h4:not([data-numbering]),h5:not([data-numbering]),h6:not([data-numbering]){display:none}}
+</style>
+<script defer="">
+window.addEventListener('DOMContentLoaded', function() { (function(W,K){let P=/\r\n|\r|\n/g;if(W.hljs)W.hljs.initLineNumbersOnLoad=V,W.hljs.lineNumbersBlock=y,W.hljs.lineNumbersBlockSync=A,W.hljs.lineNumbersValue=S,B(),V();else W.console.error("highlight.js not detected!");function H(q){var z=q;while(z){if(z.className&&z.className.indexOf("hljs-ln-code")!==-1)return!0;z=z.parentNode}return!1}function O(q){var z=q;while(z.nodeName!=="TABLE")z=z.parentNode;return z}function R(q){var z=q.toString(),J=q.anchorNode;while(J.nodeName!=="TD")J=J.parentNode;var Q=q.focusNode;while(Q.nodeName!=="TD")Q=Q.parentNode;var U=parseInt(J.dataset.lineNumber),Y=parseInt(Q.dataset.lineNumber);if(U!=Y){var Z=J.textContent,$=Q.textContent;if(U>Y){var G=U;U=Y,Y=G,G=Z,Z=$,$=G}while(z.indexOf(Z)!==0)Z=Z.slice(1);while(z.lastIndexOf($)===-1)$=$.slice(0,-1);var M=Z,b=O(J);for(var D=U+1;D<Y;++D){var x=X('.{0}[{1}="{2}"]',["hljs-ln-code","data-line-number",D]),p=b.querySelector(x);M+=`
+`+p.textContent}return M+=`
+`+$,M}else return z}document.addEventListener("copy",function(q){var z=window.getSelection();if(H(z.anchorNode)){var J;if(window.navigator.userAgent.indexOf("Edge")!==-1)J=R(z);else J=z.toString();q.clipboardData.setData("text/plain",J),q.preventDefault()}});function B(){var q=K.createElement("style");q.type="text/css",q.innerHTML=X(".{0}{border-collapse:collapse}.{0} td{padding:0}.{1}:before{content:attr({2})}",["hljs-ln","hljs-ln-n","data-line-number"]),K.getElementsByTagName("head")[0].appendChild(q)}function V(q){if(K.readyState==="interactive"||K.readyState==="complete")_(q);else W.addEventListener("DOMContentLoaded",function(){_(q)})}function _(q){try{var z=K.querySelectorAll("code.hljs,code.nohighlight");for(var J in z)if(z.hasOwnProperty(J)){if(!v(z[J]))y(z[J],q)}}catch(Q){W.console.error("LineNumbers error: ",Q)}}function v(q){return q.classList.contains("nohljsln")}function y(q,z){if(typeof q!=="object")return;N(function(){q.innerHTML=C(q,z)})}function A(q,z){if(typeof q!=="object")return;q.innerHTML=C(q,z)}function S(q,z){if(typeof q!=="string")return;var J=document.createElement("code");return J.innerHTML=q,C(J,z)}function C(q,z){var J=g(q,z);return I(q),F(q.innerHTML,J)}function F(q,z){var J=j(q);if(J[J.length-1].trim()==="")J.pop();if(J.length>1||z.singleLine){var Q="";for(var U=0,Y=J.length;U<Y;U++)Q+=X('<tr class="{0}"><td class="{0} {1}" {3}="{5}"><div class="{2}" {3}="{5}"></div></td><td class="{0} {4}" {3}="{5}">{6}</td></tr>',["hljs-ln-line","hljs-ln-numbers","hljs-ln-n","data-line-number","hljs-ln-code",U+z.startFrom,J[U].length>0?J[U]:" "]);return X('<table class="{0}">{1}</table>',["hljs-ln",Q])}return q}function g(q,z){return z=z||{},{singleLine:w(z),startFrom:k(q,z)}}function w(q){var z=!1;if(q.singleLine)return q.singleLine;return z}function k(q,z){var J=1,Q=J;if(isFinite(z.startFrom))Q=z.startFrom;var U=f(q,"data-ln-start-from");if(U!==null)Q=T(U,J);return Q}function I(q){var z=q.childNodes;for(var J in z)if(z.hasOwnProperty(J)){var Q=z[J];if(E(Q.textContent)>0)if(Q.childNodes.length>0)I(Q);else h(Q.parentNode)}}function h(q){var z=q.className;if(!/hljs-/.test(z))return;var J=j(q.innerHTML);for(var Q=0,U="";Q<J.length;Q++){var Y=J[Q].length>0?J[Q]:" ";U+=X(`<span class="{0}">{1}</span>
+`,[z,Y])}q.innerHTML=U.trim()}function j(q){if(q.length===0)return[];return q.split(P)}function E(q){return(q.trim().match(P)||[]).length}function N(q){W.setTimeout(q,0)}function X(q,z){return q.replace(/\{(\d+)\}/g,function(J,Q){return z[Q]!==void 0?z[Q]:J})}function f(q,z){return q.hasAttribute(z)?q.getAttribute(z):null}function T(q,z){if(!q)return z;var J=Number(q);return isFinite(J)?J:z}})(window,document);
+ });
+</script>
+<style>
+.hljs-ln-n{-webkit-touch-callout:none;-webkit-user-select:none;-khtml-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;text-align:right;color:#ccc;vertical-align:top;border-right:1px solid #ccc;padding:0 5px 0 0}table.hljs-ln{margin:0}td.hljs-ln-code{padding:0 0 0 5px}td.hljs-ln-line{border:none}table tbody tr.hljs-ln-line{background-color:inherit}
+
+</style>
+<hr>
+<ol class="footnote-definition">
+<li id="footnote-note">
+<p>This text is the contents of the footnote, which will be rendered
+towards the bottom. <a href="#fr-note-1">↩</a></p>
+</li>
+<li id="footnote-heading-attrbutes">
+<p><code>mdbook-numbering</code> is using this feature to store the numbering data in the <code>data-numbering</code> attribute. <a href="#fr-heading-attrbutes-1">↩</a></p>
+</li>
+<li id="footnote-1">
+<p>Also known as <a href="https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax#alerts">GFM-style alerts</a>. <a href="#fr-1-1">↩</a></p>
+</li>
+<li id="footnote-2">
+<p>In mdbook 0.4.0+, this is handled by <a href="https://crates.io/crates/mdbook-alerts">mdbook-alerts</a>. And <code>mdbook-numbering@&lt;=0.2</code> is compatible with it. <a href="#fr-2-1">↩</a></p>
+</li>
+</ol>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="katex"><a href="#katex" class="header">KaTeX</a></h1>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
+<h2 data-numbering="3.2." id="32-compatibility-with-katex"><a class="header" href="#32-compatibility-with-katex"><span class="heading numbering">3.2. </span>Compatibility with KaTeX</a></h2>
+<p>This section demonstrates that the numbering plugin works correctly with the <a href="https://crates.io/crates/mdbook-katex/0.10.0-alpha">katex</a> preprocessor.</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:3.8315em;vertical-align:-1.6658em;"></span><span class="mtable"><span class="col-align-r"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.1658em;"><span style="top:-4.6231em;"><span class="pstrut" style="height:3.3214em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.05764em;">E</span></span></span><span style="top:-2.6417em;"><span class="pstrut" style="height:3.3214em;"></span><span class="mord"><span class="mord mathcal">L</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.6658em;"><span></span></span></span></span></span><span class="col-align-l"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.1658em;"><span style="top:-4.6231em;"><span class="pstrut" style="height:3.3214em;"></span><span class="mord"><span class="mord"></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mord mathnormal">m</span><span class="mord"><span class="mord mathnormal">c</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8641em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span><span style="top:-2.6417em;"><span class="pstrut" style="height:3.3214em;"></span><span class="mord"><span class="mord"></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.3214em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">2</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mord mathnormal">m</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">v</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8641em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord mathnormal" style="margin-right:0.22222em;">V</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.6658em;"><span></span></span></span></span></span></span></span><span class="tag"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.1658em;"><span style="top:-4.6231em;"><span class="pstrut" style="height:3.3214em;"></span><span class="eqn-num"></span></span><span style="top:-2.6417em;"><span class="pstrut" style="height:3.3214em;"></span><span class="eqn-num"></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.6658em;"><span></span></span></span></span></span></span></span></span></p>
+<pre><code class="language-latex">\begin{align}
+              E &amp; = mc^2 \\
+    \mathcal{L} &amp; = \frac{1}{2} m v^2 - V(x) \\
+\end{align}
+</code></pre>
+<style>span.heading.numbering{user-select:none;-webkit-user-select:none;cursor:default}
 </style>
 <style>@media print{h1:not([data-numbering]),h2:not([data-numbering]),h3:not([data-numbering]),h4:not([data-numbering]),h5:not([data-numbering]),h6:not([data-numbering]){display:none}}
 </style>
@@ -413,10 +556,10 @@ window.addEventListener('DOMContentLoaded', function() { (function(W,K){let P=/\
 
 </style>
 <div style="break-before: page; page-break-before: always;"></div>
-<h1 id="nested-chapters-1"><a href="#nested-chapters-1" class="header">Nested Chapters</a></h1>
+<h1 id="nested-chapters"><a href="#nested-chapters" class="header">Nested Chapters</a></h1>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
-<h2 data-numbering="3.4." id="nested-chapters"><a class="header" href="#nested-chapters">Nested Chapters</a></h2>
-<style>h1:before,h2:before,h3:before,h4:before,h5:before,h6:before{content:attr(data-numbering)" "}
+<h2 data-numbering="3.3." id="33-nested-chapters"><a class="header" href="#33-nested-chapters"><span class="heading numbering">3.3. </span>Nested Chapters</a></h2>
+<style>span.heading.numbering{user-select:none;-webkit-user-select:none;cursor:default}
 </style>
 <style>@media print{h1:not([data-numbering]),h2:not([data-numbering]),h3:not([data-numbering]),h4:not([data-numbering]),h5:not([data-numbering]),h6:not([data-numbering]){display:none}}
 </style>
@@ -432,10 +575,10 @@ window.addEventListener('DOMContentLoaded', function() { (function(W,K){let P=/\
 
 </style>
 <div style="break-before: page; page-break-before: always;"></div>
-<h1 id="nested-nested-chapter-1"><a href="#nested-nested-chapter-1" class="header">Nested Nested Chapter</a></h1>
+<h1 id="nested-nested-chapter"><a href="#nested-nested-chapter" class="header">Nested Nested Chapter</a></h1>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
-<h3 data-numbering="3.4.1." id="nested-nested-chapter"><a class="header" href="#nested-nested-chapter">Nested Nested Chapter</a></h3>
-<style>h1:before,h2:before,h3:before,h4:before,h5:before,h6:before{content:attr(data-numbering)" "}
+<h3 data-numbering="3.3.1." id="331-nested-nested-chapter"><a class="header" href="#331-nested-nested-chapter"><span class="heading numbering">3.3.1. </span>Nested Nested Chapter</a></h3>
+<style>span.heading.numbering{user-select:none;-webkit-user-select:none;cursor:default}
 </style>
 <style>@media print{h1:not([data-numbering]),h2:not([data-numbering]),h3:not([data-numbering]),h4:not([data-numbering]),h5:not([data-numbering]),h6:not([data-numbering]){display:none}}
 </style>
@@ -451,10 +594,10 @@ window.addEventListener('DOMContentLoaded', function() { (function(W,K){let P=/\
 
 </style>
 <div style="break-before: page; page-break-before: always;"></div>
-<h1 id="draft-chapters-1"><a href="#draft-chapters-1" class="header">Draft Chapters</a></h1>
+<h1 id="draft-chapters"><a href="#draft-chapters" class="header">Draft Chapters</a></h1>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
-<h2 data-numbering="3.5." id="draft-chapters"><a class="header" href="#draft-chapters">Draft Chapters</a></h2>
-<style>h1:before,h2:before,h3:before,h4:before,h5:before,h6:before{content:attr(data-numbering)" "}
+<h2 data-numbering="3.4." id="34-draft-chapters"><a class="header" href="#34-draft-chapters"><span class="heading numbering">3.4. </span>Draft Chapters</a></h2>
+<style>span.heading.numbering{user-select:none;-webkit-user-select:none;cursor:default}
 </style>
 <style>@media print{h1:not([data-numbering]),h2:not([data-numbering]),h3:not([data-numbering]),h4:not([data-numbering]),h5:not([data-numbering]),h6:not([data-numbering]){display:none}}
 </style>
@@ -540,7 +683,9 @@ window.addEventListener('DOMContentLoaded', function() { (function(W,K){let P=/\
 
         <script>
         window.addEventListener('load', function() {
-            window.setTimeout(window.print, 100);
+            MathJax.Hub.Register.StartupHook('End', function() {
+                window.setTimeout(window.print, 100);
+            });
         });
         </script>
 
