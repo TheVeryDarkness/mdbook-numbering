@@ -49,10 +49,10 @@ This section demonstrates that the numbering plugin works correctly with [links]
 
 This section demonstrates that the numbering plugin works correctly with [images](https://rust-lang.github.io/mdBook/format/markdown.html#images).
 
-![Rust Logo](https://www.rust-lang.org/logos/rust-logo-512x512.png)
+![A red dot](./red-dot.png)
 
 ```md
-![Rust Logo](https://www.rust-lang.org/logos/rust-logo-512x512.png)
+![A red dot](./red-dot.png)
 ```
 
 ### Extensions
