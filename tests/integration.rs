@@ -8,7 +8,48 @@ use mdbook_numbering::NumberingPreprocessor;
 use mdbook_preprocessor::book::{Book, BookItem, Chapter};
 use mdbook_preprocessor::config::Config;
 use mdbook_preprocessor::{Preprocessor, PreprocessorContext};
-use text_diff::assert_diff;
+
+use prettydiff::basic::DiffOp;
+use prettydiff::diff_lines;
+use prettydiff::owo_colors::OwoColorize as _;
+
+#[track_caller]
+fn assert_string_eq(actual: &str, expected: &str) {
+    let diff = diff_lines(actual, expected);
+    let diff = diff.set_trim_new_lines(false);
+    let diff = diff.diff();
+
+    for diff in diff {
+        match diff {
+            DiffOp::Equal(a) => {
+                for i in a.iter() {
+                    println!("    {}", i);
+                }
+            }
+            DiffOp::Insert(b) => {
+                for i in b.iter() {
+                    println!("{}   {}", '+'.bright_green(), i.bright_green());
+                }
+            }
+            DiffOp::Remove(a) => {
+                for i in a.iter() {
+                    println!("{}   {}", '-'.bright_red(), i.bright_red());
+                }
+            }
+            DiffOp::Replace(a, b) => {
+                for i in a.iter() {
+                    println!("{}   {}", '-'.bright_red(), i.bright_red());
+                }
+                for i in b.iter() {
+                    println!("{}   {}", '+'.bright_green(), i.bright_green());
+                }
+            }
+        }
+    }
+    if actual != expected {
+        panic!("{actual}")
+    }
+}
 
 fn run(ctx: &PreprocessorContext, book: Book, expected_stderr: &str) -> Book {
     let process = Command::new("cargo")
@@ -26,11 +67,12 @@ fn run(ctx: &PreprocessorContext, book: Book, expected_stderr: &str) -> Book {
     .unwrap();
     let output = process.wait_with_output().unwrap();
     let stderr = String::from_utf8_lossy(&output.stderr);
-    assert_diff(&stderr, expected_stderr, "\n", 0);
+    assert_string_eq(&stderr, expected_stderr);
     serde_json::from_slice(&output.stdout).unwrap()
 }
 
-fn assert_book_equal(expected: &Book, actual: &Book) {
+#[track_caller]
+fn assert_book_equal(actual: &Book, expected: &Book) {
     assert_eq!(
         expected.items.len(),
         actual.items.len(),
@@ -44,11 +86,11 @@ fn assert_book_equal(expected: &Book, actual: &Book) {
                     "Chapter name mismatch at index {}",
                     i
                 );
-                assert_diff(&act_ch.content, &exp_ch.content, "\n", 0);
+                assert_string_eq(&act_ch.content, &exp_ch.content);
             }
             (BookItem::Separator, BookItem::Separator) => {}
             (BookItem::PartTitle(exp_title), BookItem::PartTitle(act_title)) => {
-                assert_diff(act_title, exp_title, "\n", 0);
+                assert_string_eq(act_title, exp_title);
             }
             _ => panic!("Mismatched book item types at index {}", i),
         }
@@ -85,7 +127,7 @@ fn full_featured() {
         ],
     };
     let preprocessed = run(&ctx, book.clone(), "");
-    assert_book_equal(&book, &preprocessed);
+    assert_book_equal(&preprocessed, &book);
 
     let book = Book {
         items: vec![
@@ -114,7 +156,7 @@ fn full_featured() {
             BookItem::PartTitle("Title 1".to_string()),
         ],
     };
-    assert_book_equal(&expected, &preprocessed);
+    assert_book_equal(&preprocessed, &expected);
 }
 
 #[test]
@@ -157,7 +199,7 @@ fn chapter() {
             BookItem::PartTitle("Title 1".to_string()),
         ],
     };
-    assert_book_equal(&expected, &preprocessed);
+    assert_book_equal(&preprocessed, &expected);
 
     let book = Book {
         items: vec![
@@ -186,7 +228,7 @@ fn chapter() {
             BookItem::PartTitle("Title 1".to_string()),
         ],
     };
-    assert_book_equal(&expected, &preprocessed);
+    assert_book_equal(&preprocessed, &expected);
 }
 
 #[test]
@@ -235,7 +277,7 @@ enable = false
             BookItem::PartTitle("Title 1".to_string()),
         ],
     };
-    assert_book_equal(&expected, &preprocessed);
+    assert_book_equal(&preprocessed, &expected);
 }
 
 #[test]
@@ -287,7 +329,7 @@ Failed to deserialize `preprocessor.numbering`
             BookItem::PartTitle("Title 1".to_string()),
         ],
     };
-    assert_book_equal(&expected, &preprocessed);
+    assert_book_equal(&preprocessed, &expected);
 }
 
 #[test]
@@ -340,7 +382,7 @@ Failed to deserialize `preprocessor.numbering`
             BookItem::PartTitle("Title 1".to_string()),
         ],
     };
-    assert_book_equal(&expected, &preprocessed);
+    assert_book_equal(&preprocessed, &expected);
 }
 
 #[test]
@@ -385,7 +427,7 @@ fn not_numbered() {
             BookItem::PartTitle("Title 1".to_string()),
         ],
     };
-    assert_book_equal(&expected, &preprocessed);
+    assert_book_equal(&preprocessed, &expected);
 }
 
 #[test]

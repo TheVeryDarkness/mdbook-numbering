@@ -1,10 +1,64 @@
 use mdbook_preprocessor::book::{BookItem, Chapter, SectionNumber};
+use prettydiff::{basic::DiffOp, diff_lines, owo_colors::OwoColorize};
 
 use crate::{CodeConfig, HeadingConfig, NumberingConfig, NumberingPreprocessor, NumberingStyle};
 
 #[track_caller]
 fn panic_on_error(err: mdbook_preprocessor::errors::Error) {
     panic!("{err}");
+}
+
+fn assert_string_eq(actual: &str, expected: &str) {
+    let diff = diff_lines(actual, expected);
+    let diff = diff.set_trim_new_lines(false);
+    let diff = diff.diff();
+
+    for diff in diff {
+        match diff {
+            DiffOp::Equal(a) => {
+                for i in a.iter() {
+                    println!("    {}", i);
+                }
+            }
+            DiffOp::Insert(b) => {
+                for i in b.iter() {
+                    println!("{}   {}", '+'.bright_green(), i.bright_green());
+                }
+            }
+            DiffOp::Remove(a) => {
+                for i in a.iter() {
+                    println!("{}   {}", '-'.bright_red(), i.bright_red());
+                }
+            }
+            DiffOp::Replace(a, b) => {
+                for i in a.iter() {
+                    println!("{}   {}", '-'.bright_red(), i.bright_red());
+                }
+                for i in b.iter() {
+                    println!("{}   {}", '+'.bright_green(), i.bright_green());
+                }
+            }
+        }
+    }
+    assert_eq!(actual, expected);
+}
+
+fn assert_chapter_eq(left: &Chapter, right: &Chapter) {
+    assert_eq!(left.name, right.name);
+    assert_string_eq(&left.content, &right.content);
+    assert_eq!(left.number, right.number);
+    assert_eq!(left.path, right.path);
+    assert_eq!(left.sub_items.len(), right.sub_items.len());
+    for (l, r) in left.sub_items.iter().zip(right.sub_items.iter()) {
+        assert_book_item_eq(l, r);
+    }
+}
+
+fn assert_book_item_eq(left: &BookItem, right: &BookItem) {
+    match (left, right) {
+        (BookItem::Chapter(lc), BookItem::Chapter(rc)) => assert_chapter_eq(lc, rc),
+        _ => panic!("Mismatched BookItem variants"),
+    }
 }
 
 #[test]
@@ -61,9 +115,9 @@ fn complex_title() {
         panic_on_error,
     );
 
-    assert_eq!(
-        item,
-        BookItem::Chapter(Chapter {
+    assert_book_item_eq(
+        &item,
+        &BookItem::Chapter(Chapter {
             name: "Complex Title".to_string(),
             content: "# Complex Title with Inline Code `let x = 10;` and Inline Formulas $E=mc^2$"
                 .to_string(),
@@ -96,7 +150,7 @@ fn disabled() {
         panic_on_error,
     );
 
-    assert_eq!(item, BookItem::Chapter(chapter));
+    assert_book_item_eq(&item, &BookItem::Chapter(chapter));
 }
 
 #[test]
@@ -122,9 +176,9 @@ fn draft() {
         panic_on_error,
     );
 
-    assert_eq!(
-        item,
-        BookItem::Chapter(Chapter {
+    assert_book_item_eq(
+        &item,
+        &BookItem::Chapter(Chapter {
             name: "Chapter 1".to_string(),
             content: "# Heading 1\n\nSome content.".to_string(),
             number: Some(SectionNumber::new(vec![1])),
@@ -161,15 +215,18 @@ Some content."
         panic_on_error,
     );
 
-    assert_eq!(
-        item,
-        BookItem::Chapter(Chapter {
+    assert_book_item_eq(
+        &item,
+        &BookItem::Chapter(Chapter {
             name: "Chapter 1".to_string(),
-            content: "\
-# 1. Heading 1
+            content: r#"# Heading 1 { data-numbering=1. }
 
-Some content."
-                .to_string(),
+Some content.
+
+<style>h1:before,h2:before,h3:before,h4:before,h5:before,h6:before{content:attr(data-numbering)" "}
+</style>
+"#
+            .to_string(),
             number: Some(SectionNumber::new(vec![1])),
             path: Some("chapter_1.md".into()),
             ..Default::default()
@@ -212,21 +269,24 @@ More content.
         panic_on_error,
     );
 
-    assert_eq!(
-        item,
-        BookItem::Chapter(Chapter {
+    assert_book_item_eq(
+        &item,
+        &BookItem::Chapter(Chapter {
             name: "Chapter 1".to_string(),
-            content: "\
-# 1. Heading 1
+            content: r#"# Heading 1 { data-numbering=1. }
 
-## 1.1. Heading 2
+## Heading 2 { data-numbering=1.1. }
 
 Some content.
 
-## 1.2. Heading 3
+## Heading 3 { data-numbering=1.2. }
 
-More content."
-                .to_string(),
+More content.
+
+<style>h1:before,h2:before,h3:before,h4:before,h5:before,h6:before{content:attr(data-numbering)" "}
+</style>
+"#
+            .to_string(),
             number: Some([1].into_iter().collect()),
             path: Some("chapter_1.md".into()),
             ..Default::default()
@@ -238,8 +298,7 @@ More content."
 fn level_2_consecutive() {
     let chapter = Chapter {
         name: "Chapter 1".to_string(),
-        content: "\
-## Heading 1
+        content: "## Heading 1
 
 ### Heading 2
 
@@ -269,20 +328,25 @@ More content.
         panic_on_error,
     );
 
-    assert_eq!(
-        item,
-        BookItem::Chapter(Chapter {
+    assert_book_item_eq(
+        &item,
+        &BookItem::Chapter(Chapter {
             name: "Chapter 1".to_string(),
-            content: "\
-## 1.2. Heading 1
+            content: r#"## Heading 1 { data-numbering=1.2. }
 
-### 1.2.1. Heading 2
+### Heading 2 { data-numbering=1.2.1. }
 
 Some content.
 
-### 1.2.2. Heading 3
+### Heading 3 { data-numbering=1.2.2. }
 
-More content."
+More content.
+
+<style>h1:before,h2:before,h3:before,h4:before,h5:before,h6:before{content:attr(data-numbering)" "}
+</style>
+<style>@media print{h1:not([data-numbering]),h2:not([data-numbering]),h3:not([data-numbering]),h4:not([data-numbering]),h5:not([data-numbering]),h6:not([data-numbering]){display:none}}
+</style>
+"#
                 .to_string(),
             number: Some([1, 2].into_iter().collect()),
             path: Some("chapter_1.md".into()),
@@ -326,21 +390,24 @@ More content.
         panic_on_error,
     );
 
-    assert_eq!(
-        item,
-        BookItem::Chapter(Chapter {
+    assert_book_item_eq(
+        &item,
+        &BookItem::Chapter(Chapter {
             name: "Chapter 1".to_string(),
-            content: "\
-# 1.2. Heading 1
+            content: r#"# Heading 1 { data-numbering=1.2. }
 
-## 1.2.1. Heading 2
+## Heading 2 { data-numbering=1.2.1. }
 
 Some content.
 
-## 1.2.2. Heading 3
+## Heading 3 { data-numbering=1.2.2. }
 
-More content."
-                .to_string(),
+More content.
+
+<style>h1:before,h2:before,h3:before,h4:before,h5:before,h6:before{content:attr(data-numbering)" "}
+</style>
+"#
+            .to_string(),
             number: Some([1, 2].into_iter().collect()),
             path: Some("chapter_1.md".into()),
             ..Default::default()

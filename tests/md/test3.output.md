@@ -1,4 +1,4 @@
-# Heading
+# Heading { data-numbering }
 
 ````c
 int main() {

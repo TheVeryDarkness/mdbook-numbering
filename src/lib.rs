@@ -1,36 +1,46 @@
 #![doc = include_str!("../README.md")]
 
+use std::iter::once;
 use std::marker::PhantomData;
-use std::sync::LazyLock;
 
 use anyhow::anyhow;
 pub use config::{CodeConfig, HeadingConfig, NumberingConfig, NumberingStyle};
-use either::Either;
 use mdbook_preprocessor::book::{Book, BookItem};
 use mdbook_preprocessor::config::Config;
 use mdbook_preprocessor::errors::Error;
 use mdbook_preprocessor::{Preprocessor, PreprocessorContext};
-use pulldown_cmark::{CowStr, Event, Options, Parser, Tag};
+use pulldown_cmark::{CowStr, Event, Parser, Tag};
+use pulldown_cmark_to_cmark::{State, cmark_resume_with_options};
 
 mod config;
 #[cfg(test)]
 mod tests;
 
-static HIGHLIGHT_JS_LINE_NUMBERS_JS: LazyLock<String> = LazyLock::new(|| {
-    format!(
-        "<script defer>\n\
-            window.addEventListener('DOMContentLoaded', function() {{ {} }});\n\
-        </script>\n",
-        include_str!("highlightjs/line-numbers-min.js"),
-    )
-});
+static HIGHLIGHT_JS_LINE_NUMBERS_JS: &str = concat!(
+    "<script defer>\n\
+        window.addEventListener('DOMContentLoaded', function() { ",
+    include_str!("highlightjs/line-numbers-min.js"),
+    " });\n\
+    </script>\n",
+);
 
-static HIGHLIGHT_JS_LINE_NUMBERS_CSS: LazyLock<String> = LazyLock::new(|| {
-    format!(
-        "<style>\n{}\n</style>\n",
-        include_str!("highlightjs/line-numbers-min.css"),
-    )
-});
+static HIGHLIGHT_JS_LINE_NUMBERS_CSS: &str = concat!(
+    "<style>\n",
+    include_str!("highlightjs/line-numbers-min.css"),
+    "\n</style>\n",
+);
+
+static SECTION_NUMBERS_CSS: &'static str = concat!(
+    "<style>",
+    include_str!("heading/numbering-min.css"),
+    "</style>\n"
+);
+
+static SECTION_NUMBERS_PRINT_HIDE_CSS: &'static str = concat!(
+    "<style>",
+    include_str!("heading/hide-min.css"),
+    "</style>\n"
+);
 
 /// mdbook preprocessor for adding numbering to headings and code blocks.
 pub struct NumberingPreprocessor(PhantomData<()>);
@@ -49,12 +59,8 @@ impl Default for NumberingPreprocessor {
 }
 
 impl NumberingPreprocessor {
-    fn render_book_item(item: &mut BookItem, config: &NumberingConfig, mut cb: impl FnMut(Error)) {
-        let BookItem::Chapter(ch) = item else { return };
-        if ch.is_draft_chapter() {
-            return;
-        }
-        let c = &ch.content;
+    fn parser_options() -> pulldown_cmark::Options {
+        use pulldown_cmark::Options;
         let mut options = Options::empty();
         options.insert(Options::ENABLE_TABLES);
         options.insert(Options::ENABLE_FOOTNOTES);
@@ -65,74 +71,134 @@ impl NumberingPreprocessor {
         options.insert(Options::ENABLE_GFM);
         options.insert(Options::ENABLE_SUPERSCRIPT);
         options.insert(Options::ENABLE_SUBSCRIPT);
+        options
+    }
+    fn render_book_item(item: &mut BookItem, config: &NumberingConfig, mut cb: impl FnMut(Error)) {
+        let BookItem::Chapter(ch) = item else { return };
+        if ch.is_draft_chapter() {
+            return;
+        }
+        let c = &ch.content;
+
+        let options = Self::parser_options();
 
         let tokenized = Parser::new_ext(c, options);
 
-        let mut events: Box<dyn Iterator<Item = Event>> = if let Some(a) = &ch.number
-            && config.heading.enable
-        {
-            let name = ch.name.clone();
-            let mut stack = a.clone();
-            Box::new(tokenized.flat_map(move |event| match event {
-                Event::Start(Tag::Heading { level, .. }) => {
-                    let level_depth = match config.heading.numbering_style {
-                        NumberingStyle::Consecutive => level as usize,
-                        NumberingStyle::Top => level as usize + a.len() - 1,
-                    };
-                    if level_depth > stack.len() + 1 {
-                        cb(anyhow!(
-                            "\
+        let options = pulldown_cmark_to_cmark::Options::default();
+
+        let mut buf = String::with_capacity(c.len());
+
+        let mut state = State::default();
+
+        if config.heading.enable {
+            if let Some(a) = &ch.number {
+                let name = ch.name.clone();
+                let mut stack = a.clone();
+                let events = tokenized.map(|mut event| match event {
+                    Event::Start(Tag::Heading {
+                        level,
+                        ref mut attrs,
+                        ..
+                    }) => {
+                        let level_depth = match config.heading.numbering_style {
+                            NumberingStyle::Consecutive => level as usize,
+                            NumberingStyle::Top => level as usize + a.len() - 1,
+                        };
+                        if level_depth > stack.len() + 1 {
+                            cb(anyhow!(
+                                "\
                             Heading level {} found, \
                             but only {} levels in numbering \"{}\" for chapter \"{}\".",
-                            level,
-                            stack.len(),
-                            stack,
-                            name,
-                        ));
-                    }
-                    if config.heading.numbering_style == NumberingStyle::Consecutive
-                        && level_depth < a.len()
-                    {
-                        cb(anyhow!(
-                            "\
+                                level,
+                                stack.len(),
+                                stack,
+                                name,
+                            ));
+                        }
+                        if config.heading.numbering_style == NumberingStyle::Consecutive
+                            && level_depth < a.len()
+                        {
+                            cb(anyhow!(
+                                "\
                             Heading level {} found, \
                             but numbering \"{}\" for chapter \"{}\" has more levels. \
                             Consider using `numbering-style = \"top\"` in the config, \
                             if you want the top heading to be level 1.",
-                            level,
-                            stack,
-                            name,
+                                level,
+                                stack,
+                                name,
+                            ));
+                        }
+                        while level_depth > stack.len() {
+                            stack.push(0);
+                        }
+                        stack.truncate(level_depth);
+                        // while level_depth < stack.len() {
+                        //     stack.pop();
+                        // }
+                        if level_depth > a.len() {
+                            stack[level_depth - 1] += 1;
+                        }
+                        attrs.push((
+                            CowStr::from("data-numbering"),
+                            Some(CowStr::from(format!("{stack}"))),
                         ));
+                        event
                     }
-                    while level_depth > stack.len() {
-                        stack.push(0);
-                    }
-                    stack.truncate(level_depth);
-                    // while level_depth < stack.len() {
-                    //     stack.pop();
-                    // }
-                    if level_depth > a.len() {
-                        stack[level_depth - 1] += 1;
-                    }
-                    Either::Left(
-                        [event, Event::Text(CowStr::from(format!("{stack} ")))].into_iter(),
+                    _ => event,
+                });
+                state = cmark_resume_with_options(events, &mut buf, Some(state), options.clone())
+                    .unwrap();
+                state = cmark_resume_with_options(
+                    once(Event::InlineHtml(CowStr::from(SECTION_NUMBERS_CSS))),
+                    &mut buf,
+                    Some(state),
+                    options.clone(),
+                )
+                .unwrap();
+
+                if config.heading.numbering_style == NumberingStyle::Consecutive && a.len() > 1 {
+                    state = cmark_resume_with_options(
+                        once(Event::InlineHtml(CowStr::from(
+                            SECTION_NUMBERS_PRINT_HIDE_CSS,
+                        ))),
+                        &mut buf,
+                        Some(state),
+                        options.clone(),
                     )
+                    .unwrap();
                 }
-                _ => Either::Right([event].into_iter()),
-            }))
+            } else {
+                let events = tokenized.map(|mut event| match event {
+                    Event::Start(Tag::Heading { ref mut attrs, .. }) => {
+                        attrs.push((CowStr::from("data-numbering"), None));
+                        event
+                    }
+                    _ => event,
+                });
+                state = cmark_resume_with_options(events, &mut buf, Some(state), options.clone())
+                    .unwrap();
+            }
         } else {
-            Box::new(tokenized)
+            state = cmark_resume_with_options(tokenized, &mut buf, Some(state), options.clone())
+                .unwrap();
         };
 
         if config.code.enable {
-            events = Box::new(events.chain([
-                Event::InlineHtml(CowStr::from(HIGHLIGHT_JS_LINE_NUMBERS_JS.as_ref())),
-                Event::InlineHtml(CowStr::from(HIGHLIGHT_JS_LINE_NUMBERS_CSS.as_ref())),
-            ]))
+            state = cmark_resume_with_options(
+                [
+                    Event::InlineHtml(CowStr::from(HIGHLIGHT_JS_LINE_NUMBERS_JS.as_ref())),
+                    Event::InlineHtml(CowStr::from(HIGHLIGHT_JS_LINE_NUMBERS_CSS.as_ref())),
+                ]
+                .into_iter(),
+                &mut buf,
+                Some(state),
+                options,
+            )
+            .unwrap();
         }
 
-        let mut buf = String::with_capacity(c.len());
-        pulldown_cmark_to_cmark::cmark(events, &mut buf).expect("cmark parsing failed");
+        state.finalize(&mut buf).unwrap();
 
         // eprintln!("--- Chapter '{}' Processed ---", ch.name);
         // eprintln!("vvv Original Below\n{c:?}\n^^^ Original Above");

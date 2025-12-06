@@ -1,4 +1,4 @@
-# 1. Heading
+# Heading { data-numbering=1. }
 
 ````c
 int main() {
@@ -6,6 +6,8 @@ int main() {
 }
 ````
 
+<style>h1:before,h2:before,h3:before,h4:before,h5:before,h6:before{content:attr(data-numbering)" "}
+</style>
 <script defer>
 window.addEventListener('DOMContentLoaded', function() { (function(W,K){let P=/\r\n|\r|\n/g;if(W.hljs)W.hljs.initLineNumbersOnLoad=V,W.hljs.lineNumbersBlock=y,W.hljs.lineNumbersBlockSync=A,W.hljs.lineNumbersValue=S,B(),V();else W.console.error("highlight.js not detected!");function H(q){var z=q;while(z){if(z.className&&z.className.indexOf("hljs-ln-code")!==-1)return!0;z=z.parentNode}return!1}function O(q){var z=q;while(z.nodeName!=="TABLE")z=z.parentNode;return z}function R(q){var z=q.toString(),J=q.anchorNode;while(J.nodeName!=="TD")J=J.parentNode;var Q=q.focusNode;while(Q.nodeName!=="TD")Q=Q.parentNode;var U=parseInt(J.dataset.lineNumber),Y=parseInt(Q.dataset.lineNumber);if(U!=Y){var Z=J.textContent,$=Q.textContent;if(U>Y){var G=U;U=Y,Y=G,G=Z,Z=$,$=G}while(z.indexOf(Z)!==0)Z=Z.slice(1);while(z.lastIndexOf($)===-1)$=$.slice(0,-1);var M=Z,b=O(J);for(var D=U+1;D<Y;++D){var x=X('.{0}[{1}="{2}"]',["hljs-ln-code","data-line-number",D]),p=b.querySelector(x);M+=`
 `+p.textContent}return M+=`
