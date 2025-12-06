@@ -31,13 +31,13 @@ static HIGHLIGHT_JS_LINE_NUMBERS_CSS: &str = concat!(
     "\n</style>\n",
 );
 
-static SECTION_NUMBERS_CSS: &'static str = concat!(
+static SECTION_NUMBERS_CSS: &str = concat!(
     "<style>",
     include_str!("heading/numbering-min.css"),
     "</style>\n"
 );
 
-static SECTION_NUMBERS_PRINT_HIDE_CSS: &'static str = concat!(
+static SECTION_NUMBERS_PRINT_HIDE_CSS: &str = concat!(
     "<style>",
     include_str!("heading/hide-min.css"),
     "</style>\n"
@@ -202,8 +202,8 @@ impl NumberingPreprocessor {
         if config.code.enable {
             state = cmark_resume_with_options(
                 [
-                    Event::InlineHtml(CowStr::from(HIGHLIGHT_JS_LINE_NUMBERS_JS.as_ref())),
-                    Event::InlineHtml(CowStr::from(HIGHLIGHT_JS_LINE_NUMBERS_CSS.as_ref())),
+                    Event::InlineHtml(CowStr::from(HIGHLIGHT_JS_LINE_NUMBERS_JS)),
+                    Event::InlineHtml(CowStr::from(HIGHLIGHT_JS_LINE_NUMBERS_CSS)),
                 ]
                 .into_iter(),
                 &mut buf,
