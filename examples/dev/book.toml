@@ -16,6 +16,8 @@ command = "cargo run --bin mdbook-numbering"
 numbering-style = "consecutive"
 
 [output.html]
+git-repository-url = "https://github.com/TheVeryDarkness/mdbook-numbering/"
+edit-url-template = "https://github.com/TheVeryDarkness/mdbook-numbering/edit/master/examples/dev/{path}"
 mathjax-support = true
 
 [output.html.print]
