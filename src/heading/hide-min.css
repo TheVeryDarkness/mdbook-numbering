@@ -1,0 +1,1 @@
+@media print{h1:not([data-numbering]),h2:not([data-numbering]),h3:not([data-numbering]),h4:not([data-numbering]),h5:not([data-numbering]),h6:not([data-numbering]){display:none}}
