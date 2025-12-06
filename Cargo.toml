@@ -1,6 +1,6 @@
 [package]
 name = "mdbook-numbering"
-version = "0.4.1"
+version = "0.5.0"
 edition = "2024"
 license = "MIT or Apache-2.0"
 description = "A mdBook preprocessor that adds numbers to headings and code block lines (for mdbook 0.5.0 and above)."
