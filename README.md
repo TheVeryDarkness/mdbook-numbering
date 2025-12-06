@@ -71,7 +71,7 @@ There are several optional features of `pulldown-cmark` (via [`Options`](https:/
 | `ENABLE_OLD_FOOTNOTES`                    | `(1 << 9) \| (1 << 2)` |
 | `ENABLE_MATH`                             | `1 << 10`              | ✅      |
 | `ENABLE_GFM`                              | `1 << 11`              | ✅      |
-| `ENABLE_DEFINITION_LIST`                  | `1 << 12`              |
+| `ENABLE_DEFINITION_LIST`                  | `1 << 12`              | ✅      |
 | `ENABLE_SUPERSCRIPT`                      | `1 << 13`              | ✅      |
 | `ENABLE_SUBSCRIPT`                        | `1 << 14`              | ✅      |
 | `ENABLE_WIKILINKS`                        | `1 << 15`              |
@@ -84,6 +84,14 @@ For example:
 - If `ENABLE_MATH` is not enabled, `katex` preprocessor will not work correctly.
 
 ## Updates
+
+### 0.5.0
+
+- Wrap heading numbers in a `<span>` element with class `numbering` and `heading` for easier styling.
+- Store heading numbers in a `data-numbering` attribute of headings for easier access via JavaScript or CSS.
+- Hide sections that are automatically added by `mdbook` when there is no `<h1>` heading in a chapter, if heading numbering is enabled and `heading.numbering-style` is set to `consecutive`.
+
+  This is done by setting `display: none` to headings without a `data-numbering` attribute via CSS. So if you want to keep those sections visible, you can add a `data-numbering` attribute to them or override the CSS.
 
 ### 0.4.1
 
@@ -128,7 +136,7 @@ This preprocessor is compatible with `mdbook` version 0.5.0 and above.
 | mdbook-numbering version | mdBook Version |
 | ------------------------ | -------------- |
 | 0.1.0, 0.2.0+            | 0.4.37+        |
-| 0.3.0+, 0.4.0+           | 0.5.0+         |
+| 0.3.0+, 0.4.0+, 0.5.0+   | 0.5.0+         |
 
 ## Note
 
