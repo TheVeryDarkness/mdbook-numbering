@@ -1,6 +1,7 @@
 # mdbook-numbering
 
 [![CI](https://github.com/TheVeryDarkness/mdbook-numbering/actions/workflows/ci.yml/badge.svg)](https://github.com/TheVeryDarkness/mdbook-numbering/actions/workflows/ci.yml)
+[![GitHub Page](https://img.shields.io/github/deployments/TheVeryDarkness/mdbook-numbering/github-pages?label=GitHub%20Page&logo=github)](https://TheVeryDarkness.github.io/mdbook-numbering/)
 [![Crates.io](https://img.shields.io/crates/v/mdbook-numbering.svg)](https://crates.io/crates/mdbook-numbering)
 [![Docs.rs](https://docs.rs/mdbook-numbering/badge.svg)](https://docs.rs/mdbook-numbering/)
 [![codecov](https://codecov.io/gh/TheVeryDarkness/mdbook-numbering/graph/badge.svg?token=BVVO5ZJN0X)](https://codecov.io/gh/TheVeryDarkness/mdbook-numbering)
@@ -54,9 +55,9 @@ code    = { enable = true }
 - `code`: Configuration for code block line numbering.
   - `enable`: Whether to enable line numbering for code blocks. Default is `true`.
 
-## `pulldown-cmark` Features
+## `pulldown-cmark` Features that are Enabled by `mdbook-numbering`
 
-There are several optional features of `pulldown-cmark` (via [`Options`](https://docs.rs/pulldown-cmark/0.13.0/pulldown_cmark/struct.Options.html)) that can be enabled via flags. Some features conflicting with `mdbook` are disabled currently.
+`mdbook-numbering` enables several Common Markdown extensions of `pulldown-cmark` (via [`Options`](https://docs.rs/pulldown-cmark/0.13.0/pulldown_cmark/struct.Options.html)).
 
 | Feature                                   | Flag                   | Enabled |
 | ----------------------------------------- | ---------------------- | ------- |
@@ -76,7 +77,7 @@ There are several optional features of `pulldown-cmark` (via [`Options`](https:/
 | `ENABLE_SUBSCRIPT`                        | `1 << 14`              | ✅      |
 | `ENABLE_WIKILINKS`                        | `1 << 15`              |
 
-These options must be enabled, otherwise some features of `mdbook` may not work as expected. See [pulldown-cmark-to-cmark/#106](https://github.com/Byron/pulldown-cmark-to-cmark/issues/106) for more details.
+`mdbook-numbering` enables these features because otherwise some features of `mdbook` may not work as expected. See [pulldown-cmark-to-cmark/#106](https://github.com/Byron/pulldown-cmark-to-cmark/issues/106) for more details.
 
 For example:
 
