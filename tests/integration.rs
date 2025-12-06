@@ -8,7 +8,6 @@ use mdbook_numbering::NumberingPreprocessor;
 use mdbook_preprocessor::book::{Book, BookItem, Chapter};
 use mdbook_preprocessor::config::Config;
 use mdbook_preprocessor::{Preprocessor, PreprocessorContext};
-
 use prettydiff::basic::DiffOp;
 use prettydiff::diff_lines;
 use prettydiff::owo_colors::OwoColorize as _;

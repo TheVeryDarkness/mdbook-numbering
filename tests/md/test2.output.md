@@ -1,4 +1,4 @@
-# Heading { data-numbering=1. }
+# <span class="heading numbering">1. </span>Heading { data-numbering=1. }
 
 ````c
 int main() {
@@ -6,5 +6,5 @@ int main() {
 }
 ````
 
-<style>h1:before,h2:before,h3:before,h4:before,h5:before,h6:before{content:attr(data-numbering)" "}
+<style>span.heading.numbering{user-select:none;-webkit-user-select:none;cursor:default}
 </style>

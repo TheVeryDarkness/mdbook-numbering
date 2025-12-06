@@ -1,5 +1,7 @@
 use mdbook_preprocessor::book::{BookItem, Chapter, SectionNumber};
-use prettydiff::{basic::DiffOp, diff_lines, owo_colors::OwoColorize};
+use prettydiff::basic::DiffOp;
+use prettydiff::diff_lines;
+use prettydiff::owo_colors::OwoColorize;
 
 use crate::{CodeConfig, HeadingConfig, NumberingConfig, NumberingPreprocessor, NumberingStyle};
 
@@ -8,6 +10,7 @@ fn panic_on_error(err: mdbook_preprocessor::errors::Error) {
     panic!("{err}");
 }
 
+#[track_caller]
 fn assert_string_eq(actual: &str, expected: &str) {
     let diff = diff_lines(actual, expected);
     let diff = diff.set_trim_new_lines(false);
@@ -40,9 +43,12 @@ fn assert_string_eq(actual: &str, expected: &str) {
             }
         }
     }
-    assert_eq!(actual, expected);
+    if actual != expected {
+        panic!("{actual}");
+    }
 }
 
+#[track_caller]
 fn assert_chapter_eq(left: &Chapter, right: &Chapter) {
     assert_eq!(left.name, right.name);
     assert_string_eq(&left.content, &right.content);
@@ -54,6 +60,7 @@ fn assert_chapter_eq(left: &Chapter, right: &Chapter) {
     }
 }
 
+#[track_caller]
 fn assert_book_item_eq(left: &BookItem, right: &BookItem) {
     match (left, right) {
         (BookItem::Chapter(lc), BookItem::Chapter(rc)) => assert_chapter_eq(lc, rc),
@@ -219,11 +226,11 @@ Some content."
         &item,
         &BookItem::Chapter(Chapter {
             name: "Chapter 1".to_string(),
-            content: r#"# Heading 1 { data-numbering=1. }
+            content: r#"# <span class="heading numbering">1. </span>Heading 1 { data-numbering=1. }
 
 Some content.
 
-<style>h1:before,h2:before,h3:before,h4:before,h5:before,h6:before{content:attr(data-numbering)" "}
+<style>span.heading.numbering{user-select:none;-webkit-user-select:none;cursor:default}
 </style>
 "#
             .to_string(),
@@ -273,17 +280,17 @@ More content.
         &item,
         &BookItem::Chapter(Chapter {
             name: "Chapter 1".to_string(),
-            content: r#"# Heading 1 { data-numbering=1. }
+            content: r#"# <span class="heading numbering">1. </span>Heading 1 { data-numbering=1. }
 
-## Heading 2 { data-numbering=1.1. }
+## <span class="heading numbering">1.1. </span>Heading 2 { data-numbering=1.1. }
 
 Some content.
 
-## Heading 3 { data-numbering=1.2. }
+## <span class="heading numbering">1.2. </span>Heading 3 { data-numbering=1.2. }
 
 More content.
 
-<style>h1:before,h2:before,h3:before,h4:before,h5:before,h6:before{content:attr(data-numbering)" "}
+<style>span.heading.numbering{user-select:none;-webkit-user-select:none;cursor:default}
 </style>
 "#
             .to_string(),
@@ -332,21 +339,32 @@ More content.
         &item,
         &BookItem::Chapter(Chapter {
             name: "Chapter 1".to_string(),
-            content: r#"## Heading 1 { data-numbering=1.2. }
+            content:
+                "## <span class=\"heading numbering\">1.2. </span>Heading 1 { data-numbering=1.2. }
 
-### Heading 2 { data-numbering=1.2.1. }
+### <span class=\"heading numbering\">1.2.1. </span>Heading 2 { data-numbering=1.2.1. }
 
 Some content.
 
-### Heading 3 { data-numbering=1.2.2. }
+### <span class=\"heading numbering\">1.2.2. </span>Heading 3 { data-numbering=1.2.2. }
 
 More content.
 
-<style>h1:before,h2:before,h3:before,h4:before,h5:before,h6:before{content:attr(data-numbering)" "}
+<style>span.heading.numbering{user-select:none;-webkit-user-select:none;cursor:default}
 </style>
-<style>@media print{h1:not([data-numbering]),h2:not([data-numbering]),h3:not([data-numbering]),h4:not([data-numbering]),h5:not([data-numbering]),h6:not([data-numbering]){display:none}}
+<style>\
+    @media print{\
+        h1:not([data-numbering]),\
+        h2:not([data-numbering]),\
+        h3:not([data-numbering]),\
+        h4:not([data-numbering]),\
+        h5:not([data-numbering]),\
+        h6:not([data-numbering]){\
+            display:none\
+        }\
+    }
 </style>
-"#
+"
                 .to_string(),
             number: Some([1, 2].into_iter().collect()),
             path: Some("chapter_1.md".into()),
@@ -394,20 +412,21 @@ More content.
         &item,
         &BookItem::Chapter(Chapter {
             name: "Chapter 1".to_string(),
-            content: r#"# Heading 1 { data-numbering=1.2. }
+            content:
+                r#"# <span class="heading numbering">1.2. </span>Heading 1 { data-numbering=1.2. }
 
-## Heading 2 { data-numbering=1.2.1. }
+## <span class="heading numbering">1.2.1. </span>Heading 2 { data-numbering=1.2.1. }
 
 Some content.
 
-## Heading 3 { data-numbering=1.2.2. }
+## <span class="heading numbering">1.2.2. </span>Heading 3 { data-numbering=1.2.2. }
 
 More content.
 
-<style>h1:before,h2:before,h3:before,h4:before,h5:before,h6:before{content:attr(data-numbering)" "}
+<style>span.heading.numbering{user-select:none;-webkit-user-select:none;cursor:default}
 </style>
 "#
-            .to_string(),
+                .to_string(),
             number: Some([1, 2].into_iter().collect()),
             path: Some("chapter_1.md".into()),
             ..Default::default()
