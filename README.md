@@ -91,7 +91,7 @@ For example:
 - Store heading numbers in a `data-numbering` attribute of headings for easier access via JavaScript or CSS.
 - Hide sections that are automatically added by `mdbook` when there is no `<h1>` heading in a chapter, if heading numbering is enabled and `heading.numbering-style` is set to `consecutive`.
 
-  This is done by setting `display: none` to headings without a `data-numbering` attribute via CSS. So if you want to keep those sections visible, you can add a `data-numbering` attribute to them or override the CSS.
+  This is done by setting `display: none` to headings without a `data-numbering` attribute via CSS. So if you want to keep those sections visible or have other automatically generated headings, you can add a `data-numbering` attribute to them or override the CSS.
 
 ### 0.4.1
 
