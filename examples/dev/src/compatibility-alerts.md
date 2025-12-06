@@ -1,4 +1,4 @@
-# Compatibility with Alerts
+## Compatibility with Alerts
 
 > [!WARNING]
 > This section demonstrates that the numbering plugin works correctly within alert blocks.

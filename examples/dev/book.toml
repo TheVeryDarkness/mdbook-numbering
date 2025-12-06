@@ -13,7 +13,7 @@ extra-watch-dirs = ["../../src", "../../src/Cargo.lock"]
 command = "cargo run --bin mdbook-numbering"
 
 [preprocessor.numbering.heading]
-numbering-style = "top"
+numbering-style = "consecutive"
 
 [output.html]
 

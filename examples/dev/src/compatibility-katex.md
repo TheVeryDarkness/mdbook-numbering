@@ -1,4 +1,4 @@
-# Compatibility with KaTeX
+## Compatibility with KaTeX
 
 $$
 \begin{align}
