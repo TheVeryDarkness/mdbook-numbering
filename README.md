@@ -88,6 +88,7 @@ For example:
 ### 0.4.1
 
 - Fix a bug when there are inline code or inline formulas in chapter titles.
+- Show a warning if a heading level is above the chapter level when `heading.numbering-style` is set to `consecutive`.
 
 ### 0.4.0
 

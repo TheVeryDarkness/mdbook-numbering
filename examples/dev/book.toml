@@ -16,6 +16,7 @@ command = "cargo run --bin mdbook-numbering"
 numbering-style = "consecutive"
 
 [output.html]
+mathjax-support = true
 
 [output.html.print]
 enable = true

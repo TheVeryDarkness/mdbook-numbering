@@ -5,6 +5,7 @@ use std::marker::PhantomData;
 
 use anyhow::anyhow;
 pub use config::{CodeConfig, HeadingConfig, NumberingConfig, NumberingStyle};
+use either::Either;
 use mdbook_preprocessor::book::{Book, BookItem};
 use mdbook_preprocessor::config::Config;
 use mdbook_preprocessor::errors::Error;
@@ -94,7 +95,7 @@ impl NumberingPreprocessor {
             if let Some(a) = &ch.number {
                 let name = ch.name.clone();
                 let mut stack = a.clone();
-                let events = tokenized.map(|mut event| match event {
+                let events = tokenized.flat_map(|mut event| match event {
                     Event::Start(Tag::Heading {
                         level,
                         ref mut attrs,
@@ -143,9 +144,17 @@ impl NumberingPreprocessor {
                             CowStr::from("data-numbering"),
                             Some(CowStr::from(format!("{stack}"))),
                         ));
-                        event
+                        Either::Right(
+                            [
+                                event,
+                                Event::InlineHtml(CowStr::from(format!(
+                                    "<span class=\"heading numbering\">{stack} </span>"
+                                ))),
+                            ]
+                            .into_iter(),
+                        )
                     }
-                    _ => event,
+                    _ => Either::Left(once(event)),
                 });
                 state = cmark_resume_with_options(events, &mut buf, Some(state), options.clone())
                     .unwrap();
