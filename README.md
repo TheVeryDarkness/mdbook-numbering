@@ -10,7 +10,7 @@
 
 A mdBook preprocessor that adds numbering.
 
-- [x] Adds numbers prior to chapter titles.
+- [x] Adds numbers prior to chapter headings.
 - [ ] Configurable numbering formats (e.g., "1.", "1.1.", "I.", "A.", etc.).
 - [x] Adds numbers to lines in code blocks.
 
@@ -25,11 +25,11 @@ Add the following to your `book.toml`:
 Then configure as needed (see [`NumberingConfig`](https://docs.rs/mdbook-numbering/latest/mdbook_numbering/struct.NumberingConfig.html) for details), for example:
 
 ```toml
-[preprocessor.numbering]
+[preprocessor.numbering]         # Main configuration table
 
 [preprocessor.numbering.heading] # Configuration for heading numbering
 enable          = true
-numbering-style = "consecutive"  # "consecutive" or "top"
+numbering-style = "consecutive"  # Can be "consecutive" or "top"
 
 [preprocessor.numbering.code]    # Configuration for code block line numbering
 enable          = true
@@ -54,6 +54,17 @@ code    = { enable = true }
     - `"top"`: Top-level headings should always be in the form of `# Title` (`<h1>` in HTML).
 - `code`: Configuration for code block line numbering.
   - `enable`: Whether to enable line numbering for code blocks. Default is `true`.
+
+## Compatibility
+
+### mdBook Version
+
+This preprocessor is compatible with `mdbook` version 0.5.0 and above.
+
+| mdbook-numbering version | mdBook Version |
+| ------------------------ | -------------- |
+| 0.1.0, 0.2.0+            | 0.4.37+        |
+| 0.3.0+, 0.4.0+, 0.5.0+   | 0.5.0+         |
 
 ## `pulldown-cmark` Features that are Enabled by `mdbook-numbering`
 
@@ -128,19 +139,15 @@ For example:
 
 - Initial release with support for adding numbers to chapter titles.
 
-## Compatibility
+## Similar Projects
 
-### mdBook Version
-
-This preprocessor is compatible with `mdbook` version 0.5.0 and above.
-
-| mdbook-numbering version | mdBook Version |
-| ------------------------ | -------------- |
-| 0.1.0, 0.2.0+            | 0.4.37+        |
-| 0.3.0+, 0.4.0+, 0.5.0+   | 0.5.0+         |
+- [`mdbook-chapter-number`](https://github.com/Mura-Mi/mdbook-chapter-number) ([`mdbook-chapter-number` on crates.io](https://crates.io/crates/mdbook-chapter-number)), or [`mdbook-section-number` on crates.io](https://crates.io/crates/mdbook-section-number).
+- [`mdbook-section-numbers`](https://github.com/StefanSalewski/mdbook-section-numbers). See [mdBook/#2499](https://github.com/rust-lang/mdBook/issues/2499) and [mdbook/#2510](https://github.com/rust-lang/mdBook/issues/2510) for its history.
 
 ## Note
 
-- Using [`highlightjs-line-numbers.js`](https://github.com/yauhenipakala/highlightjs-line-numbers.js/tree/077386de760c62e43d05963fd16529bcbdb058c0) to add line numbers to code blocks in the rendered HTML. The license of `highlightjs-line-numbers.js` is MIT License, and is copied to [src/highlightjs/LICENSE](https://github.com/TheVeryDarkness/mdbook-numbering/tree/master/src/highlightjs/LICENSE).
+### License of `highlightjs-line-numbers.js`
 
-  Some modifications have been made to the original code to fit into this project.
+`mdbook-numbering` is using [`highlightjs-line-numbers.js`](https://github.com/yauhenipakala/highlightjs-line-numbers.js/tree/077386de760c62e43d05963fd16529bcbdb058c0) to add line numbers to code blocks in the rendered HTML. The license of `highlightjs-line-numbers.js` is MIT License, and is copied to [src/highlightjs/LICENSE](https://github.com/TheVeryDarkness/mdbook-numbering/tree/master/src/highlightjs/LICENSE).
+
+Some modifications have been made to the original code to fit into this project.
